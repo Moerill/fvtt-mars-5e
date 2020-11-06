@@ -1,0 +1,144 @@
+$size: 1.55em;
+
+$height: 0.62 * $size * 1.2;
+$kite-bottom-perc: 0.12 / 0.62 * 100%;
+$kite-bottom-height: $kite-bottom-perc / 100% * $height;
+$kite-top-perc: 0.5 / 0.62 * 100%;
+$kite-top-height: $kite-top-perc / 100% * $height;
+
+$width: $kite-top-height;
+
+$angle: 45deg;
+$rotation: 72deg;
+
+$z-offset: $kite-top-height * 0.34 * 1.24;
+$y-offset: $kite-bottom-height * 0.29 * -5;
+
+
+.mars5e-d10 {
+	width: $size;
+	height: $size;
+	display: inline-block;
+	position: absolute;
+	// margin: 0 #{0.5 * 0.35em};
+	perspective: #{10*$size};
+
+	transform-style: preserve-3d;
+	transition: transform var(--mars5e-dice-anim-time) linear;
+
+	// transform:  scale3d(0.9, 0.9, 0.9) rotateX(-30deg) rotateY(30deg);
+	// transform: rotateX(-45deg);
+		
+	.face {
+		background: var(--mars5e-dice-color);
+		backface-visibility: hidden;
+		clip-path: polygon(50% 0%, 100% #{$kite-top-perc}, 50% 100%, 0 #{$kite-top-perc});
+		width: $width;
+		height: $height;
+
+		position: absolute;
+		left: 50%;
+		top: 0;
+		margin-left: -#{$size * .3};
+		margin-top: #{$size * 0.15};
+	}
+
+	.number {
+		color: var(--mars5e-font-color);
+		font-family: 'RobotoCondensed', sans-serif;
+		font-family: "Signika", "Modesto Condensed", "Palatino Linotype", serif;
+		font-size: 0.6 * $height;
+		font-weight: 600;
+		margin-top: 0.3 * $height;
+		text-align: center;
+		transition: opacity var(--mars5e-dice-anim-time) linear;
+	}
+	@for $i from 0 through 9 {
+		.face:nth-child(#{$i + 1}) {
+			@if $i % 2 == 0 {
+				transform:
+					rotateY(-$rotation * $i * .5)
+					translateZ($z-offset)
+					translateY($y-offset)
+					rotateX($angle);
+
+				@if ($i / 2) % 2 == 0 {
+					filter: brightness(1.2);
+				} @else {
+					filter: brightness(0.8);
+				}
+			} @else {
+				transform:
+					rotateY(-$rotation * ($i + 1) * .5)
+					translateZ(-$z-offset)
+					translateY(-$y-offset)
+					rotateZ(180deg)
+					rotateY(180deg)
+					rotateX($angle);
+				@if (($i + 1) / 2) % 2 == 0 {
+					filter: brightness(0.8);
+				} @else {
+					filter: brightness(1.2);
+				}
+			}
+			
+		}
+	}
+}
+
+$roll-mapping: (
+	0: 1,
+	1: 2,
+	2: 9,
+	3: 6,
+	4: 5,
+	5: 4,
+	6: 3,
+	7: 10,
+	8: 7,
+	9: 8
+);
+
+$roll-to-face: (
+	1: 1,
+	2: 8,
+	3: 7,
+	4: 4,
+	5: 5,
+	6: 6,
+	7: 9,
+	8: 10,
+	9: 3,
+	10: 2
+);
+
+.mars5e-dice-container {
+	@for $i from 0 through 9 {
+		&[data-roll="#{map-get($roll-mapping, $i)}"] .mars5e-d10 {
+			@if $i % 2 == 0 {
+				transform: 
+					rotateX(-$angle)
+					rotateY(#{$i * .5 * $rotation});
+			} @else {
+				transform:
+					rotateX(-180deg - $angle)
+					rotateY(#{-$rotation * ($i + 1) * .5});
+			}
+			
+			$face: map-get($roll-to-face, map-get($roll-mapping, $i));
+			.face:nth-child(#{$face}) {
+				filter: brightness(1.2);
+				.number {
+					opacity: 1;
+				}
+			}
+		}
+	}
+	&[data-roll] {
+		.mars5e-d10 {
+			.number {
+				opacity: 0.4;
+			}
+		}
+	}
+}

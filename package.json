@@ -1,0 +1,28 @@
+{
+	"name": "module-template",
+	"version": "2.8.1",
+	"description": "",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"author": "Moerill",
+	"license": "MIT",
+	"devDependencies": {
+		"foundry-pc-types": "gitlab:foundry-projects/foundry-pc/foundry-pc-types",
+		"node-sass": "^5.0.0"
+	},
+	"dependencies": {
+		"babel-eslint": "^10.1.0",
+		"browser-sync": "^2.26.13",
+		"chalk": "^4.1.0",
+		"eslint": "^7.12.1",
+		"eslint-config-airbnb": "^18.2.0",
+		"eslint-plugin-import": "^2.22.1",
+		"gulp": "^4.0.2",
+		"gulp-concat": "^2.6.1",
+		"gulp-git": "^2.10.1",
+		"gulp-less": "^4.0.1",
+		"gulp-sass": "^4.1.0",
+		"yargs": "^15.4.1"
+	}
+}

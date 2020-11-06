@@ -1,0 +1,22 @@
+{
+	"name": "mars-5e",
+	"title": "Mars 5e - Moerills alternative rolling style for 5e",
+	"description": "",
+	"version": "0.0.0",
+	"author": "Moerill",
+	"esmodules": ["js/index.js"],
+	"styles": ["mars-5e.css"],
+	"minimumCoreVersion": "0.6.6",
+	"compatibleCoreVersion": "0.7.2",
+	"socket": true,
+	"manifest": "",
+	"download": "",
+	"url": "",
+	"languages": [
+		{
+			"lang": "en",
+			"name": "English",
+			"path": "lang/en.json"
+		}
+	]
+}

@@ -1,0 +1,62 @@
+<div class="dnd5e chat-card item-card mars5e-card" data-actor-id="{{actor._id}}" data-item-id="{{item._id}}"
+     {{#if tokenId}}data-token-id="{{tokenId}}"{{/if}} {{#if sceneId}}data-scene-id="{{sceneId}}"{{/if}} {{#if isSpell}}data-spell-level="{{item.data.level}}"{{/if}}>
+
+
+	<header class="card-header flexrow">
+		<img src="{{item.img}}" title="{{item.name}}"/>
+		<h3 class="item-name">{{item.name}}</h3>
+	</header>
+
+	<div class="card-content">
+		{{{data.description.value}}}
+		{{#if data.materials.value}}
+		<p><strong>{{ localize "DND5E.RequiredMaterials" }}.</strong> {{data.materials.value}}</p>
+		{{/if}}
+
+    <footer class="card-footer">
+			{{#each data.properties}}
+			<span>{{this}}</span>
+			{{/each}}
+		</footer>
+	</div>
+	<div class="mars5e-targets">
+		{{#each targets}}
+		<div class='mars5e-target' data-target-id="{{this.id}}">
+			<div class='target-header'>
+				{{#if this.img}}<img src="{{this.img}}"/>{{/if}}
+				<h3>{{this.name}}</h3>
+			</div>
+			{{#if @root.hasAttack}}
+			<div class='attack mars5e-action' data-action-type='attack'>
+				<label>{{localize 'DND5E.Attack'}}</label>
+				<div class='mars5e-rolls'>
+					<div class='mars5e-roll'>
+						<a class='rollable roll-d20'>
+							{{> 'modules/mars-5e/html/dice/d20.html'}}
+							{{> 'modules/mars-5e/html/dice/d20.html' classes='mars5e-discarded'}}
+							<span class='modifier'>{{@root.attackModifier}}</span>
+						</a>
+						<div class='break'></div>
+					</div>
+				</div>
+			</div>
+			{{/if}}
+			{{#if @root.hasDamage}}
+			<div class='damage mars5e-action' data-action-type='damage'>
+				<label>{{localize 'DND5E.Damage'}}</label>
+				<div class='damage-types mars5e-rolls'>
+					{{#each @root.damageParts}}
+					<div class='mars5e-roll'>
+						<a class='rollable roll-dmg' data-formula='{{this.formula}}' data-type='{{this.type}}'>
+							{{{this.template}}}
+						</a>
+						<!-- <div class='break'></div> -->
+					</div>
+					{{/each}}
+				</div>
+			</div>
+			{{/if}}
+		</div>
+		{{/each}}
+	</div>
+</div>

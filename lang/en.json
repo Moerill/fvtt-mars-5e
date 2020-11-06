@@ -1,0 +1,15 @@
+{
+	"MARS5E": {
+		"chat-card": {
+			"targets": {
+				"unknown": "no one"
+			}
+		},
+		"label": {
+			"Advantage": "(Advantage)",
+			"Disadvantage": "(Disadvantage)",
+			"hit": "Hit!",
+			"miss": "Miss!"
+		}
+	}
+}

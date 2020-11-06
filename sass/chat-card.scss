@@ -1,0 +1,247 @@
+$dice-container-width: 1.55em;
+
+.chat-card.mars5e-card {
+	.card-header {
+		cursor: pointer;
+		align-items: center;
+		font-size: 1.7em;
+		padding: 0;
+		border-width: 1px;
+		border-left: none; border-right: none;
+		img {
+			width: 1.2em;
+			height: 1.2em;
+			flex: 0 auto;
+			border: none;
+		}
+		h3 {
+			line-height: inherit;
+			font-size: unset;
+		}
+	}
+
+	footer {
+		border-bottom: 1px groove;
+	}
+	.card-content {
+		margin: 0;
+	}
+}
+
+.mars5e-card {
+	.mars5e-target:not(:first-child) {
+		border-top: 2px groove;
+	}
+	.target-header {
+		// position: relative;
+		display: flex;
+		flex-flow: row nowrap;
+		align-items: center;
+		cursor: pointer;
+		img {
+			// position: absolute;
+			// transition: all 0.6s ease-in-out 0s;
+			// pointer-events: none;;
+			height: 2em;
+			width: 2em;
+			border: none;
+			flex: 0;
+		}
+		h3 {
+			font-size: 1.5em;
+			flex: 1;
+			white-space: nowrap;
+			text-overflow: ellipsis;
+			margin: -1px 0 -1px 0;
+			padding: 0  0.5ch;
+		}
+		// &:hover img {
+		// 	// position: static;
+		// 	transform: translateX(2em) scale(4,4);
+
+		// 	transition: all 0.6s ease-in-out 0.6s;
+		// }
+	}
+
+	.mars5e-target {
+		font-size: 1.2em;
+	}
+
+	.mars5e-action {
+		margin: 0 0 0 2em;
+		padding: 0.2em;
+		border-left: 1px groove;
+		display: flex;
+		flex-flow: row nowrap;
+		align-items: flex-start;
+
+		.mars5e-rolls {
+			width: 100%;
+			flex: 1;
+			padding: 0 1ch;
+		}
+
+		.mars5e-roll {
+			display: flex;
+			flex-flow: row wrap;
+			align-items: center;
+			width: 100%;
+			> * {
+				z-index: 0;
+			}
+		}
+
+		.mars5e-result {
+			display: block;
+			font-size: 1.5em;
+			border: 1px groove;
+			border-color: inherit;
+			margin: 0 0.1em 0 0.1em;
+			padding: 0;
+			// line-height: 1em;
+			font-weight: bold;
+			text-align: center;
+			background: rgba(0,0,0, 0.1);
+			z-index: 1;
+
+			&:before {
+				font-weight: normal;
+				content: '= ';
+			}
+
+			&.mars5e-hit, &.mars5e-miss {
+				&:after {
+					position: relative;
+					display: inline-block;
+					width: 0;
+					// top: 0.1em;
+					padding: 0.1em 0 0 1ch;
+					font-weight: normal;
+					font-size: 0.8em;
+					padding-left: 1ch;
+				}
+			}
+
+			&.mars5e-hit {
+				&:after {
+					content: var(--mars5e-hit-label);
+				}
+			}
+			&.mars5e-miss {
+				&:after {
+					content: var(--mars5e-miss-label);
+				}
+			}
+		}
+	}
+
+	.modifier, .mars5e-term {
+		font-size: 1.2em;
+		white-space: nowrap;
+		margin: 0 0 0 1ch
+	}
+
+	.mars5e-roll {
+		.mars5e-dice-container {
+			font-size: 1.5em;
+			// font-size: 3em;
+			// font-size: 5em;
+			// top: -0.5em;
+			// left: -0.4em;
+		}
+	}
+
+	.break {
+		height: 0;
+		flex-basis: 100%;
+	}
+
+	.damage-types {
+		display: inline-block;
+		flex: 1;
+		a {
+			flex: 0 auto;
+		}
+		.dmg-type {
+			flex: 1;
+		}
+
+		.type {
+			display: flex;
+			width: 100%;
+		}
+	}
+
+
+	.roll-d20, .roll-dmg {
+		padding: 0 0.5ch;
+		flex-basis: 100%;
+
+
+	}
+
+	.mars5e-roll.rolled {
+		.roll-d20, .roll-dmg {
+			// &:hover {
+			// 	.mars5e-dice-container {
+			// 		z-index: 2;
+			// 		transform: scale3d(1.5, 1.5, 1.5);
+			// 		margin: 0 #{0.25 * $dice-container-width};
+			// 		transition: all var(--mars5e-dice-anim-time) ease-in-out 1s;
+			// 	}
+			// }
+		}
+	}
+	.mars5e-roll .rollable {
+		flex: 0 auto;
+		// max-width: 8ch;
+		// min-width: 8ch;
+		// height: 1em;
+		position: relative;
+		display: flex;
+		flex-flow: row wrap;
+		align-items: center;
+	}
+	.mars5e-roll .roll-dmg {
+		flex: 1;
+		&:after {
+			display: inline-block;
+			flex: 1;
+			padding: 0.1em 0 0 1ch;
+			font-weight: normal;
+			text-align: right;
+			opacity: 0.8;
+			padding-left: 1ch;
+			content: attr(data-type);
+		}
+	}
+}
+
+@keyframes mars5e-rotation {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(359deg);
+  }
+}
+
+.roll-d20.mars5e-adv {
+	// filter: drop-shadow(0 0 0.3em var(--success));
+	&:after {
+		// display: inline-block;
+		font-size: 0.8em;
+		content: var(--mars5e-adv-label);
+		opacity: 0.8;
+		margin: 0 0 0 1ch;
+	}
+}
+.roll-d20.mars5e-dis {
+	// filter: drop-shadow(0 0 0.3em var(--fail));
+	&:after {
+		margin: 0 0 0 1ch;
+		font-size: 0.8em;
+		opacity: 0.8;
+		content: var(--mars5e-dis-label);
+	}
+}
