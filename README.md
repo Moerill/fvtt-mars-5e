@@ -39,6 +39,7 @@ What about donations? I do feel very honored that you think about giving me a do
 		- [Dice tooltips](#dice-tooltips)
 		- [Apply damage buttons (GM only)](#apply-damage-buttons-gm-only)
 		- [Fudge rolls (GM only)](#fudge-rolls-gm-only)
+	- [Known Module incompatibilities](#known-module-incompatibilities)
 	- [Planned ToDo's](#planned-todos)
 	- [Licensing](#licensing)
 
@@ -143,6 +144,13 @@ The damage amounts will automatically get updated when the resistance multiplier
 ### Fudge rolls (GM only)
 
 Double clicking on a dice result allows the GM to modify the displayed result. Only numeric input is allowed!
+
+## Known Module incompatibilities
+
+- MidiQoL
+  - [Everything related to automatic rolling](https://github.com/Moerill/fvtt-mars-5e/issues/10) 
+- Dynamic Active Effects (DAE)
+  - [Setting: Use ability save field when rolling ability saves](https://github.com/Moerill/fvtt-mars-5e/issues/11)
 
 ## Planned ToDo's
 
