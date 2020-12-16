@@ -3,3 +3,4 @@ foundryconfig.json
 dist/fonts
 dist/assets
 jsconfig.json
+**/*.mp4
