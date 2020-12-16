@@ -1,0 +1,47 @@
+<div class="dnd5e chat-card item-card mars5e-card {{#if isGM}}mars5e-gm-card{{/if}}" data-actor-id="{{actor._id}}" data-item-id="{{item._id}}"
+     {{#if tokenId}}data-token-id="{{tokenId}}"{{/if}} {{#if sceneId}}data-scene-id="{{sceneId}}"{{/if}} {{#if isSpell}}data-spell-level="{{item.data.level}}"{{/if}}>
+
+
+	<header class="card-header flexrow">
+		<img src="{{item.img}}" title="{{item.name}}"/>
+		<h3 class="item-name">{{item.name}}</h3>
+	</header>
+
+	<div class="card-content">
+		{{{data.description.value}}}
+		{{#if data.materials.value}}
+		<p><strong>{{ localize "DND5E.RequiredMaterials" }}.</strong> {{data.materials.value}}</p>
+		{{/if}}
+    <footer class="card-footer">
+			{{#each data.properties}}
+			<span>{{this}}</span>
+			{{/each}}
+		</footer>
+	</div>
+	{{#if data.chatFlavor}}
+	<blockquote class="mars5e-chat-flavor">
+		{{data.chatFlavor}}
+	</blockquote>
+	{{/if}}
+	<div class="mars5e-targets">
+		{{#if toolCheck}}
+		<div class='mars5e-target'>
+			<div class='mars5e-action'>
+				<label>{{ localize "DND5E.Use" }} {{item.name}}</label>
+				<a class='rollable' title="{{toolCheck.flavorFormula}}">{{toolCheck.formula}}</a>
+			</div>
+		</div>
+		{{/if}}
+		{{!-- {{#if }} --}}
+		{{#if hasAreaTarget}}
+		{{#if damage}}
+		<div class='mars5e-target mars5e-area-dmg'>
+			{{> 'modules/mars-5e/html/chat/dmg.hbs' damage}}
+		</div>
+		{{/if}}
+		{{/if}}
+		{{#each targets}}
+		{{> 'modules/mars-5e/html/chat/targets.hbs' target=this data=@root}}
+		{{/each}}
+	</div>
+</div>

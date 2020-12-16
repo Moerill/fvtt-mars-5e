@@ -1,0 +1,85 @@
+$dice-container-width: 1.55em;
+@import "./mixins.scss";
+@import "./definitions.scss";
+
+.chat-card.mars5e-card {
+  border-color: var(--mars5e-border-color);
+  .card-header {
+    cursor: pointer;
+    align-items: center;
+    font-size: 1.7em;
+    padding: 0;
+    border-width: 1px;
+    border-left: none;
+    border-right: none;
+    img {
+      width: 1.2em;
+      height: 1.2em;
+      flex: 0 auto;
+      border: none;
+    }
+    h3 {
+      line-height: inherit;
+      font-size: unset;
+    }
+  }
+
+  footer {
+    border-bottom: 1px groove;
+  }
+  .card-content {
+    margin: 0;
+  }
+}
+
+.mars5e-player {
+  .mars5e-gm-card {
+    .item-name,
+    .card-content {
+      display: none;
+    }
+
+    .attack .roll-d20,
+    .damage .rollable,
+    .damage .rollable + span,
+    .attack .mars5e-result {
+      display: none;
+    }
+
+    .mars5e-result {
+      pointer-events: none;
+    }
+
+    .mars5e-result.player-roll {
+      pointer-events: unset;
+    }
+  }
+
+  .mars5e-hidden-target {
+    .target-header {
+      h3 {
+        display: none;
+      }
+      img {
+        top: 0;
+      }
+    }
+  }
+  .mars5e-target.mars5e-hidden-target:not(.mars5e-area-dmg) {
+    min-height: calc(#{$img-size} + 3px);
+  }
+
+  .mars5e-card .damage .mars5e-apply-dmg-menu {
+    display: none;
+  }
+
+  .mars5e-invisible-target {
+    background: none;
+    .mars5e-action {
+      display: none;
+    }
+  }
+  .mars5e-result[data-resistance]:before {
+    display: none;
+  }
+}

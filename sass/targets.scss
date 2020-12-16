@@ -1,0 +1,374 @@
+@import "./mixins.scss";
+@import "./definitions.scss";
+
+.mars5e-card {
+  .mars5e-target:not(:first-child) {
+    border-top: 2px groove var(--mars5e-border-color);
+  }
+  .target-header {
+    flex-flow: row nowrap;
+    align-items: center;
+    cursor: pointer;
+    // height: $header-height;
+    background: rgba(0, 0, 0, 0.1);
+    position: relative;
+    img {
+      height: $img-size;
+      width: $img-size;
+      border: none;
+      position: absolute;
+      left: 0;
+      top: calc(#{$header-height} + 3px);
+    }
+    h3 {
+      font-family: var(--mars5e-font-header);
+      // font-size: 1.5em;
+      font-size: $header-height;
+      // max-height: $header-height;
+      // line-height: calc(#{$header-height} - 2px);
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      margin: -1px 0 -1px 0;
+      padding: 0 0.5ch;
+    }
+  }
+
+  .mars5e-chat-flavor {
+    + .mars5e-targets {
+      border-top: 2px groove var(--mars5e-border-color);
+    }
+  }
+
+  .mars5e-target {
+    font-size: 1.2em;
+    &:not(.mars5e-area-dmg) {
+      min-height: calc(#{$img-size + 0.9 * $header-height} + 3px);
+    }
+  }
+  .mars5e-action {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: flex-start;
+    justify-content: flex-start;
+    // overflow: hidden;
+    margin: {
+      left: calc(#{$img-size} + 3px);
+    }
+    padding: 0 0 0 0.5em;
+    border: {
+      left: 2px groove var(--mars5e-border-color);
+    }
+
+    label {
+      // justify-self: flex-start;
+      flex: 0;
+      flex-basis: 100%;
+      margin: {
+        right: 1ch;
+        bottom: 0.1em;
+      }
+      // text-align: center;
+      font-size: 0.9em;
+    }
+    .rollable {
+      flex: 0 auto;
+      text-align: center;
+
+      min-width: 8ch;
+      &:before {
+        @include font-awesome;
+        content: "\f522";
+        opacity: 0.6;
+        padding: {
+          right: 0.3ch;
+        }
+      }
+
+      + span {
+        margin: 0 1ch;
+      }
+    }
+    .break {
+      height: 0;
+      flex-basis: 100%;
+    }
+
+    .rollable,
+    .mars5e-result {
+      position: relative;
+      margin: 0 0 0.1em 4ch;
+      &:after {
+        margin: 0 0 0 1ch;
+        font-size: 0.8em;
+        opacity: 0.8;
+        width: 0; //46px;
+        display: inline-block;
+        font-size: 0.8em;
+        font-weight: normal;
+        text-align: left;
+        margin-left: 1ch;
+        position: absolute;
+        top: 0.1em;
+      }
+
+      &[data-advantage="0"]:after {
+        content: var(--mars5e-dis-label);
+      }
+      &[data-advantage="2"]:after {
+        content: var(--mars5e-adv-label);
+      }
+    }
+    .rollable {
+      &:after {
+        position: unset;
+      }
+    }
+
+    &.mars5e-success,
+    &.mars5e-fail {
+      label:after {
+        margin: 0 0 0 0.5ch;
+        font-size: 1.2em;
+        opacity: 0.8;
+        // width: 1ch;
+        display: flex;
+        flex-flow: row nowrap;
+        @include font-awesome;
+      }
+    }
+    &.mars5e-success {
+      label:after {
+        content: var(--mars5e-hit-label);
+      }
+    }
+    &.mars5e-fail {
+      label:after {
+        content: var(--mars5e-miss-label);
+      }
+    }
+
+    .mars5e-result {
+      text-shadow: none;
+      cursor: unset;
+    }
+    $dice-tooltip-width: 20ch;
+    .mars5e-result .dice-tooltip {
+      background: var(--mars5e-tooltip-bg-color);
+      color: var(--mars5e-tooltip-font-color);
+      border-color: var(--mars5e-tooltip-border-color);
+      backdrop-filter: blur(0.3em);
+      padding: 0.5ch;
+      // display: none;
+      pointer-events: none;
+
+      // overflow: hidden;
+      width: none;
+      transition: all $animation-duration ease-in-out;
+      bottom: 1.7em;
+      position: absolute;
+      box-shadow: 0 0px 10px #000c;
+      // right: 100%;
+      width: 0;
+      opacity: 0;
+      right: 50%;
+      z-index: -1;
+      visibility: hidden;
+      .part-header,
+      .part-header > * {
+        flex-wrap: nowrap;
+        white-space: nowrap;
+      }
+
+      &:after {
+        content: "";
+        position: absolute;
+        left: calc(50% - 0.25em);
+        // margin-left: -5px;
+        top: 100%;
+        border: 0.5em solid;
+        border-color: var(--mars5e-tooltip-bg-color) transparent transparent
+          transparent;
+      }
+      .part-flavor {
+        color: var(--mars5e-tooltip-font-color);
+      }
+      .dice-rolls {
+        min-width: $dice-tooltip-width;
+      }
+    }
+    .mars5e-result:hover .dice-tooltip {
+      right: -50%;
+      width: $dice-tooltip-width;
+      opacity: 1;
+      transition: all $animation-duration 1s ease-in-out;
+      z-index: 1;
+      visibility: visible;
+    }
+  }
+
+  .damage {
+    .rollable,
+    .mars5e-result {
+      position: relative;
+      &[data-dmg-type-label]:after {
+        content: attr(data-dmg-type-label);
+      }
+    }
+    .mars5e-result {
+      &[data-resistance]:before {
+        white-space: nowrap;
+        font-weight: normal;
+        text-align: right;
+        position: absolute;
+        right: calc(100% + 0.5ch);
+        opacity: 0.8;
+        content: attr(data-resistance) " •";
+      }
+      &[data-resistance="0.25"]:before {
+        content: "¼ •";
+      }
+      &[data-resistance="0.5"]:before {
+        content: "½ •";
+      }
+    }
+    &.critical {
+      label:after {
+        text-align: right;
+        margin-left: 1ch;
+        content: var(--mars5e-crit-label);
+      }
+    }
+
+    .dmg-type {
+      width: 0;
+      font-size: 0.9em;
+    }
+    position: relative;
+
+    label:hover + .mars5e-apply-dmg-menu,
+    .mars5e-apply-dmg-menu:hover {
+      opacity: 1;
+      transition: all 0.2s ease-out 0.3s;
+    }
+
+    .mars5e-apply-dmg-menu {
+      position: absolute;
+      flex: 0;
+      width: 3ch;
+      display: block;
+      flex-flow: row wrap;
+      // pointer-events: none;
+      opacity: 0;
+      overflow: visible;
+      transition: all 0.2s ease-in 1s;
+      left: -3.5ch;
+      top: 2ch;
+      font-size: 0.9em;
+      // margin: {
+      //   left: 10%;
+      //   right: 10%;
+      // }
+
+      button {
+        pointer-events: initial;
+        flex: 0 3ch;
+        width: 3ch;
+        height: 3ch;
+        font-size: 1em;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+        margin: 0;
+        overflow: hidden;
+        cursor: pointer;
+        i {
+          margin: 0.2em;
+          font-size: 1.3em;
+        }
+        @include tooltip(var(--mars5e-apply-label) ": " attr(data-amount));
+        &:before {
+          z-index: 1;
+        }
+      }
+      .mars5e-apply-versatile {
+        &:hover:before {
+          /* prettier-ignore */
+          content: var(--mars5e-apply-label) " " var(--mars5e-versatile-label) ": " attr(data-amount);
+          top: 1ch;
+        }
+      }
+    }
+  }
+
+  .mars5e-area-dmg {
+    label,
+    .mars5e-apply-dmg-menu {
+      pointer-events: none;
+    }
+    .mars5e-apply-dmg-menu {
+      display: none;
+    }
+  }
+  .mars5e-result {
+    flex: 0 auto;
+
+    .result-total {
+      border: 1px outset var(--mars5e-border-color);
+      font-size: 1.2em;
+      height: 0.9em;
+      line-height: 0.9em;
+      font-weight: bold;
+      text-align: center;
+      background: rgba(0, 0, 0, 0.1);
+      display: inline-block;
+      width: 8ch;
+      border-radius: 0.4ch;
+    }
+
+    // margin: 0 0.1em 0 0.1em;
+    // padding: 0;
+    // line-height: 1em;
+
+    &.critical .result-total {
+      // box-shadow: inset 0 -0.5em 1em var(--mars5e-success);
+      box-shadow: inset 0 -0.3em 0.6em 0em var(--mars5e-success);
+    }
+
+    &.fumble .result-total {
+      box-shadow: inset 0 -0.3em 0.6em 0em var(--mars5e-fail);
+    }
+  }
+
+  .mars5e-area-dmg .damage .mars5e-result:before {
+    display: none;
+  }
+}
+
+.mars5e-gm .mars5e-gm-target {
+  .mars5e-toggle-target-visibility {
+    position: absolute;
+    width: 2ch;
+    right: 0;
+    top: 0.1ch;
+    &:after {
+      @include font-awesome;
+      content: "\f06e";
+      opacity: 0;
+      transition: opacity 0.3s ease-in-out;
+    }
+    &:hover:after {
+      opacity: 1;
+      transition: opacity 0.3s 0.6s ease-in-out;
+    }
+  }
+
+  &.mars5e-invisible-target {
+    background: var(--mars5e-invis-target-background-color);
+    .mars5e-toggle-target-visibility {
+      &:after {
+        content: "\f070";
+      }
+    }
+  }
+}

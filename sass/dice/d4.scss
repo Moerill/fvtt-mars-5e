@@ -1,0 +1,75 @@
+$size: 1.5em;
+$halfbase: $size / 2;
+$height: 1.732 * $halfbase;
+$angle: (90deg - 70.528779deg);
+
+.mars5e-d4 {
+	width: $size;
+	height: $size;
+	display: inline-block;
+	position: absolute;
+
+	transform-style: preserve-3d;
+	transition: transform var(--mars5e-dice-anim-time) linear;
+
+	transform:  translateY(0.2em) rotateX(-90deg);
+	
+	// animation: 14s linear infinite spin;
+	
+	.face {
+		background: var(--mars5e-dice-color);
+		backface-visibility: hidden;
+		clip-path:  polygon(50% 0%, 0% 100%, 100% 100%);
+		width: $size;
+		height: $height;
+		position: absolute;
+		transform-origin: center top;
+	}
+
+	.number {
+		color: var(--mars5e-font-color);
+		font-family: "Signika", "Modesto Condensed", "Palatino Linotype", serif;
+		font-size: 0.8em;
+		font-weight: 600;
+		margin-top: 0.45em;
+		text-align: center;
+		transition: opacity var(--mars5e-dice-anim-time) linear;
+	}
+
+	.face:nth-child(4) { // ground
+		transform:
+				rotateX(-90deg)
+				rotateZ(180deg)
+				translateY(#{-$height * 2 / 3})
+				translateZ(#{$height - ($size - $height) / 8 * 3});
+	}
+	@for $i from 1 through 3 {
+		.face:nth-child(#{$i}) {
+			// display: none;
+			transform:
+				rotateY(#{($i - 1) * 120deg})
+				rotateX(#{$angle});
+		}
+	}
+}
+
+.mars5e-dice-container {
+	@for $i from 1 through 3 {
+		&[data-roll="#{$i}"] .mars5e-d4 {
+			transform: rotateX(-30deg) rotateY(#{($i - 1) * -120deg});
+		}
+	}
+
+	&[data-roll="4"] .mars5e-d4 {
+		transform: translateY(0.2em) rotateX(-90deg) rotateZ(180deg) ;
+	}
+}
+
+@keyframes mars5e-d4-default {
+	0% {
+		transform: translateY(0.2em) rotateX(-90deg);		
+	}
+	100% {
+		transform: translateY(0.2em) rotateX(90deg);
+	}
+}

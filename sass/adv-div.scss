@@ -1,0 +1,28 @@
+.mars5e-adv-div {
+  position: absolute;
+  display: none;
+  width: auto;
+
+  pointer-events: none;
+  text-align: right;
+  color: #ccc;
+  align-items: center;
+  &[data-advantage]:after {
+    background: rgba(0, 0, 0, 0.8);
+    padding: 0.5ch;
+    border-radius: 0.5ch;
+  }
+  &[data-advantage="1"]:after {
+    content: var(--mars5e-normal-roll-label);
+  }
+
+  &[data-advantage="2"]:after {
+    color: var(--mars5e-success);
+    content: var(--mars5e-adv-label);
+  }
+
+  &[data-advantage="0"]:after {
+    color: var(--mars5e-fail);
+    content: var(--mars5e-dis-label);
+  }
+}
