@@ -1,0 +1,25 @@
+<div class="mars5e-action damage {{#if critical}}critical{{/if}}">
+    <label>{{localize 'DND5E.Damage'}}</label>
+		<div class="mars5e-apply-dmg-menu versatile" style="height: 19px;">
+			<button class="mars5e-apply" data-amount="0"><i class="fas fa-fist-raised"></i></button>
+			{{#if @root.versatile}}
+			<button class="mars5e-apply-versatile" data-amount="0"><i class="fas fa-sign-language"></i></button>
+			{{/if}}
+		</div>
+    {{#each rolls}}
+		<a class="rollable 
+		{{#if @first}}non-versatile{{/if}}" data-dmg-type="{{this.dmgType}}" data-flavor-formula="{{this.flavorFormula}}" data-resistance="{{#if this.resistance}}{{this.resistance}}{{else}}1{{/if}}" data-dmg-type-label="{{this.dmgTypeLabel}}">{{this.shortenedFormula}}</a>
+		{{!-- {{#if this.dmgTypeLabel}}<span class="dmg-type 
+		{{!-- {{#if @root.versatile}}versatile{{/if}} --}}
+		{{!-- ">{{this.dmgTypeLabel}}</span>{{/if}}  --}}
+
+		<div class="break"></div>
+		{{#if @first}}
+		{{#if @root.versatile}}
+		<a class="rollable versatile" data-flavor-formula="{{@root.versatile.flavorFormula}}" data-resistance="{{#if this.resistance}}{{this.resistance}}{{else}}1{{/if}}" data-dmg-type-label="{{@root.versatile.dmgTypeLabel}}">{{@root.versatile.shortenedFormula}}</a>
+		{{!-- <span class="dmg-type">{{@root.versatile.dmgTypeLabel}}</span> --}}
+		<div class="break" ></div>
+		{{/if}}
+		{{/if}}
+    {{/each}}
+</div>

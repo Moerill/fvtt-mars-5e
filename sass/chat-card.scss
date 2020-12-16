@@ -1,6 +1,9 @@
 $dice-container-width: 1.55em;
+@import "./mixins.scss";
+@import "./definitions.scss";
 
 .chat-card.mars5e-card {
+  border-color: var(--mars5e-border-color);
   .card-header {
     cursor: pointer;
     align-items: center;
@@ -29,15 +32,6 @@ $dice-container-width: 1.55em;
   }
 }
 
-@keyframes mars5e-rotation {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(359deg);
-  }
-}
-
 .mars5e-player {
   .mars5e-gm-card {
     .item-name,
@@ -61,7 +55,31 @@ $dice-container-width: 1.55em;
     }
   }
 
-  .mars5e-hidden-target .target-header h3 {
+  .mars5e-hidden-target {
+    .target-header {
+      h3 {
+        display: none;
+      }
+      img {
+        top: 0;
+      }
+    }
+  }
+  .mars5e-target.mars5e-hidden-target:not(.mars5e-area-dmg) {
+    min-height: calc(#{$img-size} + 3px);
+  }
+
+  .mars5e-card .damage .mars5e-apply-dmg-menu {
+    display: none;
+  }
+
+  .mars5e-invisible-target {
+    background: none;
+    .mars5e-action {
+      display: none;
+    }
+  }
+  .mars5e-result[data-resistance]:before {
     display: none;
   }
 }

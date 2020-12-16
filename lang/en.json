@@ -3,13 +3,21 @@
 		"chat-card": {
 			"targets": {
 				"unknown": "no one"
+			},
+			"error": {
+				"resources": "Not enough resources left!"
 			}
 		},
 		"label": {
-			"Advantage": "(Advantage)",
-			"Disadvantage": "(Disadvantage)",
+			"Advantage": "Advantage",
+			"Disadvantage": "Disadvantage",
+			"NormalRoll": "Normal",
 			"hit": "Hit!",
-			"miss": "Miss!"
+			"miss": "Miss!",
+			"apply": "Apply"
+		},
+		"errors": {
+			"userNotOnline": "Cannot roll, owner of this chat card is not online."
 		}
 	}
 }

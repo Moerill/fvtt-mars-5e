@@ -1,0 +1,42 @@
+<div class="mars5e-target {{#unless target.visible}}mars5e-hidden-target{{/unless}} {{#if data.isGM}}mars5e-gm-target mars5e-invisible-target{{/if}}" data-target-id="{{target.id}}">
+{{log target}}
+    <div class="target-header">
+        {{#if target.img}}<img  src="{{this.img}}" />{{/if}}
+        <h3>{{target.name}}</h3>
+				{{#if data.isGM}}
+				<a class='mars5e-toggle-target-visibility'></a>
+				{{/if}}
+    </div>
+    {{#if data.hasAttack}}
+    <div class="mars5e-action attack ">
+        <label>{{localize 'DND5E.Attack'}}</label>
+        <a class="rollable roll-d20" title="{{data.attack.flavor}}" data-advantage="{{data.attack.advantage}}">{{data.attack.mod}}</a>
+    </div>
+    {{/if}}
+		{{!-- {{else}} --}}
+		{{#if data.hasSave}}
+			<div class="mars5e-action save">
+				<label>{{localize 'DND5E.SavingThrow'}} ({{data.labels.saveAbi}})</label>
+				<a class="rollable roll-d20" data-dc="{{data.data.save.dc}}" data-ability="{{data.data.save.ability}}">{{data.labels.save}}</a>
+			</div>
+			{{#if data.hasDamage}}
+			{{#unless data.hasAreaTarget}}
+			{{#unless data.hasAttack}}
+				{{> 'modules/mars-5e/html/chat/dmg.hbs' data.damage}}
+			{{/unless}}
+			{{/unless}}
+			{{/if}}
+		{{/if}}
+
+		{{#if data.isHealing}}
+			{{> 'modules/mars-5e/html/chat/dmg.hbs' data.damage}}
+		{{/if}}
+
+		{{#if data.formula}}
+		<div class="mars5e-action">
+			<label>{{ localize "DND5E.OtherFormula"}}</label>
+			<a class="rollable" title="{{data.formula.flavorFormula}}">{{data.formula.formula}}</a>
+		</div>
+		{{/if}}
+		{{!-- {{/if}} --}}
+</div>
