@@ -40,6 +40,7 @@ What about donations? I do feel very honored that you think about giving me a do
 		- [Apply damage buttons (GM only)](#apply-damage-buttons-gm-only)
 		- [Fudge rolls (GM only)](#fudge-rolls-gm-only)
 	- [Planned ToDo's](#planned-todos)
+	- [Licensing](#licensing)
 
 ## Targets
 
@@ -153,3 +154,9 @@ These are just ideas, they may or may not happen.
 - [ ] Automatic rolling of attack/dmg rolls
 - [ ] Clean-up SCSS (and code)
 - [ ] Manifest+
+
+
+## Licensing
+<img alt="GitHub" src="https://img.shields.io/github/license/moerill/fvtt-mars-5e?style=flat-square">
+
+This work is licensed under Foundry Virtual Tabletop [EULA - Limited License Agreement for module development](https://foundryvtt.com/article/license/).
