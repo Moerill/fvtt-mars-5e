@@ -2,7 +2,7 @@
 
 <img alt="GitHub release (latest by date)" src="https://img.shields.io/github/v/release/moerill/fvtt-mars-5e?style=flat-square"> <img alt="GitHub" src="https://img.shields.io/github/license/moerill/fvtt-mars-5e?style=flat-square"> <img alt="GitHub Releases" src="https://img.shields.io/github/downloads/moerill/fvtt-mars-5e/latest/total?style=flat-square"> 
 
-This module provides a very opinionated alternative to how the roll workflow in DnD5e and how they're displayed.  
+This module provides an opinionated alternative to how the roll workflow in DnD5e and how they're displayed.  
 Main goal is to provide some flexibility in how much information is displayed to the players from the GM side, while also automating some basic tasks. To avoid having to care about all possible edge cases and houserules almost every automatic generated result is toggleable.
 
 **This is a replacement for the part of MESS that modified DnD 5es rolling! While it is not exactly the same, this is my new revision of it and MESS won't be maintained in this regard anymore!**
@@ -151,3 +151,5 @@ These are just ideas, they may or may not happen.
 - [ ] Basic roll statistics
 - [ ] Chat Filter (filtering on player, action and whisper basis)
 - [ ] Automatic rolling of attack/dmg rolls
+- [ ] Clean-up SCSS (and code)
+- [ ] Manifest+
