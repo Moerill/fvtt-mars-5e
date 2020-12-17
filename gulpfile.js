@@ -16,6 +16,7 @@ sass.compiler = require("node-sass");
 const browserSync = require("browser-sync").create();
 
 const moduleName = "fvtt-mars-5e";
+const cssName = "mars-5e";
 const repoBaseUrl = "https://github.com/Moerill/";
 const rawBaseUrl = "https://raw.githubusercontent.com/Moerill/";
 
@@ -58,7 +59,7 @@ function buildSass() {
   return gulp
     .src("sass/**/*.scss")
     .pipe(sass().on("error", sass.logError))
-    .pipe(concat(moduleName + ".css"))
+    .pipe(concat(cssName + ".css"))
     .pipe(gulp.dest("."))
     .pipe(browserSync.stream());
 }

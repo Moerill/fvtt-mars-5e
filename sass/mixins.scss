@@ -1,3 +1,4 @@
+@import "./definitions.scss";
 @mixin font-awesome {
   font-family: "Font Awesome 5 Free";
   -webkit-font-smoothing: antialiased;
@@ -27,10 +28,14 @@
     border-radius: 0.5ch;
     opacity: 0;
     pointer-events: none;
-    transition: opacity 0.2s ease-in-out;
+    transition: opacity $animation-duration $animation-easing;
   }
   &:hover:before {
     opacity: 1;
-    transition: opacity 0.2s 0.3s ease-in-out;
+    transition: opacity $animation-duration $animation-easing;
   }
+}
+
+@mixin context-menu-hint {
+  border-bottom: 5px solid black;
 }

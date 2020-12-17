@@ -33,6 +33,11 @@ Hooks.on("init", () => {
   };
   const classList =
     ".item .item-name, .ability-name, .ability-mod, .ability-save, .ability-title, .skill";
+  let tween = TweenMax.to(mars5e.advDiv, 1, {
+    onComplete: () => {
+      mars5e.advDiv.classList.add("mars5e-show-hint");
+    },
+  });
   Hooks.on("renderActorSheet", (app, html, options) => {
     html[0].addEventListener(
       "contextmenu",
@@ -44,6 +49,7 @@ Hooks.on("init", () => {
         ev.stopPropagation();
         mars5e.advDiv.dataset.advantage =
           (Number(mars5e.advDiv.dataset.advantage) + 1) % 3;
+        tween.kill();
       },
       true
     );
@@ -64,6 +70,7 @@ Hooks.on("init", () => {
         }
         mars5e.advDiv.style.display = "flex";
         mars5e.advDiv.style.height = rect.height + "px";
+        tween.restart();
       },
       true
     );
@@ -73,6 +80,8 @@ Hooks.on("init", () => {
         const target = ev.target.closest(classList);
         if (!target) return;
         mars5e.advDiv.style.display = null;
+        mars5e.advDiv.classList.remove("mars5e-show-hint");
+        tween.kill();
       },
       true
     );
@@ -80,6 +89,32 @@ Hooks.on("init", () => {
 });
 
 initRollChanges();
+
+Hooks.on("renderChatMessage", async (app, html, options) => {
+  // const sender = html[0].querySelector(".message-sender");
+  // // if (!game.user.isGM) {
+  // const div = html[0].querySelector("[data-token-id]");
+  // const div = html[0].querySelector("[data-actor-id]");
+  // if (div && !isTokenViewable(div))
+  //   html[0].querySelector(".message-sender").innerText = replacementName;
+  // if (!div) {
+  //   const actorId = html[0].querySelector("[data-actor-id]")?.dataset.actorId;
+  //   if (actorId) {
+  //     const actor = game.actors.get(actorId);
+  //     if (actor?.permission < CONST.ENTITY_PERMISSIONS.LIMITED)
+  //       html[0].querySelector(".message-sender").innerText = replacementName;
+  //   }
+  // }
+  // html[0].querySelectorAll("[data-target-id]").forEach((e) => {});
+  // // }
+
+  // Only color one border, not the whole border...
+  if (html[0].style.borderColor) {
+    html[0].style.borderColor = null;
+    // html[0].style.borderRightColor = app.user.color;
+    html[0].style.borderTopColor = app.user.color;
+  } else html[0].style.borderLeftColor = app.user.color;
+});
 
 function isTokenViewable(div) {
   const sceneId = div.closest("mars-card")?.dataset.sceneId;

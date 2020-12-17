@@ -163,7 +163,7 @@
 
       // overflow: hidden;
       width: none;
-      transition: all $animation-duration ease-in-out;
+      transition: all $animation-duration $animation-delay $animation-easing;
       bottom: 1.7em;
       position: absolute;
       box-shadow: 0 0px 10px #000c;
@@ -200,7 +200,7 @@
       right: -50%;
       width: $dice-tooltip-width;
       opacity: 1;
-      transition: all $animation-duration 1s ease-in-out;
+      transition: all $animation-duration #{$animation-delay * 2} $animation-easing;
       z-index: 1;
       visibility: visible;
     }
@@ -245,12 +245,6 @@
     }
     position: relative;
 
-    label:hover + .mars5e-apply-dmg-menu,
-    .mars5e-apply-dmg-menu:hover {
-      opacity: 1;
-      transition: all 0.2s ease-out 0.3s;
-    }
-
     .mars5e-apply-dmg-menu {
       position: absolute;
       flex: 0;
@@ -260,7 +254,7 @@
       // pointer-events: none;
       opacity: 0;
       overflow: visible;
-      transition: all 0.2s ease-in 1s;
+      transition: all $animation-duration #{$animation-delay * 2} $animation-easing;
       left: -3.5ch;
       top: 2ch;
       font-size: 0.9em;
@@ -349,18 +343,18 @@
   .mars5e-toggle-target-visibility {
     position: absolute;
     width: 2ch;
-    right: 0;
-    top: 0.1ch;
+    right: 0.5ch;
+    top: 0.2ch;
+    opacity: 0;
+    transition: opacity $animation-duration #{$animation-delay * 2} $animation-easing;
     &:after {
       @include font-awesome;
       content: "\f06e";
-      opacity: 0;
-      transition: opacity 0.3s ease-in-out;
     }
-    &:hover:after {
-      opacity: 1;
-      transition: opacity 0.3s 0.6s ease-in-out;
-    }
+  }
+  &:hover .target-header .mars5e-toggle-target-visibility {
+    opacity: 1;
+    transition: opacity $animation-duration $animation-delay $animation-easing;
   }
 
   &.mars5e-invisible-target {
@@ -370,5 +364,31 @@
         content: "\f070";
       }
     }
+  }
+
+  &:hover .mars5e-apply-dmg-menu,
+  .mars5e-apply-dmg-menu:hover {
+    opacity: 1;
+    transition: all $animation-duration $animation-delay $animation-easing;
+  }
+
+  .mars5e-result {
+    cursor: text;
+  }
+}
+
+.mars5e-card {
+  // .attack:has(.mars5e-result) label,
+  // .damage:not(:has(.mars5e-result)) label,
+  // .attack .rollable,
+  // .damage .rollable {
+  //   background: black;
+  //   @include context-menu-hint;
+  // }
+
+  .attack .rollable,
+  .damage .rollable,
+  .attack label:has(+ a) {
+    background: red;
   }
 }

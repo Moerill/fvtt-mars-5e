@@ -1,3 +1,8 @@
+# v0.1.2
+
+- *Fix* fumbles still being able to hit, although they shouldn't.
+- *Fix* crits still being able to fail, although they shouldn't.
+
 # v0.1.1
 
 - Added missing description to module.json

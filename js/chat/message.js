@@ -278,6 +278,7 @@ export default class Mars5eMessage extends ChatMessage {
 
     const resultDiv = await this._renderResult(rollDiv, r);
     let critical = false;
+    let fumble = false;
     if (r.terms[0].faces === 20) {
       const dice = r.terms[0];
       if (dice.total >= dice.options.critical) {
@@ -285,6 +286,7 @@ export default class Mars5eMessage extends ChatMessage {
         critical = true;
       } else if (dice.total <= dice.options.fumble) {
         resultDiv.classList.add("fumble");
+        fumble = true;
       }
     }
     resultDiv.dataset.advantage = adv.toString();
@@ -302,7 +304,7 @@ export default class Mars5eMessage extends ChatMessage {
     const actor = await this._getTarget(resultDiv)?.actor;
     const ac = actor.data.data.attributes.ac.value;
     const attack = resultDiv.closest(".attack");
-    if (r.total >= ac) {
+    if (critical || (r.total >= ac && !fumble)) {
       attack.classList.add("mars5e-success");
       await this._renderDmg(resultDiv, critical);
     } else {

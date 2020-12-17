@@ -1,3 +1,6 @@
+@import "./mixins.scss";
+@import "./definitions.scss";
+
 .mars5e-adv-div {
   position: absolute;
   display: none;
@@ -5,10 +8,12 @@
 
   pointer-events: none;
   text-align: right;
-  color: #ccc;
+  // color: #ccc;
+  // background: rgba(0, 0, 0, 0.8);
   align-items: center;
   &[data-advantage]:after {
-    background: rgba(0, 0, 0, 0.8);
+    color: var(--mars5e-tooltip-font-color);
+    background: var(--mars5e-tooltip-bg-color);
     padding: 0.5ch;
     border-radius: 0.5ch;
   }
@@ -24,5 +29,25 @@
   &[data-advantage="0"]:after {
     color: var(--mars5e-fail);
     content: var(--mars5e-dis-label);
+  }
+
+  &:before {
+    color: var(--mars5e-tooltip-font-color);
+    background: var(--mars5e-tooltip-bg-color);
+    position: absolute;
+    top: 1.5em;
+    right: 0;
+    font-size: 0.8em;
+
+    display: block;
+    padding: 0.5ch;
+    white-space: nowrap;
+    content: "( Right-Click to toggle (dis-)advantage )";
+    // transition: all $animation-duration #{$animation-delay * 2};
+    opacity: 0;
+  }
+  &.mars5e-show-hint:before {
+    opacity: 1;
+    // transition: all $animation-duration #{$animation-delay * 2};
   }
 }
