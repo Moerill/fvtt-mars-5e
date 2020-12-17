@@ -1,3 +1,8 @@
+# v0.2
+
+- Tooltips for everything! (or at least *more* tooltips to help find what can actually be toggled using right-click)
+- Faster animations, buttons inside the chat card are now visible when hovering it.
+
 # v0.1.2
 
 - *Fix* fumbles still being able to hit, although they shouldn't.

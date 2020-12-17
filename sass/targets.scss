@@ -31,6 +31,10 @@
       margin: -1px 0 -1px 0;
       padding: 0 0.5ch;
     }
+
+    @include tooltip(
+      "Double click to pan to/select target token. (If visible)"
+    );
   }
 
   .mars5e-chat-flavor {
@@ -63,6 +67,8 @@
       // justify-self: flex-start;
       flex: 0;
       flex-basis: 100%;
+      text-overflow: ellipsis;
+      white-space: nowrap;
       margin: {
         right: 1ch;
         bottom: 0.1em;
@@ -153,20 +159,21 @@
     }
     $dice-tooltip-width: 20ch;
     .mars5e-result .dice-tooltip {
-      background: var(--mars5e-tooltip-bg-color);
-      color: var(--mars5e-tooltip-font-color);
-      border-color: var(--mars5e-tooltip-border-color);
-      backdrop-filter: blur(0.3em);
-      padding: 0.5ch;
-      // display: none;
-      pointer-events: none;
+      @include tooltip-style;
+      // background: var(--mars5e-tooltip-bg-color);
+      // color: var(--mars5e-tooltip-font-color);
+      // border-color: var(--mars5e-tooltip-border-color);
+      // backdrop-filter: blur(0.3em);
+      // box-shadow: 0 0px 10px #000c;
+      // padding: 0.5ch;
+      // // display: none;
+      // pointer-events: none;
 
       // overflow: hidden;
       width: none;
       transition: all $animation-duration $animation-delay $animation-easing;
       bottom: 1.7em;
       position: absolute;
-      box-shadow: 0 0px 10px #000c;
       // right: 100%;
       width: 0;
       opacity: 0;
@@ -200,7 +207,7 @@
       right: -50%;
       width: $dice-tooltip-width;
       opacity: 1;
-      transition: all $animation-duration #{$animation-delay * 2} $animation-easing;
+      transition: opacity $animation-duration #{$animation-delay * 2} $animation-easing;
       z-index: 1;
       visibility: visible;
     }
@@ -274,7 +281,6 @@
         justify-content: center;
         padding: 0;
         margin: 0;
-        overflow: hidden;
         cursor: pointer;
         i {
           margin: 0.2em;
@@ -283,6 +289,9 @@
         @include tooltip(var(--mars5e-apply-label) ": " attr(data-amount));
         &:before {
           z-index: 1;
+        }
+        &:hover:before {
+          transition-delay: 0s;
         }
       }
       .mars5e-apply-versatile {
@@ -339,56 +348,91 @@
   }
 }
 
-.mars5e-gm .mars5e-gm-target {
-  .mars5e-toggle-target-visibility {
-    position: absolute;
-    width: 2ch;
-    right: 0.5ch;
-    top: 0.2ch;
-    opacity: 0;
-    transition: opacity $animation-duration #{$animation-delay * 2} $animation-easing;
-    &:after {
-      @include font-awesome;
-      content: "\f06e";
-    }
-  }
-  &:hover .target-header .mars5e-toggle-target-visibility {
-    opacity: 1;
-    transition: opacity $animation-duration $animation-delay $animation-easing;
-  }
-
-  &.mars5e-invisible-target {
-    background: var(--mars5e-invis-target-background-color);
-    .mars5e-toggle-target-visibility {
-      &:after {
-        content: "\f070";
-      }
-    }
-  }
-
-  &:hover .mars5e-apply-dmg-menu,
+.mars5e-gm {
+  .mars5e-target:hover .mars5e-apply-dmg-menu,
   .mars5e-apply-dmg-menu:hover {
     opacity: 1;
     transition: all $animation-duration $animation-delay $animation-easing;
   }
+  .mars5e-gm-target {
+    .mars5e-toggle-target-visibility {
+      position: absolute;
+      width: 2ch;
+      right: 0.5ch;
+      top: 0.2ch;
+      opacity: 0;
+      transition: opacity $animation-duration #{$animation-delay * 2} $animation-easing;
+      &:after {
+        @include font-awesome;
+        content: "\f06e";
+      }
+    }
+    &:hover .target-header .mars5e-toggle-target-visibility {
+      opacity: 1;
+      transition: opacity $animation-duration $animation-delay $animation-easing;
+    }
 
-  .mars5e-result {
-    cursor: text;
+    &.mars5e-invisible-target {
+      background: var(--mars5e-invis-target-background-color);
+      .mars5e-toggle-target-visibility {
+        &:after {
+          content: "\f070";
+        }
+      }
+    }
+
+    .mars5e-result {
+      cursor: text;
+    }
   }
 }
 
-.mars5e-card {
-  // .attack:has(.mars5e-result) label,
-  // .damage:not(:has(.mars5e-result)) label,
-  // .attack .rollable,
-  // .damage .rollable {
-  //   background: black;
-  //   @include context-menu-hint;
-  // }
+// .mars5e-card {
+//   // .attack:has(.mars5e-result) label,
+//   // .damage:not(:has(.mars5e-result)) label,
+//   // .attack .rollable,
+//   // .damage .rollable {
+//   //   background: black;
+//   //   @include context-menu-hint;
+//   // }
 
-  .attack .rollable,
-  .damage .rollable,
-  .attack label:has(+ a) {
-    background: red;
+//   .attack .rollable,
+//   .damage .mars5e-result,
+//   .attack:not(.mars5e-success, .mars5e-fail) label,
+//   .damage label {
+//     @include context-menu-hint;
+//   }
+// }
+
+.mars5e-toggleable {
+  @include tooltip("Right-Click to toggle");
+}
+
+.result-total.mars5e-toggleable {
+  &:before {
+    top: 1.2em;
+    font-size: 0.7em;
+    font-weight: normal;
+    padding: 0.5ch 1ch;
   }
+}
+
+.mars5e-action.attack,
+.mars5e-action.save {
+  &.mars5e-success,
+  &.mars5e-fail {
+    &:before {
+      content: var(--mars5e-tooltip-success-toggle);
+    }
+  }
+
+  &:before {
+    content: "Right-Click to toggle (Dis-)Advantage.";
+  }
+}
+
+.damage .result-total:before {
+  // content: "Right-Click to toggle resistance multiplier.";
+  content: var(--mars5e-tooltip-resistance-toggle);
+  left: -12ch;
 }

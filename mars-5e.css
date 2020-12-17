@@ -156,6 +156,9 @@
 .mars5e-player .mars5e-result[data-resistance]:before {
   display: none; }
 
+.mars5e-player .damage .result-total:before {
+  display: none; }
+
 :root {
   --mars5e-success: var(--Whetstone-accent-primary, rgb(0, 255, 0));
   --mars5e-fail: var(--Whetstone-accent-secondary, red);
@@ -244,6 +247,31 @@
     text-overflow: ellipsis;
     margin: -1px 0 -1px 0;
     padding: 0 0.5ch; }
+  .mars5e-card .target-header:before {
+    content: "Double click to pan to/select target token. (If visible)";
+    background: var(--mars5e-tooltip-bg-color);
+    color: var(--mars5e-tooltip-font-color);
+    border-color: var(--mars5e-tooltip-border-color);
+    backdrop-filter: blur(0.3em);
+    box-shadow: 0 0px 10px #000c;
+    position: absolute;
+    padding: 0.5ch 1ch;
+    border-radius: 0.5ch;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.15s ease-in;
+    z-index: 1;
+    top: -1.5em;
+    left: 0;
+    font-size: 0.8em;
+    line-height: 1em;
+    white-space: nowrap;
+    display: block; }
+  .mars5e-card .target-header:hover {
+    position: relative; }
+    .mars5e-card .target-header:hover:before {
+      opacity: 1;
+      transition: opacity 0.15s 1.2s ease-in; }
 
 .mars5e-card .mars5e-chat-flavor + .mars5e-targets {
   border-top: 2px groove var(--mars5e-border-color); }
@@ -264,6 +292,8 @@
   .mars5e-card .mars5e-action label {
     flex: 0;
     flex-basis: 100%;
+    text-overflow: ellipsis;
+    white-space: nowrap;
     margin-right: 1ch;
     margin-bottom: 0.1em;
     font-size: 0.9em; }
@@ -339,13 +369,18 @@
     color: var(--mars5e-tooltip-font-color);
     border-color: var(--mars5e-tooltip-border-color);
     backdrop-filter: blur(0.3em);
-    padding: 0.5ch;
+    box-shadow: 0 0px 10px #000c;
+    position: absolute;
+    padding: 0.5ch 1ch;
+    border-radius: 0.5ch;
+    opacity: 0;
     pointer-events: none;
+    transition: opacity 0.15s ease-in;
+    z-index: 1;
     width: none;
     transition: all 0.15s 0.3s ease-in;
     bottom: 1.7em;
     position: absolute;
-    box-shadow: 0 0px 10px #000c;
     width: 0;
     opacity: 0;
     right: 50%;
@@ -370,7 +405,7 @@
     right: -50%;
     width: 20ch;
     opacity: 1;
-    transition: all 0.15s 0.6s ease-in;
+    transition: opacity 0.15s 0.6s ease-in;
     z-index: 1;
     visibility: visible; }
 
@@ -424,33 +459,39 @@
       justify-content: center;
       padding: 0;
       margin: 0;
-      overflow: hidden;
       cursor: pointer; }
       .mars5e-card .damage .mars5e-apply-dmg-menu button i {
         margin: 0.2em;
         font-size: 1.3em; }
       .mars5e-card .damage .mars5e-apply-dmg-menu button:before {
         content: var(--mars5e-apply-label) ": " attr(data-amount);
-        backdrop-filter: blur(0.3em);
-        color: var(--mars5e-tooltip-font-color);
         background: var(--mars5e-tooltip-bg-color);
+        color: var(--mars5e-tooltip-font-color);
+        border-color: var(--mars5e-tooltip-border-color);
+        backdrop-filter: blur(0.3em);
+        box-shadow: 0 0px 10px #000c;
         position: absolute;
-        top: -1.5em;
-        left: 0;
-        font-size: 0.8em;
-        white-space: nowrap;
-        display: block;
-        line-height: 1em;
         padding: 0.5ch 1ch;
         border-radius: 0.5ch;
         opacity: 0;
         pointer-events: none;
-        transition: opacity 0.15s ease-in; }
-      .mars5e-card .damage .mars5e-apply-dmg-menu button:hover:before {
-        opacity: 1;
-        transition: opacity 0.15s ease-in; }
+        transition: opacity 0.15s ease-in;
+        z-index: 1;
+        top: -1.5em;
+        left: 0;
+        font-size: 0.8em;
+        line-height: 1em;
+        white-space: nowrap;
+        display: block; }
+      .mars5e-card .damage .mars5e-apply-dmg-menu button:hover {
+        position: relative; }
+        .mars5e-card .damage .mars5e-apply-dmg-menu button:hover:before {
+          opacity: 1;
+          transition: opacity 0.15s 1.2s ease-in; }
       .mars5e-card .damage .mars5e-apply-dmg-menu button:before {
         z-index: 1; }
+      .mars5e-card .damage .mars5e-apply-dmg-menu button:hover:before {
+        transition-delay: 0s; }
     .mars5e-card .damage .mars5e-apply-dmg-menu .mars5e-apply-versatile:hover:before {
       /* prettier-ignore */
       content: var(--mars5e-apply-label) " " var(--mars5e-versatile-label) ": " attr(data-amount);
@@ -484,6 +525,11 @@
 .mars5e-card .mars5e-area-dmg .damage .mars5e-result:before {
   display: none; }
 
+.mars5e-gm .mars5e-target:hover .mars5e-apply-dmg-menu,
+.mars5e-gm .mars5e-apply-dmg-menu:hover {
+  opacity: 1;
+  transition: all 0.15s 0.3s ease-in; }
+
 .mars5e-gm .mars5e-gm-target .mars5e-toggle-target-visibility {
   position: absolute;
   width: 2ch;
@@ -511,15 +557,51 @@
   .mars5e-gm .mars5e-gm-target.mars5e-invisible-target .mars5e-toggle-target-visibility:after {
     content: "\f070"; }
 
-.mars5e-gm .mars5e-gm-target:hover .mars5e-apply-dmg-menu,
-.mars5e-gm .mars5e-gm-target .mars5e-apply-dmg-menu:hover {
-  opacity: 1;
-  transition: all 0.15s 0.3s ease-in; }
-
 .mars5e-gm .mars5e-gm-target .mars5e-result {
   cursor: text; }
 
-.mars5e-card .attack .rollable,
-.mars5e-card .damage .rollable,
-.mars5e-card .attack label:has(+ a) {
-  background: red; }
+.mars5e-toggleable:before {
+  content: "Right-Click to toggle";
+  background: var(--mars5e-tooltip-bg-color);
+  color: var(--mars5e-tooltip-font-color);
+  border-color: var(--mars5e-tooltip-border-color);
+  backdrop-filter: blur(0.3em);
+  box-shadow: 0 0px 10px #000c;
+  position: absolute;
+  padding: 0.5ch 1ch;
+  border-radius: 0.5ch;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.15s ease-in;
+  z-index: 1;
+  top: -1.5em;
+  left: 0;
+  font-size: 0.8em;
+  line-height: 1em;
+  white-space: nowrap;
+  display: block; }
+
+.mars5e-toggleable:hover {
+  position: relative; }
+  .mars5e-toggleable:hover:before {
+    opacity: 1;
+    transition: opacity 0.15s 1.2s ease-in; }
+
+.result-total.mars5e-toggleable:before {
+  top: 1.2em;
+  font-size: 0.7em;
+  font-weight: normal;
+  padding: 0.5ch 1ch; }
+
+.mars5e-action.attack.mars5e-success:before, .mars5e-action.attack.mars5e-fail:before,
+.mars5e-action.save.mars5e-success:before,
+.mars5e-action.save.mars5e-fail:before {
+  content: var(--mars5e-tooltip-success-toggle); }
+
+.mars5e-action.attack:before,
+.mars5e-action.save:before {
+  content: "Right-Click to toggle (Dis-)Advantage."; }
+
+.damage .result-total:before {
+  content: var(--mars5e-tooltip-resistance-toggle);
+  left: -12ch; }

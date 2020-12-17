@@ -18,6 +18,13 @@
 		},
 		"errors": {
 			"userNotOnline": "Cannot roll, owner of this chat card is not online."
+		},
+		"tool-tip": {
+			"right-click": "Right-click",
+			"toggle": "toggle",
+			"toggle-resistance": "{right-click} to {toggle} resistance multiplier.",
+			"success": "{right-click} to {toggle} Success/Fail.",
+			"advantage": "{right-click} to {toggle} (Dis-)Advantage."
 		}
 	}
 }

@@ -82,4 +82,8 @@ $dice-container-width: 1.55em;
   .mars5e-result[data-resistance]:before {
     display: none;
   }
+
+  .damage .result-total:before {
+    display: none;
+  }
 }

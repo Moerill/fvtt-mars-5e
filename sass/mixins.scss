@@ -10,32 +10,46 @@
   font-weight: 900;
 }
 
+@mixin tooltip-style {
+  background: var(--mars5e-tooltip-bg-color);
+  color: var(--mars5e-tooltip-font-color);
+  border-color: var(--mars5e-tooltip-border-color);
+  backdrop-filter: blur(0.3em);
+  box-shadow: 0 0px 10px #000c;
+  // width: 20ch;
+  position: absolute;
+  padding: 0.5ch 1ch;
+  border-radius: 0.5ch;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity $animation-duration $animation-easing;
+  z-index: 1;
+}
+
 @mixin tooltip($content) {
   &:before {
     content: $content;
-    backdrop-filter: blur(0.3em);
-    color: var(--mars5e-tooltip-font-color);
-    background: var(--mars5e-tooltip-bg-color);
-    // width: 20ch;
-    position: absolute;
+    @include tooltip-style;
     top: -1.5em;
     left: 0;
     font-size: 0.8em;
+    line-height: 1em;
     white-space: nowrap;
     display: block;
-    line-height: 1em;
-    padding: 0.5ch 1ch;
-    border-radius: 0.5ch;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity $animation-duration $animation-easing;
   }
-  &:hover:before {
-    opacity: 1;
-    transition: opacity $animation-duration $animation-easing;
+  &:hover {
+    position: relative;
+    &:before {
+      opacity: 1;
+      transition: opacity $animation-duration #{$animation-delay * 4} $animation-easing;
+    }
   }
 }
 
 @mixin context-menu-hint {
-  border-bottom: 5px solid black;
+  border-bottom: 2px dotted var(--mars5e-tooltip-font-color);
+
+  &:hover {
+    border-bottom: 2px dotted var(--mars5e-tooltip-bg-color);
+  }
 }

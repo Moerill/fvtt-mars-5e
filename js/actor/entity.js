@@ -90,7 +90,6 @@ export default function initActorClass() {
       const rollMode = game.settings.get("core", "rollMode");
       if (["gmroll", "blindroll"].includes(rollMode))
         chatData["whisper"] = ChatMessage.getWhisperRecipients("GM");
-      console.log(rollMode);
       if (rollMode === "blindroll") chatData["blind"] = true;
 
       return ChatMessage.create(chatData);

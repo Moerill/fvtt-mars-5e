@@ -8,14 +8,14 @@
 				{{/if}}
     </div>
     {{#if data.hasAttack}}
-    <div class="mars5e-action attack ">
+    <div class="mars5e-action attack mars5e-toggleable">
         <label>{{localize 'DND5E.Attack'}}</label>
         <a class="rollable roll-d20" title="{{data.attack.flavor}}" data-advantage="{{data.attack.advantage}}">{{data.attack.mod}}</a>
     </div>
     {{/if}}
 		{{!-- {{else}} --}}
 		{{#if data.hasSave}}
-			<div class="mars5e-action save">
+			<div class="mars5e-action save mars5e-toggleable">
 				<label>{{localize 'DND5E.SavingThrow'}} ({{data.labels.saveAbi}})</label>
 				<a class="rollable roll-d20" data-dc="{{data.data.save.dc}}" data-ability="{{data.data.save.ability}}">{{data.labels.save}}</a>
 			</div>

@@ -30,4 +30,8 @@ export default class NumberTerm extends DiceTerm {
   alter() {
     return this;
   }
+
+  get expression() {
+    return this.number;
+  }
 }

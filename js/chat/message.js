@@ -156,32 +156,34 @@ export default class Mars5eMessage extends ChatMessage {
   }
 
   _toggleAdv(ev) {
-    const target = ev.target.closest(".attack .roll-d20, .save .roll-d20");
+    const target = ev.target.closest(".attack, .save, .tool-check");
 
+    if (!target) return false;
     if (
-      !target ||
-      this._getTarget(target)?.actor.permission <
-        CONST.ENTITY_PERMISSIONS.OBSERVER
+      target.querySelector(".mars5e-result")
+
+      // || this._getTarget(target)?.actor.permission <
+      //   CONST.ENTITY_PERMISSIONS.OBSERVER
     )
       return false;
 
     ev.preventDefault();
     ev.stopPropagation();
-
-    const adv = Number(target.dataset.advantage ?? 1);
-    target.dataset.advantage = (adv + 1) % 3;
+    const roll = target.querySelector(".rollable");
+    const adv = Number(roll.dataset.advantage ?? 1);
+    roll.dataset.advantage = (adv + 1) % 3;
 
     return true;
   }
 
   _toggleHit(ev) {
-    const target = ev.target.closest(".attack label, .save label");
-    if (!target || target.querySelector(".mars5e-result")) return false;
+    const target = ev.target.closest(".attack, .save");
+    if (!target || !target.querySelector(".mars5e-result")) return false;
 
     ev.preventDefault();
     ev.stopPropagation();
 
-    const action = target.closest(".mars5e-action");
+    const action = target;
     const success = action.classList.toggle("mars5e-success");
     action.classList.toggle("mars5e-fail");
     if (action.classList.contains("attack"))
@@ -191,9 +193,8 @@ export default class Mars5eMessage extends ChatMessage {
   }
 
   _toggleCrit(ev) {
-    const target = ev.target.closest(".damage label");
-    if (!target || target.parentNode.querySelector(".mars5e-result"))
-      return false;
+    const target = ev.target.closest(".damage");
+    if (!target || target.querySelector(".mars5e-result")) return false;
     ev.preventDefault();
     ev.stopPropagation();
 
@@ -290,8 +291,10 @@ export default class Mars5eMessage extends ChatMessage {
       }
     }
     resultDiv.dataset.advantage = adv.toString();
+    const attack = resultDiv.closest(".attack");
     const targetId = resultDiv.closest(".mars5e-target").dataset.targetId;
     if (!targetId) {
+      attack.classList.add("mars5e-success");
       await this._renderDmg(resultDiv, critical);
       return resultDiv;
     }
@@ -303,7 +306,6 @@ export default class Mars5eMessage extends ChatMessage {
     // const actor = token.actor;
     const actor = await this._getTarget(resultDiv)?.actor;
     const ac = actor.data.data.attributes.ac.value;
-    const attack = resultDiv.closest(".attack");
     if (critical || (r.total >= ac && !fumble)) {
       attack.classList.add("mars5e-success");
       await this._renderDmg(resultDiv, critical);
@@ -395,7 +397,6 @@ export default class Mars5eMessage extends ChatMessage {
   }
 
   async _onRoll(rollable) {
-    console.log(rollable.dataset.flavorFormula);
     const r = new Roll(rollable.dataset.flavorFormula);
     r.roll();
     return this._renderResult(rollable, r);
@@ -410,7 +411,6 @@ export default class Mars5eMessage extends ChatMessage {
 
   async _renderDmg(resultDiv, critical = false) {
     if (!this.item.hasDamage) return null;
-
     const targetDiv = resultDiv.closest(".mars5e-target");
 
     const targets = resultDiv.closest(".mars5e-targets");
@@ -456,7 +456,10 @@ export default class Mars5eMessage extends ChatMessage {
 
     const spellLevel = parseInt(this.card.dataset.spellLevel) || null;
 
-    let data = await this.item.rollDamage({ critical, spellLevel });
+    let data = await this.item.rollDamage({
+      options: { critical },
+      spellLevel,
+    });
     data.critical = critical;
 
     const target = await this._getTarget(resultDiv)?.actor;
@@ -530,8 +533,10 @@ export default class Mars5eMessage extends ChatMessage {
     if (resistance) resultDiv.dataset.resistance = resistance;
     if (versatile) resultDiv.classList.add("versatile");
     if (isNonVersatileMainRoll) resultDiv.classList.add("non-versatile");
+    resultDiv.querySelector(".result-total").classList.add("mars5e-toggleable");
 
     const actionDiv = resultDiv.closest(".damage");
+    actionDiv.classList.remove("mars5e-toggleable");
     if (actionDiv.parentNode.classList.contains("mars5e-area-dmg"))
       await this._applyAreaDmg(actionDiv);
     this._updateApplyDmgAmount(actionDiv);
@@ -542,6 +547,7 @@ export default class Mars5eMessage extends ChatMessage {
   }
 
   async _applyAreaDmg(dmgDiv) {
+    dmgDiv.querySelector(".result-total").classList.remove("mars5e-toggleable");
     const card = dmgDiv.closest(".mars5e-targets");
     const targetDivs = Array.from(
       card.querySelectorAll(".mars5e-target:not(.mars5e-area-dmg")
@@ -589,41 +595,6 @@ export default class Mars5eMessage extends ChatMessage {
       this._updateApplyDmgAmount(div);
       resultDivs.push(div);
     }
-    // const target = dmgDiv.closest(".mars5e-target");
-    // target.style.overflow = "hidden";
-    // resultDivs.forEach((e) => {
-    //   console.log(e);
-    //   e.style.overflow = "hidden";
-    // });
-    // return new Promise((resolve, reject) =>
-    //   TweenMax.from(resultDivs, 0.3, {
-    //     height: 0,
-    //     onComplete: () => {
-    //       resultDivs.forEach((e) => (e.style.overflow = null));
-    //       resolve();
-    //     },
-    //   })
-    // );
-    // return Promise.all([
-    //   new Promise((resolve, reject) =>
-    //     TweenMax.to(target, 0.3, {
-    //       height: 0,
-    //       onComplete: () => {
-    //         target.remove();
-    //         resolve();
-    //       },
-    //     })
-    //   ),
-    //   new Promise((resolve, reject) =>
-    //     TweenMax.from(resultDivs, 0.3, {
-    //       height: 0,
-    //       onComplete: () => {
-    //         resultDivs.forEach((e) => (e.style.overflow = null));
-    //         resolve();
-    //       },
-    //     })
-    //   ),
-    // ]);
   }
 
   _onClickToggleVisibility(ev) {
@@ -681,7 +652,6 @@ export default class Mars5eMessage extends ChatMessage {
     const tooltip = await roll.getTooltip();
     result.insertAdjacentHTML("beforeend", tooltip);
     div.replaceWith(result);
-
     return result;
   }
 
@@ -793,9 +763,7 @@ export default class Mars5eMessage extends ChatMessage {
   }
 
   mars5eUpdate(div) {
-    console.log(this);
     if (this.data.user === game.user.id || game.user.isGM) {
-      console.log("updating");
       this.update({ content: this.card.parentNode.innerHTML });
     } else {
       const targetDiv = div.closest(".mars5e-target");

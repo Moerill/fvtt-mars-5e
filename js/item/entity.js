@@ -213,7 +213,6 @@ export default function initItemClass() {
           ...adv,
         });
         this.data.data.consume = consume;
-        console.log(attackRoll);
         const mod = attackRoll.shortenedFormula.replace(
           /[12]?d20(k[hl])?\s/,
           ""
@@ -386,7 +385,6 @@ export default function initItemClass() {
       this.data.data.damage.parts = [parts[0]];
 
       const roll = await super.rollDamage({ spellLevel, options });
-      console.log(roll.shortenedFormula);
       roll.dmgType = parts[0][1];
       if (roll.dmgType === "healing") {
         roll.dmgTypeLabel = game.i18n.localize("DND5E.Healing");

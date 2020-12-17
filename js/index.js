@@ -135,21 +135,30 @@ function isTokenViewable(div) {
 
 Hooks.on("init", () => {
   loadTemplates([
-    // "modules/mars-5e/html/dice/d4.hbs",
-    // "modules/mars-5e/html/dice/d6.hbs",
-    // "modules/mars-5e/html/dice/d8.hbs",
-    // "modules/mars-5e/html/dice/d10.hbs",
-    // "modules/mars-5e/html/dice/d12.hbs",
-    // "modules/mars-5e/html/dice/d20.hbs",
     "modules/mars-5e/html/chat/targets.hbs",
     "modules/mars-5e/html/chat/dmg.hbs",
   ]);
 });
 
 Hooks.on("ready", async () => {
+  const translationData = {
+    toggle: game.i18n.localize("MARS5E.tool-tip.toggle"),
+    "right-click": game.i18n.localize("MARS5E.tool-tip.right-click"),
+  };
+  const data = {
+    toggleResistanceTooltip: game.i18n.format(
+      "MARS5E.tool-tip.toggle-resistance",
+      translationData
+    ),
+    toggleSuccessTooltip: game.i18n.format(
+      "MARS5E.tool-tip.success",
+      translationData
+    ),
+    toggleAdvantageTooltip: game.i18n.format("MARS5E.tool-tip.advantage"),
+  };
   document.head.insertAdjacentHTML(
     "beforeend",
-    await renderTemplate("modules/mars-5e/html/definitions.hbs", {})
+    await renderTemplate("modules/mars-5e/html/definitions.hbs", data)
   );
   templateAutotargeting();
 });
