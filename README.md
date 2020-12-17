@@ -1,4 +1,4 @@
-# MARS 5e - Moerills alternative rolling style for 5e
+# MARS 5e - Moerills alternative rolling style for 5e <!-- omit in toc -->
 
 <img alt="GitHub release (latest by date)" src="https://img.shields.io/github/v/release/moerill/fvtt-mars-5e?style=flat-square"> <img alt="GitHub" src="https://img.shields.io/github/license/moerill/fvtt-mars-5e?style=flat-square"> <img alt="GitHub Releases" src="https://img.shields.io/github/downloads/moerill/fvtt-mars-5e/latest/total?style=flat-square"> 
 
@@ -7,41 +7,35 @@ Main goal is to provide some flexibility in how much information is displayed to
 
 **This is a replacement for the part of MESS that modified DnD 5es rolling! While it is not exactly the same, this is my new revision of it and MESS won't be maintained in this regard anymore!**
 
-## Bug Reporting and Feature Suggestions
+## Bug Reporting and Feature Suggestions <!-- omit in toc -->
 Go to the [GitHub's issue board](https://github.com/Moerill/fvtt-mars-5e/issues) and create an issue with the template fitting to what you want to post and follow its instructions.
 
 **I will ignore half-hearted bug reports ignoring the issue template or Discord mentions!**  
 Its not difficult to put at least some effort into something that you want someone else to put their spare time into to fix!  
 
-## Support the development
-I'm doing this project mostly alone (with partial help of some wonderful people mentioned above) in my spare time and for free.  
-If you want to encourage me to keep doing this, i am happy about all kind of tokens of appreciation. (Like some nice words, recommending this project or contributions to the project).  
-What about donations? I do feel very honored that you think about giving me a donation! Instead I'd prefer if you send the cash to a good cause of your choosing!
-
-- [MARS 5e - Moerills alternative rolling style for 5e](#mars-5e---moerills-alternative-rolling-style-for-5e)
-	- [Bug Reporting and Feature Suggestions](#bug-reporting-and-feature-suggestions)
-	- [Support the development](#support-the-development)
-	- [Targets](#targets)
-		- [Item/Spell targets](#itemspell-targets)
-		- [Token pictures](#token-pictures)
-	- [GM sees it all, players do not](#gm-sees-it-all-players-do-not)
-	- [Basic automation](#basic-automation)
-		- [Attack rolls vs AC](#attack-rolls-vs-ac)
-		- [Saving throw vs DC](#saving-throw-vs-dc)
-		- [Resistance check](#resistance-check)
-	- [Use Right-Click to toggle stuff](#use-right-click-to-toggle-stuff)
-		- [(Dis-)Advantage](#dis-advantage)
-		- [Hit/Miss and Success/Fail (GM only)](#hitmiss-and-successfail-gm-only)
-		- [Crit](#crit)
-		- [Resistance multiplier (GM only)](#resistance-multiplier-gm-only)
-	- [miscellaneous features](#miscellaneous-features)
-		- [Whetstone Integration](#whetstone-integration)
-		- [Dice tooltips](#dice-tooltips)
-		- [Apply damage buttons (GM only)](#apply-damage-buttons-gm-only)
-		- [Fudge rolls (GM only)](#fudge-rolls-gm-only)
-	- [Known Module incompatibilities](#known-module-incompatibilities)
-	- [Planned ToDo's](#planned-todos)
-	- [Licensing](#licensing)
+## Table of Contents <!-- omit in toc -->
+- [Targets](#targets)
+	- [Item/Spell targets](#itemspell-targets)
+	- [Token pictures](#token-pictures)
+- [GM sees it all, players do not](#gm-sees-it-all-players-do-not)
+- [Basic automation](#basic-automation)
+	- [Attack rolls vs AC](#attack-rolls-vs-ac)
+	- [Saving throw vs DC](#saving-throw-vs-dc)
+	- [Resistance check](#resistance-check)
+- [Use Right-Click to toggle stuff](#use-right-click-to-toggle-stuff)
+	- [(Dis-)Advantage](#dis-advantage)
+	- [Hit/Miss and Success/Fail (GM only)](#hitmiss-and-successfail-gm-only)
+	- [Crit](#crit)
+	- [Resistance multiplier (GM only)](#resistance-multiplier-gm-only)
+- [Miscellaneous features](#miscellaneous-features)
+	- [Whetstone Integration](#whetstone-integration)
+	- [Dice tooltips](#dice-tooltips)
+	- [Apply damage buttons (GM only)](#apply-damage-buttons-gm-only)
+	- [Fudge rolls (GM only)](#fudge-rolls-gm-only)
+- [Known Module incompatibilities](#known-module-incompatibilities)
+- [Planned ToDo's](#planned-todos)
+- [Licensing](#licensing)
+- [Support the development](#support-the-development)
 
 ## Targets
 
@@ -117,7 +111,7 @@ Before you rolled damage you can toggle whether the dmg roll was a crit or not!
 
 You can toggle through the resistance multiplier applied, when using the apply to target buttons.
 
-## miscellaneous features
+## Miscellaneous features
 
 ### Whetstone Integration
 
@@ -168,3 +162,9 @@ These are just ideas, they may or may not happen.
 <img alt="GitHub" src="https://img.shields.io/github/license/moerill/fvtt-mars-5e?style=flat-square">
 
 This work is licensed under Foundry Virtual Tabletop [EULA - Limited License Agreement for module development](https://foundryvtt.com/article/license/).
+
+
+## Support the development
+I'm doing this project mostly alone (with partial help of some wonderful people mentioned above) in my spare time and for free.  
+If you want to encourage me to keep doing this, i am happy about all kind of tokens of appreciation. (Like some nice words, recommending this project or contributions to the project).  
+What about donations? I do feel very honored that you think about giving me a donation! Instead I'd prefer if you send the cash to a good cause of your choosing!
