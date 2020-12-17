@@ -2,6 +2,7 @@
 
 - Tooltips for everything! (or at least *more* tooltips to help find what can actually be toggled using right-click)
 - Faster animations, buttons inside the chat card are now visible when hovering it.
+- Removed many unneeded files.
 
 # v0.1.2
 
