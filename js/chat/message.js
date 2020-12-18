@@ -590,6 +590,10 @@ export default class Mars5eMessage extends ChatMessage {
             dmgType = "physical";
           result.dataset.resistance = (resistances[dmgType] ?? 1) * mult;
         }
+
+        dmg
+          .querySelectorAll(".result-total")
+          .forEach((e) => e.classList.add("mars5e-toggleable"));
       }
 
       this._updateApplyDmgAmount(div);

@@ -587,21 +587,21 @@
     opacity: 1;
     transition: opacity 0.15s 1.2s ease-in; }
 
+.mars5e-toggleable .mars5e-action.attack.mars5e-success:before, .mars5e-toggleable .mars5e-action.attack.mars5e-fail:before,
+.mars5e-toggleable .mars5e-action.save.mars5e-success:before,
+.mars5e-toggleable .mars5e-action.save.mars5e-fail:before {
+  content: var(--mars5e-tooltip-success-toggle); }
+
+.mars5e-toggleable .mars5e-action.attack:before,
+.mars5e-toggleable .mars5e-action.save:before {
+  content: "Right-Click to toggle (Dis-)Advantage."; }
+
 .result-total.mars5e-toggleable:before {
   top: 1.2em;
   font-size: 0.7em;
   font-weight: normal;
   padding: 0.5ch 1ch; }
 
-.mars5e-action.attack.mars5e-success:before, .mars5e-action.attack.mars5e-fail:before,
-.mars5e-action.save.mars5e-success:before,
-.mars5e-action.save.mars5e-fail:before {
-  content: var(--mars5e-tooltip-success-toggle); }
-
-.mars5e-action.attack:before,
-.mars5e-action.save:before {
-  content: "Right-Click to toggle (Dis-)Advantage."; }
-
-.damage .result-total:before {
+.damage .result-total.mars5e-toggleable:before {
   content: var(--mars5e-tooltip-resistance-toggle);
   left: -12ch; }

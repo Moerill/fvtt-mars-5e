@@ -387,25 +387,22 @@
   }
 }
 
-// .mars5e-card {
-//   // .attack:has(.mars5e-result) label,
-//   // .damage:not(:has(.mars5e-result)) label,
-//   // .attack .rollable,
-//   // .damage .rollable {
-//   //   background: black;
-//   //   @include context-menu-hint;
-//   // }
-
-//   .attack .rollable,
-//   .damage .mars5e-result,
-//   .attack:not(.mars5e-success, .mars5e-fail) label,
-//   .damage label {
-//     @include context-menu-hint;
-//   }
-// }
-
 .mars5e-toggleable {
   @include tooltip("Right-Click to toggle");
+
+  .mars5e-action.attack,
+  .mars5e-action.save {
+    &.mars5e-success,
+    &.mars5e-fail {
+      &:before {
+        content: var(--mars5e-tooltip-success-toggle);
+      }
+    }
+
+    &:before {
+      content: "Right-Click to toggle (Dis-)Advantage.";
+    }
+  }
 }
 
 .result-total.mars5e-toggleable {
@@ -417,21 +414,7 @@
   }
 }
 
-.mars5e-action.attack,
-.mars5e-action.save {
-  &.mars5e-success,
-  &.mars5e-fail {
-    &:before {
-      content: var(--mars5e-tooltip-success-toggle);
-    }
-  }
-
-  &:before {
-    content: "Right-Click to toggle (Dis-)Advantage.";
-  }
-}
-
-.damage .result-total:before {
+.damage .result-total.mars5e-toggleable:before {
   // content: "Right-Click to toggle resistance multiplier.";
   content: var(--mars5e-tooltip-resistance-toggle);
   left: -12ch;

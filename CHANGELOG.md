@@ -1,3 +1,7 @@
+# v0.2.3
+
+- Fix styling error for "aoe type" spells
+
 # v0.2.2
 
 - accidently removed localization in last update, fixed this now
