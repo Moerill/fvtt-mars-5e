@@ -1,6 +1,10 @@
+# v0.2.2
+
+- accidently removed localization in last update, fixed this now
+
 # v0.2.1
 
-- Added DnD5e as system requirement.. sorry for that, i forgot to add it! This module is *not* compatible with other systems!
+- Added DnD5e as system requirement.. sorry for that, i forgot to add it! This module is *not* compatible with other systems! 
 
 # v0.2
 
