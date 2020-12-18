@@ -1,3 +1,7 @@
+# v0.2.1
+
+- Added DnD5e as system requirement.. sorry for that, i forgot to add it! This module is *not* compatible with other systems!
+
 # v0.2
 
 - Tooltips for everything! (or at least *more* tooltips to help find what can actually be toggled using right-click)
