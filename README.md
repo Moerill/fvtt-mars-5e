@@ -158,6 +158,8 @@ These are just ideas, they may or may not happen.
 - [ ] Automatic rolling of attack/dmg rolls
 - [ ] Clean-up SCSS (and code)
 - [ ] Manifest+
+- [ ] DsN support
+- [ ] (Sadness Chan support?)
 
 
 ## Licensing
