@@ -141,6 +141,8 @@ Double clicking on a dice result allows the GM to modify the displayed result. O
 
 ## Known Module incompatibilities
 
+- BetterRolls for 5e
+  - completly incompatible, since both tackle a similar thing in completly different ways
 - MidiQoL
   - [Everything related to automatic rolling](https://github.com/Moerill/fvtt-mars-5e/issues/10) 
 - Dynamic Active Effects (DAE)
