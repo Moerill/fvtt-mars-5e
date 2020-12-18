@@ -159,7 +159,7 @@ These are just ideas, they may or may not happen.
 - [ ] Clean-up SCSS (and code)
 - [ ] Manifest+
 - [ ] DsN support
-- [ ] (Sadness Chan support?)
+- [ ] (look into Sadness Chan support)
 
 
 ## Licensing
