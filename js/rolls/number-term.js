@@ -15,12 +15,12 @@ export default class NumberTerm extends DiceTerm {
     return "n";
   }
 
-  get formula() {
-    return `${this.number < 0 ? "- " : ""}${Math.abs(this.number)}`;
-  }
+  // get formula() {
+  //   return `${this.number < 0 ? "- " : ""}${Math.abs(this.number)}`;
+  // }
 
   get total() {
-    return this.formula;
+    return this.expression;
   }
 
   get values() {
@@ -32,6 +32,16 @@ export default class NumberTerm extends DiceTerm {
   }
 
   get expression() {
-    return this.number;
+    return `${this.number < 0 ? "- " : ""}${Math.abs(this.number)}`;
+  }
+
+  evaluate({ minimize = false, maximize = false } = {}) {
+    if (this._evaluated) {
+      throw new Error(
+        `This ${this.constructor.name} has already been evaluated and is immutable`
+      );
+    }
+
+    return this;
   }
 }

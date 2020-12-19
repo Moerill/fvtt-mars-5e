@@ -14,7 +14,6 @@
   background: var(--mars5e-tooltip-bg-color);
   color: var(--mars5e-tooltip-font-color);
   border-color: var(--mars5e-tooltip-border-color);
-  backdrop-filter: blur(0.3em);
   box-shadow: 0 0px 10px #000c;
   // width: 20ch;
   position: absolute;
@@ -42,6 +41,8 @@
     &:before {
       opacity: 1;
       transition: opacity $animation-duration #{$animation-delay * 4} $animation-easing;
+
+      backdrop-filter: blur(0.3em);
     }
   }
 }

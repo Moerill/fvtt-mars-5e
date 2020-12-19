@@ -32,6 +32,8 @@ Its not difficult to put at least some effort into something that you want someo
 	- [Dice tooltips](#dice-tooltips)
 	- [Apply damage buttons (GM only)](#apply-damage-buttons-gm-only)
 	- [Fudge rolls (GM only)](#fudge-rolls-gm-only)
+	- [Dice So Nice support](#dice-so-nice-support)
+	- [Automatic template targetting](#automatic-template-targetting)
 - [Known Module incompatibilities](#known-module-incompatibilities)
 - [Planned ToDo's](#planned-todos)
 - [Licensing](#licensing)
@@ -139,6 +141,13 @@ The damage amounts will automatically get updated when the resistance multiplier
 
 Double clicking on a dice result allows the GM to modify the displayed result. Only numeric input is allowed!
 
+### Dice So Nice support
+
+### Automatic template targetting
+
+(needs DnD 1.2.1)  
+When using the automatically created spell templates the module will autotarget everyone in it.
+
 ## Known Module incompatibilities
 
 - BetterRolls for 5e
@@ -158,7 +167,6 @@ These are just ideas, they may or may not happen.
 - [ ] Automatic rolling of attack/dmg rolls
 - [ ] Clean-up SCSS (and code)
 - [ ] Manifest+
-- [ ] DsN support
 - [ ] (look into Sadness Chan support)
 
 

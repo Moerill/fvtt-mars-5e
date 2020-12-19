@@ -285,8 +285,8 @@ export default function initItemClass() {
           ...adv,
         });
         templateData.toolCheck = {
-          formula: r.shortenedFormula,
-          flavorFormula: r.flavorFormula,
+          formula: r.shortenedFormula.replace(/[12]?d20(k[hl])?\s/, ""),
+          flavorFormula: r.flavorFormula.replace(/[12]?d20(k[hl])?\s/, ""),
           mod: r.modifier,
         };
       }

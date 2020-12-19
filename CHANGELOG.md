@@ -1,3 +1,11 @@
+# v0.3
+
+- *New* Dice so Nice support!
+- *Fix* weird css issues in the foundry app, resulting in a blur applied to chat cards when scrolling
+- *Fix* Toolcheck not owrking
+- *Fix* flavorformulas not working
+- *Fix* Apply dmg not correctly updating for AoE spells when there was no target chosen.
+
 # v0.2.3
 
 - Fix styling error for "aoe type" spells

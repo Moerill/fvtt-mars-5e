@@ -156,7 +156,7 @@ export default class Mars5eMessage extends ChatMessage {
   }
 
   _toggleAdv(ev) {
-    const target = ev.target.closest(".attack, .save, .tool-check");
+    const target = ev.target.closest(".attack, .save, .tool");
 
     if (!target) return false;
     if (
@@ -397,7 +397,13 @@ export default class Mars5eMessage extends ChatMessage {
   }
 
   async _onRoll(rollable) {
-    const r = new Roll(rollable.dataset.flavorFormula);
+    let formula = rollable.dataset.flavorFormula;
+    if (rollable.classList.contains("roll-d20")) {
+      if (rollable.dataset.advantage === "2") formula = "2d20kh" + formula;
+      else if (rollable.dataset.advantage === "0") formula = "2d20kl" + formula;
+      else formula = "1d20" + formula;
+    }
+    let r = new Roll(formula);
     r.roll();
     return this._renderResult(rollable, r);
   }
@@ -566,12 +572,13 @@ export default class Mars5eMessage extends ChatMessage {
         else mult = 0.5;
 
       const target = await this._getTarget(div)?.actor;
+      let resistances = {};
+      const magicDmg = this.item.isMagicDmg;
       if (target) {
         const { di, dr, dv } = target.data.data.traits;
         di.multiplier = 0;
         dr.multiplier = 0.5;
         dv.multiplier = 2;
-        let resistances = {};
         for (let res of [dv, dr, di]) {
           for (let val of res.value) {
             resistances[val] = res.multiplier;
@@ -579,23 +586,19 @@ export default class Mars5eMessage extends ChatMessage {
           if (res?.custom?.includes("from nonmagical attacks"))
             resistances["physical"] = res.multiplier;
         }
-
-        const magicDmg = this.item.isMagicDmg;
-        for (let result of results) {
-          let dmgType = result.dataset.dmgType;
-          if (
-            !magicDmg &&
-            ["bludgeoning", "piercing", "slashing"].includes(roll.dmgType)
-          )
-            dmgType = "physical";
-          result.dataset.resistance = (resistances[dmgType] ?? 1) * mult;
-        }
-
-        dmg
-          .querySelectorAll(".result-total")
-          .forEach((e) => e.classList.add("mars5e-toggleable"));
       }
-
+      for (let result of results) {
+        let dmgType = result.dataset.dmgType;
+        if (
+          !magicDmg &&
+          ["bludgeoning", "piercing", "slashing"].includes(roll.dmgType)
+        )
+          dmgType = "physical";
+        result.dataset.resistance = (resistances[dmgType] ?? 1) * mult;
+      }
+      dmg
+        .querySelectorAll(".result-total")
+        .forEach((e) => e.classList.add("mars5e-toggleable"));
       this._updateApplyDmgAmount(div);
       resultDivs.push(div);
     }
@@ -651,11 +654,22 @@ export default class Mars5eMessage extends ChatMessage {
     if (!game.user.isGM) {
       result.classList.add("player-roll");
     }
-    result.dataset.flavorFormula = roll.flavorFormula;
-    result.innerHTML = `<span class='result-total'>${roll.total}</span>`;
-    const tooltip = await roll.getTooltip();
-    result.insertAdjacentHTML("beforeend", tooltip);
     div.replaceWith(result);
+    // result.dataset.flavorFormula = roll.flavorFormula;
+    if (game.dice3d) {
+      result.innerHTML = `<span class='result-total'>...</span>`;
+      await game.dice3d.showForRoll(
+        roll,
+        game.user,
+        this.data.whisper,
+        !!result.closest(".blind, .mars5e-invisible-target")
+      );
+    }
+    result.innerHTML = `<span class='result-total'>${roll.total}</span>`;
+
+    const tooltip = await roll.getTooltip();
+
+    result.insertAdjacentHTML("beforeend", tooltip);
     return result;
   }
 

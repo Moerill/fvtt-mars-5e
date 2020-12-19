@@ -45,7 +45,7 @@
 
   .mars5e-target {
     font-size: 1.2em;
-    &:not(.mars5e-area-dmg) {
+    &[data-target-id] {
       min-height: calc(#{$img-size + 0.9 * $header-height} + 3px);
     }
   }
@@ -207,9 +207,11 @@
       right: -50%;
       width: $dice-tooltip-width;
       opacity: 1;
-      transition: opacity $animation-duration #{$animation-delay * 2} $animation-easing;
+      transition: all $animation-duration #{$animation-delay * 2} $animation-easing;
       z-index: 1;
       visibility: visible;
+
+      backdrop-filter: blur(0.3em);
     }
   }
 

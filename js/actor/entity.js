@@ -92,6 +92,16 @@ export default function initActorClass() {
         chatData["whisper"] = ChatMessage.getWhisperRecipients("GM");
       if (rollMode === "blindroll") chatData["blind"] = true;
 
+      // result.dataset.flavorFormula = roll.flavorFormula;
+      if (game.dice3d) {
+        await game.dice3d.showForRoll(
+          roll,
+          game.user,
+          chatData.whisper,
+          chatData.blind
+        );
+      }
+
       return ChatMessage.create(chatData);
     }
 

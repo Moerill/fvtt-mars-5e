@@ -8,7 +8,7 @@
 		</div>
     {{#each rolls}}
 		<a class="rollable 
-		{{#if @first}}non-versatile{{/if}}" data-dmg-type="{{this.dmgType}}" data-flavor-formula="{{this.flavorFormula}}" data-resistance="{{#if this.resistance}}{{this.resistance}}{{else}}1{{/if}}" data-dmg-type-label="{{this.dmgTypeLabel}}">{{this.shortenedFormula}}</a>
+		{{#if @first}}non-versatile{{/if}}" data-dmg-type="{{this.dmgType}}" data-flavor-formula="{{this.flavorFormula}}" data-resistance="{{this.resistance}}" data-dmg-type-label="{{this.dmgTypeLabel}}">{{this.shortenedFormula}}</a>
 		{{!-- {{#if this.dmgTypeLabel}}<span class="dmg-type 
 		{{!-- {{#if @root.versatile}}versatile{{/if}} --}}
 		{{!-- ">{{this.dmgTypeLabel}}</span>{{/if}}  --}}

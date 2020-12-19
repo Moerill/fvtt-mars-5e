@@ -86,4 +86,21 @@ $dice-container-width: 1.55em;
   .damage .result-total:before {
     display: none;
   }
+
+  .blind {
+    .mars5e-result {
+      pointer-events: none;
+      &:before {
+        color: var(--mars5e-font-color);
+        font-weight: normal;
+        font-size: 0.9;
+        position: absolute;
+        left: calc(50% - 1ch);
+        content: "???";
+      }
+      .result-total {
+        color: #0000;
+      }
+    }
+  }
 }

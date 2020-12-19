@@ -4,6 +4,7 @@
   --mars5e-tooltip-font-color: var(--Whetstone-fg-secondary, #ccc);
   --mars5e-tooltip-bg-color: var(--Whetstone-bg-secondary, rgba(0, 0, 0, 0.8));
   --mars5e-tooltip-border-color: var(--Whetstone-border-secondary, #aaa);
+  --mars5e-font-color: var(--Whetstone-fg-primary, #191813);
   --mars5e-border-color: var(--Whetstone-border-primary, #fff);
   --mars5e-invis-target-background-color: #e8e8ef;
   --mars5e-font-body: var(--Whetstone-font-family-body, "Signika", sans-serif);
@@ -20,6 +21,7 @@
   --mars5e-tooltip-font-color: var(--Whetstone-fg-secondary, #ccc);
   --mars5e-tooltip-bg-color: var(--Whetstone-bg-secondary, rgba(0, 0, 0, 0.8));
   --mars5e-tooltip-border-color: var(--Whetstone-border-secondary, #aaa);
+  --mars5e-font-color: var(--Whetstone-fg-primary, #191813);
   --mars5e-border-color: var(--Whetstone-border-primary, #fff);
   --mars5e-invis-target-background-color: #e8e8ef;
   --mars5e-font-body: var(--Whetstone-font-family-body, "Signika", sans-serif);
@@ -71,6 +73,7 @@
   --mars5e-tooltip-font-color: var(--Whetstone-fg-secondary, #ccc);
   --mars5e-tooltip-bg-color: var(--Whetstone-bg-secondary, rgba(0, 0, 0, 0.8));
   --mars5e-tooltip-border-color: var(--Whetstone-border-secondary, #aaa);
+  --mars5e-font-color: var(--Whetstone-fg-primary, #191813);
   --mars5e-border-color: var(--Whetstone-border-primary, #fff);
   --mars5e-invis-target-background-color: #e8e8ef;
   --mars5e-font-body: var(--Whetstone-font-family-body, "Signika", sans-serif);
@@ -87,6 +90,7 @@
   --mars5e-tooltip-font-color: var(--Whetstone-fg-secondary, #ccc);
   --mars5e-tooltip-bg-color: var(--Whetstone-bg-secondary, rgba(0, 0, 0, 0.8));
   --mars5e-tooltip-border-color: var(--Whetstone-border-secondary, #aaa);
+  --mars5e-font-color: var(--Whetstone-fg-primary, #191813);
   --mars5e-border-color: var(--Whetstone-border-primary, #fff);
   --mars5e-invis-target-background-color: #e8e8ef;
   --mars5e-font-body: var(--Whetstone-font-family-body, "Signika", sans-serif);
@@ -159,12 +163,25 @@
 .mars5e-player .damage .result-total:before {
   display: none; }
 
+.mars5e-player .blind .mars5e-result {
+  pointer-events: none; }
+  .mars5e-player .blind .mars5e-result:before {
+    color: var(--mars5e-font-color);
+    font-weight: normal;
+    font-size: 0.9;
+    position: absolute;
+    left: calc(50% - 1ch);
+    content: "???"; }
+  .mars5e-player .blind .mars5e-result .result-total {
+    color: #0000; }
+
 :root {
   --mars5e-success: var(--Whetstone-accent-primary, rgb(0, 255, 0));
   --mars5e-fail: var(--Whetstone-accent-secondary, red);
   --mars5e-tooltip-font-color: var(--Whetstone-fg-secondary, #ccc);
   --mars5e-tooltip-bg-color: var(--Whetstone-bg-secondary, rgba(0, 0, 0, 0.8));
   --mars5e-tooltip-border-color: var(--Whetstone-border-secondary, #aaa);
+  --mars5e-font-color: var(--Whetstone-fg-primary, #191813);
   --mars5e-border-color: var(--Whetstone-border-primary, #fff);
   --mars5e-invis-target-background-color: #e8e8ef;
   --mars5e-font-body: var(--Whetstone-font-family-body, "Signika", sans-serif);
@@ -181,6 +198,7 @@
   --mars5e-tooltip-font-color: var(--Whetstone-fg-secondary, #ccc);
   --mars5e-tooltip-bg-color: var(--Whetstone-bg-secondary, rgba(0, 0, 0, 0.8));
   --mars5e-tooltip-border-color: var(--Whetstone-border-secondary, #aaa);
+  --mars5e-font-color: var(--Whetstone-fg-primary, #191813);
   --mars5e-border-color: var(--Whetstone-border-primary, #fff);
   --mars5e-invis-target-background-color: #e8e8ef;
   --mars5e-font-body: var(--Whetstone-font-family-body, "Signika", sans-serif);
@@ -198,6 +216,7 @@
   --mars5e-tooltip-font-color: var(--Whetstone-fg-secondary, #ccc);
   --mars5e-tooltip-bg-color: var(--Whetstone-bg-secondary, rgba(0, 0, 0, 0.8));
   --mars5e-tooltip-border-color: var(--Whetstone-border-secondary, #aaa);
+  --mars5e-font-color: var(--Whetstone-fg-primary, #191813);
   --mars5e-border-color: var(--Whetstone-border-primary, #fff);
   --mars5e-invis-target-background-color: #e8e8ef;
   --mars5e-font-body: var(--Whetstone-font-family-body, "Signika", sans-serif);
@@ -214,6 +233,7 @@
   --mars5e-tooltip-font-color: var(--Whetstone-fg-secondary, #ccc);
   --mars5e-tooltip-bg-color: var(--Whetstone-bg-secondary, rgba(0, 0, 0, 0.8));
   --mars5e-tooltip-border-color: var(--Whetstone-border-secondary, #aaa);
+  --mars5e-font-color: var(--Whetstone-fg-primary, #191813);
   --mars5e-border-color: var(--Whetstone-border-primary, #fff);
   --mars5e-invis-target-background-color: #e8e8ef;
   --mars5e-font-body: var(--Whetstone-font-family-body, "Signika", sans-serif);
@@ -252,7 +272,6 @@
     background: var(--mars5e-tooltip-bg-color);
     color: var(--mars5e-tooltip-font-color);
     border-color: var(--mars5e-tooltip-border-color);
-    backdrop-filter: blur(0.3em);
     box-shadow: 0 0px 10px #000c;
     position: absolute;
     padding: 0.5ch 1ch;
@@ -271,14 +290,15 @@
     position: relative; }
     .mars5e-card .target-header:hover:before {
       opacity: 1;
-      transition: opacity 0.15s 1.2s ease-in; }
+      transition: opacity 0.15s 1.2s ease-in;
+      backdrop-filter: blur(0.3em); }
 
 .mars5e-card .mars5e-chat-flavor + .mars5e-targets {
   border-top: 2px groove var(--mars5e-border-color); }
 
 .mars5e-card .mars5e-target {
   font-size: 1.2em; }
-  .mars5e-card .mars5e-target:not(.mars5e-area-dmg) {
+  .mars5e-card .mars5e-target[data-target-id] {
     min-height: calc(5.08em + 3px); }
 
 .mars5e-card .mars5e-action {
@@ -368,7 +388,6 @@
     background: var(--mars5e-tooltip-bg-color);
     color: var(--mars5e-tooltip-font-color);
     border-color: var(--mars5e-tooltip-border-color);
-    backdrop-filter: blur(0.3em);
     box-shadow: 0 0px 10px #000c;
     position: absolute;
     padding: 0.5ch 1ch;
@@ -405,9 +424,10 @@
     right: -50%;
     width: 20ch;
     opacity: 1;
-    transition: opacity 0.15s 0.6s ease-in;
+    transition: all 0.15s 0.6s ease-in;
     z-index: 1;
-    visibility: visible; }
+    visibility: visible;
+    backdrop-filter: blur(0.3em); }
 
 .mars5e-card .damage {
   position: relative; }
@@ -468,7 +488,6 @@
         background: var(--mars5e-tooltip-bg-color);
         color: var(--mars5e-tooltip-font-color);
         border-color: var(--mars5e-tooltip-border-color);
-        backdrop-filter: blur(0.3em);
         box-shadow: 0 0px 10px #000c;
         position: absolute;
         padding: 0.5ch 1ch;
@@ -487,7 +506,8 @@
         position: relative; }
         .mars5e-card .damage .mars5e-apply-dmg-menu button:hover:before {
           opacity: 1;
-          transition: opacity 0.15s 1.2s ease-in; }
+          transition: opacity 0.15s 1.2s ease-in;
+          backdrop-filter: blur(0.3em); }
       .mars5e-card .damage .mars5e-apply-dmg-menu button:before {
         z-index: 1; }
       .mars5e-card .damage .mars5e-apply-dmg-menu button:hover:before {
@@ -565,7 +585,6 @@
   background: var(--mars5e-tooltip-bg-color);
   color: var(--mars5e-tooltip-font-color);
   border-color: var(--mars5e-tooltip-border-color);
-  backdrop-filter: blur(0.3em);
   box-shadow: 0 0px 10px #000c;
   position: absolute;
   padding: 0.5ch 1ch;
@@ -585,7 +604,8 @@
   position: relative; }
   .mars5e-toggleable:hover:before {
     opacity: 1;
-    transition: opacity 0.15s 1.2s ease-in; }
+    transition: opacity 0.15s 1.2s ease-in;
+    backdrop-filter: blur(0.3em); }
 
 .mars5e-toggleable .mars5e-action.attack.mars5e-success:before, .mars5e-toggleable .mars5e-action.attack.mars5e-fail:before,
 .mars5e-toggleable .mars5e-action.save.mars5e-success:before,

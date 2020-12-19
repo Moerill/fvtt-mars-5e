@@ -19,6 +19,7 @@ class Mars5eRoll extends Roll {
       if (Number.isNumeric(terms[idx + 1])) {
         terms[idx + 1] = new NumberTerm({ number: terms[idx + 1] });
       }
+      if (e instanceof NumberTerm && e.number === 0 && !e.flavor) return "";
       // remove unecessary + terms infront of -, which will get overlooked by cleanterms, due to the addition of NumberTerm
       if (e === "+" && terms[idx + 1] === "-") return "";
       if (e !== "-") return e;
@@ -52,9 +53,7 @@ class Mars5eRoll extends Roll {
     return this.terms
       .map((e) => {
         if (!(e instanceof DiceTerm)) return e;
-        return `${e.formula}${
-          e?.options.flavor ? ` [${e.options.flavor}]` : ""
-        }`;
+        return e.formula;
       })
       .join(" ");
   }

@@ -1,5 +1,4 @@
-<div class="mars5e-target {{#unless target.visible}}mars5e-hidden-target{{/unless}} {{#if data.isGM}}mars5e-gm-target mars5e-invisible-target{{/if}}" data-target-id="{{target.id}}">
-{{log target}}
+<div class="mars5e-target {{#unless target.visible}}mars5e-hidden-target{{/unless}} {{#if data.isGM}}mars5e-gm-target mars5e-invisible-target{{/if}}" {{#if target.id}}data-target-id="{{target.id}}"{{/if}}>
     <div class="target-header">
         {{#if target.img}}<img  src="{{this.img}}" />{{/if}}
         <h3>{{target.name}}</h3>
@@ -7,6 +6,7 @@
 				<a class='mars5e-toggle-target-visibility'></a>
 				{{/if}}
     </div>
+
     {{#if data.hasAttack}}
     <div class="mars5e-action attack mars5e-toggleable">
         <label>{{localize 'DND5E.Attack'}}</label>
@@ -35,7 +35,7 @@
 		{{#if data.formula}}
 		<div class="mars5e-action">
 			<label>{{ localize "DND5E.OtherFormula"}}</label>
-			<a class="rollable" title="{{data.formula.flavorFormula}}">{{data.formula.formula}}</a>
+			<a class="rollable" data-flavor-formula="{{data.formula.flavorFormula}}">{{data.formula.formula}}</a>
 		</div>
 		{{/if}}
 		{{!-- {{/if}} --}}
