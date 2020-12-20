@@ -164,6 +164,10 @@ Hooks.on("ready", async () => {
 });
 
 function templateAutotargeting() {
+  /**
+   * This code is heavily based (mostly copied) on https://gitlab.com/foundrynet/dnd5e/-/blob/master/module/pixi/ability-template.js
+   * licensed unter LGPLv3 https://gitlab.com/foundrynet/dnd5e/-/blob/master/LICENSE.txt
+   */
   class AbilityTemplate extends game.dnd5e.canvas.AbilityTemplate {
     static fromItem(item) {
       const template = super.fromItem(item);
@@ -243,7 +247,7 @@ function templateAutotargeting() {
 
         // Create the template
         canvas.scene.createEmbeddedEntity("MeasuredTemplate", this.data);
-        this.item.roll();
+        this.item.updateTargets();
       };
 
       // Rotate the template by 3 degree increments (mouse-wheel)

@@ -183,6 +183,47 @@ export default function initItemClass() {
     // }
 
     async displayCard({ rollMode, createmessage = true } = {}) {
+      const templateData = await this._getTemplateData();
+
+      const template = "modules/mars-5e/html/item-card.hbs";
+      const html = await renderTemplate(template, templateData);
+      // console.log(html);
+      // Basic chat message data
+      const chatData = {
+        user: game.user._id,
+        type: CONST.CHAT_MESSAGE_TYPES.OTHER,
+        content: html,
+        flavor: this.name,
+        speaker: {
+          actor: this.actor._id,
+          token: this.actor.token,
+          alias: this.actor.name,
+          user: game.user.name,
+        },
+        flags: {
+          "core.canPopout": false,
+        },
+      };
+
+      // If the consumable was destroyed in the process - embed the item data in the surviving message
+      if (this.data.type === "consumable" && !this.actor.items.has(this.id)) {
+        chatData.flags["dnd5e.itemData"] = this.data;
+      }
+
+      // Apply the roll mode to adjust message visibility
+      ChatMessage.applyRollMode(
+        chatData,
+        rollMode || game.settings.get("core", "rollMode")
+      );
+
+      // Create the chat message
+      if (createmessage) {
+        this._lastMessage = ChatMessage.create(chatData);
+        return this._lastMessage;
+      } else return chatData;
+    }
+
+    async _getTemplateData() {
       const adv = mars5e.getAdvantage();
 
       // Basic template rendering data
@@ -290,41 +331,7 @@ export default function initItemClass() {
           mod: r.modifier,
         };
       }
-
-      const template = "modules/mars-5e/html/item-card.hbs";
-      const html = await renderTemplate(template, templateData);
-      // console.log(html);
-      // Basic chat message data
-      const chatData = {
-        user: game.user._id,
-        type: CONST.CHAT_MESSAGE_TYPES.OTHER,
-        content: html,
-        flavor: this.name,
-        speaker: {
-          actor: this.actor._id,
-          token: this.actor.token,
-          alias: this.actor.name,
-          user: game.user.name,
-        },
-        flags: {
-          "core.canPopout": true,
-        },
-      };
-
-      // If the consumable was destroyed in the process - embed the item data in the surviving message
-      if (this.data.type === "consumable" && !this.actor.items.has(this.id)) {
-        chatData.flags["dnd5e.itemData"] = this.data;
-      }
-
-      // Apply the roll mode to adjust message visibility
-      ChatMessage.applyRollMode(
-        chatData,
-        rollMode || game.settings.get("core", "rollMode")
-      );
-
-      // Create the chat message
-      if (createmessage) return ChatMessage.create(chatData);
-      else return chatData;
+      return templateData;
     }
 
     _getTargetChatData(
@@ -368,6 +375,31 @@ export default function initItemClass() {
 
       // }
       return targetData;
+    }
+
+    async updateTargets() {
+      const message = await this._lastMessage;
+      if (!message) return;
+
+      const card = message.card;
+      const templateData = await this._getTemplateData();
+      if (!templateData.targets?.length) return;
+      let html = "";
+      for (const target of templateData.targets) {
+        html += await renderTemplate("modules/mars-5e/html/chat/targets.hbs", {
+          data: templateData,
+          target: target,
+        });
+      }
+      const oldTargets = card.querySelector(".mars5e-targets");
+      oldTargets.insertAdjacentHTML("beforeend", html);
+      oldTargets
+        .querySelector(
+          ".mars5e-target:not([data-target-id]):not(.mars5e-area-dmg)"
+        )
+        .remove();
+      message.scrollIntoView();
+      message.mars5eUpdate(oldTargets);
     }
 
     async rollDamage({ spellLevel = null, options = {} } = {}) {

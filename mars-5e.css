@@ -15,6 +15,9 @@
     serif
   ); }
 
+.dark-mode {
+  --mars5e-invis-target-background-color: #101a27; }
+
 :root {
   --mars5e-success: var(--Whetstone-accent-primary, rgb(0, 255, 0));
   --mars5e-fail: var(--Whetstone-accent-secondary, red);
@@ -31,6 +34,9 @@
     "Palatino Linotype",
     serif
   ); }
+
+.dark-mode {
+  --mars5e-invis-target-background-color: #101a27; }
 
 .mars5e-adv-div {
   position: absolute;
@@ -84,6 +90,9 @@
     serif
   ); }
 
+.dark-mode {
+  --mars5e-invis-target-background-color: #101a27; }
+
 :root {
   --mars5e-success: var(--Whetstone-accent-primary, rgb(0, 255, 0));
   --mars5e-fail: var(--Whetstone-accent-secondary, red);
@@ -100,6 +109,9 @@
     "Palatino Linotype",
     serif
   ); }
+
+.dark-mode {
+  --mars5e-invis-target-background-color: #101a27; }
 
 .chat-card.mars5e-card {
   border-color: var(--mars5e-border-color); }
@@ -192,6 +204,9 @@
     serif
   ); }
 
+.dark-mode {
+  --mars5e-invis-target-background-color: #101a27; }
+
 :root {
   --mars5e-success: var(--Whetstone-accent-primary, rgb(0, 255, 0));
   --mars5e-fail: var(--Whetstone-accent-secondary, red);
@@ -208,6 +223,9 @@
     "Palatino Linotype",
     serif
   ); }
+
+.dark-mode {
+  --mars5e-invis-target-background-color: #101a27; }
 
 @charset "UTF-8";
 :root {
@@ -227,6 +245,9 @@
     serif
   ); }
 
+.dark-mode {
+  --mars5e-invis-target-background-color: #101a27; }
+
 :root {
   --mars5e-success: var(--Whetstone-accent-primary, rgb(0, 255, 0));
   --mars5e-fail: var(--Whetstone-accent-secondary, red);
@@ -243,6 +264,9 @@
     "Palatino Linotype",
     serif
   ); }
+
+.dark-mode {
+  --mars5e-invis-target-background-color: #101a27; }
 
 .mars5e-card .mars5e-target:not(:first-child) {
   border-top: 2px groove var(--mars5e-border-color); }

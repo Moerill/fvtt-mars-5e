@@ -21,7 +21,13 @@ class Mars5eRoll extends Roll {
       }
       if (e instanceof NumberTerm && e.number === 0 && !e.flavor) return "";
       // remove unecessary + terms infront of -, which will get overlooked by cleanterms, due to the addition of NumberTerm
-      if (e === "+" && terms[idx + 1] === "-") return "";
+      // also remove if the next one is a 0 without flavor, cause thats useless data (but increases the unreadability of this code part, so a good choice! :s)
+      if (
+        e === "+" &&
+        (terms[idx + 1] === "-" ||
+          (terms[idx + 1]?.number === 0 && !terms[idx + 1].flavor))
+      )
+        return "";
       if (e !== "-") return e;
       if (terms[idx + 1] instanceof NumberTerm) {
         terms[idx + 1].number *= -1;

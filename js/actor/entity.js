@@ -24,7 +24,7 @@ export default function initActorClass() {
         );
         if (token) id = token.id;
       }
-      const targetDiv = card.querySelector(
+      const targetDiv = card?.querySelector(
         `.mars5e-target[data-target-id="${id}"] .rollable[data-ability="${abilityId}"] `
       );
       if (targetDiv) {
@@ -59,7 +59,7 @@ export default function initActorClass() {
           user: game.user.name,
         },
         flags: {
-          "core.canPopout": true,
+          "core.canPopout": false,
         },
       };
 
@@ -78,6 +78,7 @@ export default function initActorClass() {
         isGM: game.user.isGM,
         label: label,
         advantage: advantage,
+        tooltip: await roll.getTooltip(),
       };
 
       const template = await renderTemplate(

@@ -87,8 +87,6 @@ export default class Mars5eMessage extends ChatMessage {
     const { content, author, target, messageId } = data;
     if (author !== game.user.id) return false;
 
-    ev.preventDefault();
-    ev.stopPropagation();
     const message = game.messages.get(data.messageId);
     const card = message.card;
     card.querySelector(

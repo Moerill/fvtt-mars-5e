@@ -1,3 +1,9 @@
+# v0.3.1
+
+- *Fix* saving throws not working when no chat message exists
+- *Fix* some rolling behaviours with +0 as modifiers (at least hopefully fixed!)
+- *Fix* Darkmode invis target background...
+
 # v0.3
 
 - *New* Dice so Nice support!
