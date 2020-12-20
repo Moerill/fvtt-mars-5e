@@ -3,6 +3,7 @@
 - *Fix* saving throws not working when no chat message exists
 - *Fix* some rolling behaviours with +0 as modifiers (at least hopefully fixed!)
 - *Fix* Darkmode invis target background...
+- Removed popout functionality for the chat cards
 
 # v0.3
 
