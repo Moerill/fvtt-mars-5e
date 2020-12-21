@@ -1,3 +1,7 @@
+# v0.3.2
+
+- *Fix* removed deprecated (and broken) function ``Mars5eActor#useSpell``
+
 # v0.3.1
 
 - *Fix* saving throws not working when no chat message exists
