@@ -153,15 +153,15 @@ export default function initActorClass() {
         if (usage === null) return;
 
         // Determine consumption preferences
-        consumeSlot = Boolean(usage.get("consumeSlot"));
-        consumeUse = Boolean(usage.get("consumeUse"));
-        placeTemplate = Boolean(usage.get("placeTemplate"));
+        consumeSlot = Boolean(usage.consumeSlot);
+        consumeUse = Boolean(usage.consumeUse);
+        placeTemplate = Boolean(usage.placeTemplate);
 
         // Determine the cast spell level
-        const isPact = usage.get("level") === "pact";
+        const isPact = usage.level === "pact";
         const lvl = isPact
           ? this.data.data.spells.pact.level
-          : parseInt(usage.get("level"));
+          : parseInt(usage.level);
         if (lvl !== item.data.data.level) {
           const upcastData = mergeObject(
             item.data,
