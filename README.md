@@ -153,7 +153,7 @@ When using the automatically created spell templates the module will autotarget 
 - BetterRolls for 5e
   - completly incompatible, since both tackle a similar thing in completly different ways
 - MidiQoL
-  - [Everything related to automatic rolling](https://github.com/Moerill/fvtt-mars-5e/issues/10) 
+  - [Everything related to automatic rolling](https://github.com/Moerill/fvtt-mars-5e/issues/10#issuecomment-749528287) 
 - Dynamic Active Effects (DAE)
   - [Setting: Use ability save field when rolling ability saves](https://github.com/Moerill/fvtt-mars-5e/issues/11)
 
@@ -167,7 +167,7 @@ These are just ideas, they may or may not happen.
 - [ ] Automatic rolling of attack/dmg rolls
 - [ ] Clean-up SCSS (and code)
 - [ ] Manifest+
-- [ ] (look into Sadness Chan support)
+- [ ] (look into Sadness Chan support, only a maybe)
 
 
 ## Licensing
