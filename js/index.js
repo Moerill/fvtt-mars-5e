@@ -32,7 +32,7 @@ Hooks.on("init", () => {
     };
   };
   const classList =
-    ".item .item-name, .ability-name, .ability-mod, .ability-save, .ability-title, .skill";
+    ".item .item-name, .ability-name, .ability-mod, .ability-save, .ability-title, .skill, .macro";
   let tween = TweenMax.to(mars5e.advDiv, 1, {
     onComplete: () => {
       mars5e.advDiv.classList.add("mars5e-show-hint");
@@ -86,8 +86,47 @@ Hooks.on("init", () => {
       true
     );
   });
-});
 
+  Hooks.on("renderHotbar", (app, html, options) => {
+    html[0].addEventListener(
+      "contextmenu",
+      (ev) => {
+        const target = ev.target.closest(classList);
+        if (!target) return;
+        mars5e.advDiv.dataset.advantage =
+          (Number(mars5e.advDiv.dataset.advantage) + 1) % 3;
+        tween.kill();
+      },
+      true
+    );
+    html[0].addEventListener(
+      "mouseenter",
+      (ev) => {
+        const target = ev.target.closest(classList);
+        if (!target) return;
+        const rect = target.getBoundingClientRect();
+        console.log(rect);
+        mars5e.advDiv.style.top = rect.bottom - 22 + "px";
+        mars5e.advDiv.style.left = rect.left + "px";
+        mars5e.advDiv.style.right = null;
+        mars5e.advDiv.style.display = "flex";
+        tween.restart();
+      },
+      true
+    );
+    html[0].addEventListener(
+      "mouseleave",
+      (ev) => {
+        const target = ev.target.closest(classList);
+        if (!target) return;
+        mars5e.advDiv.style.display = null;
+        mars5e.advDiv.classList.remove("mars5e-show-hint");
+        tween.kill();
+      },
+      true
+    );
+  });
+});
 initRollChanges();
 
 Hooks.on("renderChatMessage", async (app, html, options) => {

@@ -1,3 +1,8 @@
+# v0.3.3
+
+- Advantage selection now gets shown for hotbar items as well.
+  - Right-click *will* toggle, but also show the context menu.. i wanted to quickly have something working there, cause it is a very valid request, but i couldn't think of something better for the time being. If you have an idea on how to tackle this better, please provide some feedback on github!
+
 # v0.3.2
 
 - *Fix* removed deprecated (and broken) function ``Mars5eActor#useSpell``
