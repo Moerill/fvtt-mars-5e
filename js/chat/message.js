@@ -100,6 +100,7 @@ export default class Mars5eMessage extends ChatMessage {
     const card = ev.target.closest("li.chat-message");
     const messageId = card?.dataset.messageId;
     const message = game.messages.get(messageId);
+    if (!card) return;
     message._card = card.querySelector(".mars5e-card");
     return message;
   }
