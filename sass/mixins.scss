@@ -13,7 +13,7 @@
 @mixin tooltip-style {
   background: var(--mars5e-tooltip-bg-color);
   color: var(--mars5e-tooltip-font-color);
-  border-color: var(--mars5e-tooltip-border-color);
+  border: 1px outset var(--mars5e-tooltip-border-color);
   box-shadow: 0 0px 10px #000c;
   // width: 20ch;
   position: absolute;
@@ -26,6 +26,7 @@
 }
 
 @mixin tooltip($content) {
+  position: relative;
   &:before {
     content: $content;
     @include tooltip-style;
@@ -35,14 +36,14 @@
     line-height: 1em;
     white-space: nowrap;
     display: block;
+    visibility: hidden;
   }
   &:hover {
-    position: relative;
     &:before {
       opacity: 1;
       transition: opacity $animation-duration #{$animation-delay * 4} $animation-easing;
-
-      backdrop-filter: blur(0.3em);
+      visibility: visible;
+      // backdrop-filter: blur(0.3em);
     }
   }
 }

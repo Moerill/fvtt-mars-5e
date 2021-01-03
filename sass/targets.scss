@@ -43,8 +43,11 @@
     }
   }
 
-  .mars5e-target {
+  .mars5e-targets {
     font-size: 1.2em;
+  }
+  .mars5e-target {
+    // font-size: 1.2em;
     &[data-target-id] {
       min-height: calc(#{$img-size + 0.9 * $header-height} + 3px);
     }
@@ -255,53 +258,63 @@
     position: relative;
 
     .mars5e-apply-dmg-menu {
-      position: absolute;
-      flex: 0;
-      width: 3ch;
-      display: block;
-      flex-flow: row wrap;
-      // pointer-events: none;
-      opacity: 0;
-      overflow: visible;
-      transition: all $animation-duration #{$animation-delay * 2} $animation-easing;
       left: -3.5ch;
       top: 2ch;
-      font-size: 0.9em;
-      // margin: {
-      //   left: 10%;
-      //   right: 10%;
-      // }
-
-      button {
-        pointer-events: initial;
-        flex: 0 3ch;
-        width: 3ch;
-        height: 3ch;
-        font-size: 1em;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 0;
-        margin: 0;
-        cursor: pointer;
-        i {
-          margin: 0.2em;
-          font-size: 1.3em;
-        }
-        @include tooltip(var(--mars5e-apply-label) ": " attr(data-amount));
-        &:before {
-          z-index: 1;
-        }
-        &:hover:before {
-          transition-delay: 0s;
-        }
+    }
+    .mars5e-apply-versatile {
+      &:hover:before {
+        /* prettier-ignore */
+        content: var(--mars5e-apply-label) " " var(--mars5e-versatile-label) ": " attr(data-amount);
+        // top: 1ch;
       }
-      .mars5e-apply-versatile {
-        &:hover:before {
-          /* prettier-ignore */
-          content: var(--mars5e-apply-label) " " var(--mars5e-versatile-label) ": " attr(data-amount);
-          top: 1ch;
-        }
+    }
+  }
+  .mars5e-apply-dmg-menu {
+    position: absolute;
+    flex: 0;
+    width: 3ch;
+    display: block;
+    flex-flow: row wrap;
+    // pointer-events: none;
+    opacity: 0;
+    overflow: visible;
+    transition: all $animation-duration #{$animation-delay * 2} $animation-easing;
+    font-size: 0.9em;
+    // margin: {
+    //   left: 10%;
+    //   right: 10%;
+    // }
+
+    button {
+      background: var(--mars5e-tooltip-bg-color);
+      color: var(--mars5e-tooltip-font-color);
+      border: 1px solid var(--mars5e-tooltip-border-color);
+      box-shadow: 0 0px 5px #000c;
+
+      pointer-events: initial;
+      flex: 0 3ch;
+      width: 3ch;
+      height: 3ch;
+      font-size: 1em;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+      margin: 0;
+      cursor: pointer;
+      i {
+        margin: 0.2em;
+        font-size: 1.3em;
+      }
+      @include tooltip(var(--mars5e-apply-label) ": " attr(data-amount));
+      &:before {
+        z-index: 1;
+        top: -1.7em;
+        pointer-events: none;
+        left: -0.3ch;
+      }
+      &:hover:before {
+        transition-delay: 0s;
       }
     }
   }
@@ -348,11 +361,40 @@
   .mars5e-area-dmg .damage .mars5e-result:before {
     display: none;
   }
+  .mars5e-targets {
+    position: relative;
+    .mars5e-apply-all {
+      display: flex;
+      flex-flow: row nowrap;
+      justify-content: flex-end;
+      width: 6.5ch;
+      height: 3ch;
+      right: 0;
+      top: -3ch;
+
+      .mars5e-apply {
+        &:before {
+          content: var(--mars5e-apply-all-label);
+        }
+      }
+      .mars5e-apply-versatile {
+        margin-left: 0.5ch;
+        &:before {
+          content: var(--mars5e-apply-all-versatile-label);
+        }
+      }
+      button:before {
+        right: 0;
+        left: unset;
+      }
+    }
+  }
 }
 
 .mars5e-gm {
   .mars5e-target:hover .mars5e-apply-dmg-menu,
-  .mars5e-apply-dmg-menu:hover {
+  .mars5e-apply-dmg-menu:hover,
+  .mars5e-targets:hover .mars5e-apply-all {
     opacity: 1;
     transition: all $animation-duration $animation-delay $animation-easing;
   }

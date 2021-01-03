@@ -1,4 +1,4 @@
-<div class="mars5e-target {{#unless target.visible}}mars5e-hidden-target{{/unless}} {{#if data.isGM}}mars5e-gm-target mars5e-invisible-target{{/if}}" {{#if target.id}}data-target-id="{{target.id}}"{{/if}}>
+<div class="mars5e-target {{#unless target.visible}}mars5e-hidden-target{{/unless}} {{#if data.isGM}}mars5e-gm-target {{#if @root.invisibleTarget}}mars5e-invisible-target{{/if}}{{/if}}" {{#if target.id}}data-target-id="{{target.id}}"{{/if}}>
     <div class="target-header">
         {{#if target.img}}<img  src="{{target.img}}" />{{/if}}
         <h3>{{target.name}}</h3>
@@ -25,6 +25,12 @@
 			{{/unless}}
 			{{/unless}}
 			{{/if}}
+		{{else}}
+			{{#unless data.hasAttack}}
+			{{#unless data.isHealing}}
+				{{> 'modules/mars-5e/html/chat/dmg.hbs' data.damage}}
+			{{/unless}}
+			{{/unless}}
 		{{/if}}
 
 		{{#if data.isHealing}}

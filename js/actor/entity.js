@@ -1,3 +1,6 @@
+import Mars5eUserStatistics from "../statistics.js";
+import { markSuccess, markFail } from "../util.js";
+
 export default function initActorClass() {
   return class Mars5eActor extends CONFIG.Actor.entityClass {
     rollAbilitySave(
@@ -81,10 +84,31 @@ export default function initActorClass() {
         tooltip: await roll.getTooltip(),
       };
 
-      const template = await renderTemplate(
+      let template = await renderTemplate(
         "modules/mars-5e/html/roll.hbs",
         templateData
       );
+
+      if (roll.terms[0].faces === 20) {
+        const dice = roll.terms[0];
+        const div = document.createElement("div");
+        div.insertAdjacentHTML("afterbegin", template);
+        const resultDiv = div.querySelector(".mars5e-result");
+        if (resultDiv) {
+          if (dice.total >= dice.options.critical) {
+            markSuccess(resultDiv);
+          } else if (dice.total <= dice.options.fumble) {
+            markFail(resultDiv);
+          }
+          template = div.innerHTML;
+        }
+
+        Mars5eUserStatistics.update(
+          game.user,
+          await Mars5eUserStatistics.getD20Statistics(dice)
+        );
+      }
+
       chatData.content = template;
 
       // Toggle default roll mode
@@ -98,12 +122,13 @@ export default function initActorClass() {
         await game.dice3d.showForRoll(
           roll,
           game.user,
-          chatData.whisper,
-          chatData.blind
+          true,
+          chatData.whisper || null,
+          chatData.blind || null
         );
       }
 
-      return ChatMessage.create(chatData);
+      return CONFIG.ChatMessage.entityClass.create(chatData);
     }
 
     rollAbilityTest(abilityId, options = {}) {
@@ -129,6 +154,28 @@ export default function initActorClass() {
           skill: CONFIG.DND5E.skills[skillId],
         })}`
       );
+    }
+
+    async update(data, options = {}) {
+      const oldHp = expandObject(data).data?.attributes?.hp
+        ? duplicate(getProperty(this.data, "data.attributes.hp"))
+        : null;
+      return super.update(data, options).then((entity) => {
+        if (!oldHp) return;
+        const user = game.users.find(
+          (user) => user.character?.id === entity.id
+        );
+
+        if (!user) return;
+        const newHp = duplicate(getProperty(this.data, "data.attributes.hp"));
+        const dHp = oldHp.value + oldHp.temp - newHp.value - newHp.temp;
+        const statistics = {
+          dmgTaken: dHp > 0 ? dHp : 0,
+          unconscious: oldHp.value > 0 && newHp.value === 0 ? 1 : 0,
+        };
+
+        Mars5eUserStatistics.update(user, statistics);
+      });
     }
   };
 }

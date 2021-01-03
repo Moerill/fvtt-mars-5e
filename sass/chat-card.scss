@@ -53,6 +53,10 @@ $dice-container-width: 1.55em;
     .mars5e-result.player-roll {
       pointer-events: unset;
     }
+
+    .mars5e-action.has-player-roll {
+      display: flex;
+    }
   }
 
   .mars5e-hidden-target {

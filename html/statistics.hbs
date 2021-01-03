@@ -1,0 +1,93 @@
+
+<section class='content'>
+	<nav class="tabs" data-group='sections'>
+			<a class='item' data-tab='session' title='{{localize "MARS5E.statistics.tooltips.session"}}'>{{ localize "MARS5E.statistics.session" }}</a>
+			<a class="item" data-tab="world" >{{ localize "MARS5E.statistics.world" }}</a>
+	</nav>
+	<table>
+		<thead></thead> <!-- Tables are weird! this, at least for chrome, does what i want.. -->
+		<tr>
+		<th></th>
+		<th colspan=2>{{localize 'DND5E.Damage'}}</th>
+		<th>{{localize 'DND5E.Healing'}}</th>
+		<th colspan=2>{{localize 'DND5E.AttackPl'}}</th>
+		<th></th>
+		<th></th>
+		<th colspan=2>{{localize 'MARS5E.statistics.natural'}}</th>
+		
+		</tr>
+			<th data-type="name">{{localize 'Name'}}</th>
+			<th data-type="dmgDone" title="{{localize 'MARS5E.statistics.tooltips.dmgDone'}}">{{localize 'MARS5E.statistics.done'}}</th>
+			<th data-type="dmgTaken" title="{{localize 'MARS5E.statistics.tooltips.dmgTaken'}}">{{localize 'MARS5E.statistics.taken'}}</th>
+			<th data-type="healingDone" title="{{localize 'MARS5E.statistics.tooltips.healingDone'}}">{{localize 'MARS5E.statistics.done'}}</th>
+			<th data-type="hit" title="{{localize 'MARS5E.statistics.tooltips.hit'}}">{{localize 'MARS5E.statistics.hit'}}</th>
+			<th data-type="attacks" title="{{localize 'MARS5E.statistics.tooltips.attacks'}}">{{localize 'MARS5E.statistics.made'}}</th>
+			<th data-type="kills" title="{{localize 'MARS5E.statistics.tooltips.kills'}}">{{localize 'MARS5E.statistics.kills'}}</th>
+			<th data-type="unconscious" title="{{localize 'MARS5E.statistics.tooltips.unconscious'}}">{{localize 'MARS5E.statistics.unconscious'}}</th>
+			<th data-type="nat1s" title="{{localize 'MARS5E.statistics.tooltips.nat1s'}}">{{localize 'MARS5E.statistics.1s'}}</th>
+			<th data-type="nat20s" title="{{localize 'MARS5E.statistics.tooltips.nat20s'}}">{{localize 'MARS5E.statistics.20s'}}</th>
+		</tr>
+		{{#each user}}
+		<tr class='tab' data-tab='world' data-group='sections'>
+			<td>{{this.name}}</td>
+			<td>
+				{{this.world.dmgDone}}
+			</td>
+			<td>
+				{{this.world.dmgTaken}}
+			</td>
+			<td>
+				{{this.world.healingDone}}
+			</td>
+			<td>
+				{{this.world.hits}}
+			</td>
+			<td>
+				{{this.world.attacks}}
+			</td>
+			<td>
+				{{this.world.kills}}
+			</td>
+			<td>
+				{{this.world.unconscious}}
+			</td>
+			<td>
+				{{this.world.nat1}}
+			</td>
+			<td>
+				{{this.world.nat20}}
+			</td>
+		</tr>
+		<tr class='tab' data-tab='session' data-group='sections'>
+			<td>{{this.name}}</td>
+			<td>
+				{{this.session.dmgDone}}
+			</td>
+			<td>
+				{{this.session.dmgTaken}}
+			</td>
+			<td>
+				{{this.session.healingDone}}
+			</td>
+			<td>
+				{{this.session.hits}}
+			</td>
+			<td>
+				{{this.session.attacks}}
+			</td>
+			<td>
+				{{this.session.kills}}
+			</td>
+			<td>
+				{{this.session.unconscious}}
+			</td>
+			<td>
+				{{this.session.nat1}}
+			</td>
+			<td>
+				{{this.session.nat20}}
+			</td>
+		</tr>
+		{{/each}}
+	</table>
+</section>

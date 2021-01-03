@@ -4,28 +4,3 @@ $animation-easing: ease-in;
 
 $header-height: 1.2em;
 $img-size: 4em;
-
-:root {
-  // use the active whetstone global theme if there is one
-  --mars5e-success: var(--Whetstone-accent-primary, rgb(0, 255, 0));
-  --mars5e-fail: var(--Whetstone-accent-secondary, red);
-
-  --mars5e-tooltip-font-color: var(--Whetstone-fg-secondary, #ccc);
-  --mars5e-tooltip-bg-color: var(--Whetstone-bg-secondary, rgba(0, 0, 0, 0.8));
-  --mars5e-tooltip-border-color: var(--Whetstone-border-secondary, #aaa);
-
-  --mars5e-font-color: var(--Whetstone-fg-primary, #191813);
-  --mars5e-border-color: var(--Whetstone-border-primary, #fff);
-  --mars5e-invis-target-background-color: #e8e8ef;
-  --mars5e-font-body: var(--Whetstone-font-family-body, "Signika", sans-serif);
-  --mars5e-font-header: var(
-    --Whetstone-font-family-header,
-    "Modesto Condensed",
-    "Palatino Linotype",
-    serif
-  );
-}
-
-.dark-mode {
-  --mars5e-invis-target-background-color: #101a27;
-}

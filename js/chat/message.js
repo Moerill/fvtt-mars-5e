@@ -1,4 +1,5 @@
-import { TweenMax } from "/scripts/greensock/esm/all.js";
+import { markSuccess, markFail } from "../util.js";
+import Mars5eUserStatistics from "../statistics.js";
 
 export default class Mars5eMessage extends ChatMessage {
   /**
@@ -23,6 +24,21 @@ export default class Mars5eMessage extends ChatMessage {
   // 	}
   // 	return;
   // }
+
+  constructor(...args) {
+    super(...args);
+
+    this.resetStatistics();
+  }
+
+  _onUpdate(...args) {
+    super._onUpdate(...args);
+    this.resetStatistics();
+  }
+
+  resetStatistics() {
+    this.mars5eStatistics = { hits: 0, attacks: 0, nat1: 0, nat20: 0 };
+  }
 
   static init() {
     CONFIG.ChatMessage.entityClass = Mars5eMessage;
@@ -81,13 +97,32 @@ export default class Mars5eMessage extends ChatMessage {
     });
 
     game.socket.on("module.mars-5e", this.onSocket);
+
+    Hooks.on("ready", () => {
+      if (game.dice3d)
+        Hooks.on("renderChatMessage", async (message, html) => {
+          if (
+            game.dice3d &&
+            message.isAuthor &&
+            (mars5e.autoRoll.hit || mars5e.autoRoll.dmg) &&
+            html[0].querySelector(".mars5e-card .rollable")
+          ) {
+            message._card = html[0].querySelector(".mars5e-card");
+            if (await message.autoRoll()) {
+              message.mars5eUpdate();
+            }
+          }
+        });
+    });
   }
 
   static onSocket(data) {
-    const { content, author, target, messageId } = data;
+    const { content, author, target, messageId, statistics } = data;
     if (author !== game.user.id) return false;
 
-    const message = game.messages.get(data.messageId);
+    const message = game.messages.get(messageId);
+
+    message.mars5eStatistics = statistics;
     const card = message.card;
     card.querySelector(
       `.mars5e-target[data-target-id="${target}"]`
@@ -98,6 +133,7 @@ export default class Mars5eMessage extends ChatMessage {
 
   static fromChatEvent(ev) {
     const card = ev.target.closest("li.chat-message");
+    if (!card) return null;
     const messageId = card?.dataset.messageId;
     const message = game.messages.get(messageId);
     message._card = card.querySelector(".mars5e-card");
@@ -126,7 +162,7 @@ export default class Mars5eMessage extends ChatMessage {
   }
 
   onContextmenu(ev) {
-    if (!this.user.active)
+    if (!this.user.active && !game.user.isGM)
       return ui.notifications.error(
         game.i18n.localize("MARS5E.errors.userNotOnline")
       );
@@ -184,10 +220,21 @@ export default class Mars5eMessage extends ChatMessage {
     const action = target;
     const success = action.classList.toggle("mars5e-success");
     action.classList.toggle("mars5e-fail");
+    this.mars5eStatistics.hits += success ? 1 : -1;
     if (action.classList.contains("attack"))
-      this._renderDmg(target).then((dmgDiv) => {
+      return this._renderDmg(target).then(async (dmgDiv) => {
         this.mars5eUpdate(action);
       });
+    else if (action.classList.contains("save")) {
+      const dmgDiv = action.closest(".mars5e-target").querySelector(".damage");
+      if (dmgDiv) {
+        this._setTargetResistance(dmgDiv, success);
+
+        this._updateApplyDmgAmount(dmgDiv);
+      }
+    }
+
+    this.mars5eUpdate(action);
   }
 
   _toggleCrit(ev) {
@@ -281,31 +328,32 @@ export default class Mars5eMessage extends ChatMessage {
     if (r.terms[0].faces === 20) {
       const dice = r.terms[0];
       if (dice.total >= dice.options.critical) {
-        resultDiv.classList.add("critical");
+        markSuccess(resultDiv);
         critical = true;
       } else if (dice.total <= dice.options.fumble) {
-        resultDiv.classList.add("fumble");
+        markFail(resultDiv);
         fumble = true;
       }
+
+      Mars5eUserStatistics.getD20Statistics(dice, this.mars5eStatistics);
     }
+    this.mars5eStatistics.attacks++;
     resultDiv.dataset.advantage = adv.toString();
     const attack = resultDiv.closest(".attack");
     const targetId = resultDiv.closest(".mars5e-target").dataset.targetId;
     if (!targetId) {
       attack.classList.add("mars5e-success");
+      this.mars5eStatistics.hits++;
       await this._renderDmg(resultDiv, critical);
       return resultDiv;
     }
 
-    // const sceneId = resultDiv.closest(".mars5e-card").dataset.sceneId;
-    // const token = new Token(
-    //   await fromUuid(`Scene.${sceneId}.Token.${targetId}`)
-    // );
-    // const actor = token.actor;
     const actor = await this._getTarget(resultDiv)?.actor;
     const ac = actor.data.data.attributes.ac.value;
+
     if (critical || (r.total >= ac && !fumble)) {
       attack.classList.add("mars5e-success");
+      this.mars5eStatistics.hits++;
       await this._renderDmg(resultDiv, critical);
     } else {
       attack.classList.add("mars5e-fail");
@@ -347,13 +395,17 @@ export default class Mars5eMessage extends ChatMessage {
     });
 
     const resultDiv = await this._renderResult(div, r);
+
+    this.mars5eStatistics.attacks++; // count each as attack! #makemagiclookeffectiveagain
+
     if (r.terms[0].faces === 20) {
       const dice = r.terms[0];
       if (dice.total >= dice.options.critical) {
-        resultDiv.classList.add("critical");
+        markSuccess(resultDiv);
       } else if (dice.total <= dice.options.fumble) {
-        resultDiv.classList.add("fumble");
+        markFail(resultDiv);
       }
+      Mars5eUserStatistics.getD20Statistics(dice, this.Mars5eUserStatistics);
     }
     resultDiv.dataset.advantage = adv.toString();
     // Don't show dmg if a attack roll is associated to the item as well, since then it *probably* is dependend on the attack roll and the save is just extra
@@ -362,25 +414,59 @@ export default class Mars5eMessage extends ChatMessage {
       return resultDiv;
     let dmgDiv = targetDiv.querySelector(".damage");
     if (!dmgDiv) await this._renderDmg(resultDiv);
-    if (dmgDiv && r.total >= Number(div.dataset.dc || 10)) {
-      let multiplier = 0.5;
-      // only cantrips ( i think ) deal 0 dmg on successful save
-      if (
-        this.item.data.type === "spell" &&
-        this.item.data.data.scaling.mode === "cantrip"
-      )
-        multiplier = 0;
-      dmgDiv.querySelectorAll(".rollable, .mars5e-result").forEach((e) => {
-        e.dataset.resistance = Number(e.dataset.resistance || 1) * multiplier;
-      });
-    }
+    let success = dmgDiv && r.total >= Number(div.dataset.dc || 10);
+    // success!
+
+    this._setTargetResistance(dmgDiv, success);
+
+    this._updateApplyDmgAmount(dmgDiv);
     if (r.total >= Number(div.dataset.dc || 10)) {
       actionDiv.classList.add("mars5e-success");
+      // success = hit
+      this.mars5eStatistics.hits++;
     } else {
       actionDiv.classList.add("mars5e-fail");
     }
 
     return resultDiv;
+  }
+
+  _setTargetResistance(dmgDiv, saveSuccess = false) {
+    dmgDiv = dmgDiv.closest(".damage");
+    const target = this._getTarget(dmgDiv)?.actor;
+    if (!target) return;
+    let multiplier = 1;
+    if (saveSuccess) {
+      multiplier = 0.5;
+      if (
+        this.item.data.type === "spell" &&
+        this.item.data.data.scaling.mode === "cantrip"
+      )
+        multiplier = 0;
+    }
+    const { di, dr, dv } = target.data.data.traits;
+    di.multiplier = 0;
+    dr.multiplier = 0.5;
+    dv.multiplier = 2;
+    let resistances = {};
+    for (let res of [dv, dr, di]) {
+      for (let val of res.value) {
+        resistances[val] = res.multiplier;
+      }
+      if (res?.custom?.includes("from nonmagical attacks"))
+        resistances["physical"] = res.multiplier;
+    }
+
+    const magicDmg = this.item.isMagicDmg;
+    for (const roll of dmgDiv.querySelectorAll(".rollable, .mars5e-result")) {
+      const dmgType = roll.dataset.dmgType;
+      if (
+        !magicDmg &&
+        ["bludgeoning", "piercing", "slashing"].includes(roll.dmgType)
+      )
+        dmgType = "physical";
+      roll.dataset.resistance = (resistances[dmgType] ?? 1) * multiplier;
+    }
   }
 
   _onClickRoll(ev) {
@@ -428,32 +514,9 @@ export default class Mars5eMessage extends ChatMessage {
       // return new Promise((reject, resolve) => {
       if (dmgDiv.style.display) {
         dmgDiv.style.display = null;
-        // TweenMax.from(dmgDiv, 0.15, {
-        //   height: 0,
-        //   opacity: 0,
-        //   onComplete: () => {
-        //     dmgDiv.style.height = null;
-        //     dmgDiv.style.opacity = null;
-        //     dmgDiv.style.overflow = null;
-        //     this.scrollIntoView();
-        //     resolve();
-        //   },
-        // });
       } else {
         dmgDiv.style.display = "none";
-        // TweenMax.to(dmgDiv, 0.15, {
-        //   height: 0,
-        //   opacity: 1,
-        //   onComplete: () => {
-        //     dmgDiv.style.display = "none";
-        //     dmgDiv.style.height = null;
-        //     dmgDiv.style.opacity = null;
-        //     resolve();
-        //   },
-        // });
       }
-      // resolve();
-      // });
       this.scrollIntoView();
       return;
     }
@@ -465,52 +528,25 @@ export default class Mars5eMessage extends ChatMessage {
       spellLevel,
     });
     data.critical = critical;
-
-    const target = await this._getTarget(resultDiv)?.actor;
-    if (target) {
-      const { di, dr, dv } = target.data.data.traits;
-      di.multiplier = 0;
-      dr.multiplier = 0.5;
-      dv.multiplier = 2;
-      let resistances = {};
-      for (let res of [dv, dr, di]) {
-        for (let val of res.value) {
-          resistances[val] = res.multiplier;
-        }
-        if (res?.custom?.includes("from nonmagical attacks"))
-          resistances["physical"] = res.multiplier;
-      }
-
-      const magicDmg = this.item.isMagicDmg;
-      for (let roll of data.rolls) {
-        let dmgType = roll.dmgType;
-        if (
-          !magicDmg &&
-          ["bludgeoning", "piercing", "slashing"].includes(roll.dmgType)
-        )
-          dmgType = "physical";
-        roll.resistance = resistances[dmgType] ?? 1;
-      }
-    }
-
     const template = await renderTemplate(
       "modules/mars-5e/html/chat/dmg.hbs",
       data
     );
     targetDiv.insertAdjacentHTML("beforeend", template);
+
     dmgDiv = targetDiv.querySelector(".damage");
-    await new Promise((resolve, reject) => {
-      TweenMax.from(dmgDiv, 0.15, {
-        height: 0,
-        opacity: 0,
-        onComplete: () => {
-          dmgDiv.style.height = null;
-          dmgDiv.style.opacity = null;
-          this.scrollIntoView();
-          resolve();
-        },
-      });
-    });
+    let saveSuccess = false;
+    if (!targetDiv.querySelector(".attack"))
+      saveSuccess = !!targetDiv.querySelector(".save .mars5e-success");
+    this._setTargetResistance(dmgDiv);
+    if (window.mars5e.autoRoll.dmg) {
+      let promises = [];
+      const dmgRolls = Array.from(dmgDiv.querySelectorAll(".rollable"));
+      for (const roll of dmgRolls) promises.push(this._onDmg(roll));
+      await Promise.all(promises);
+    }
+    this.scrollIntoView();
+
     return dmgDiv;
   }
 
@@ -520,10 +556,12 @@ export default class Mars5eMessage extends ChatMessage {
 
     ev.preventDefault();
     ev.stopPropagation();
-    this._onDmg(dmgRoll);
+    this._onDmg(dmgRoll).then((resultDiv) => {
+      this.mars5eUpdate(resultDiv);
+    });
     return true;
   }
-  async _onDmg(dmgRoll) {
+  async _onDmg(dmgRoll, update = true) {
     const roll = new Roll(dmgRoll.dataset.flavorFormula).roll();
     const dmgType = dmgRoll.dataset.dmgType;
     const dmgTypeLabel = dmgRoll.dataset.dmgTypeLabel;
@@ -545,11 +583,14 @@ export default class Mars5eMessage extends ChatMessage {
       await this._applyAreaDmg(actionDiv);
     this._updateApplyDmgAmount(actionDiv);
 
-    this.mars5eUpdate(resultDiv);
-
     this.scrollIntoView();
+    return resultDiv;
   }
 
+  /**
+   * Adds the area dmg rolled to all targets
+   * @param {*} dmgDiv
+   */
   async _applyAreaDmg(dmgDiv) {
     dmgDiv.querySelector(".result-total").classList.remove("mars5e-toggleable");
     const card = dmgDiv.closest(".mars5e-targets");
@@ -597,9 +638,10 @@ export default class Mars5eMessage extends ChatMessage {
       dmg
         .querySelectorAll(".result-total")
         .forEach((e) => e.classList.add("mars5e-toggleable"));
-      this._updateApplyDmgAmount(div);
+      this._updateApplyDmgAmount(dmg);
       resultDivs.push(div);
     }
+    dmgDiv.closest(".mars5e-area-dmg")?.remove();
   }
 
   _onClickToggleVisibility(ev) {
@@ -628,7 +670,7 @@ export default class Mars5eMessage extends ChatMessage {
         .map(
           (e) =>
             Math.floor(
-              Number(e.dataset.resistance) *
+              Number(e.dataset.resistance || 1) *
                 Number(e.querySelector(".result-total").innerText)
             ) * (e.dataset.dmgType === "healing" ? 1 : -1)
         )
@@ -651,16 +693,21 @@ export default class Mars5eMessage extends ChatMessage {
     result.classList.add("mars5e-result");
     if (!game.user.isGM) {
       result.classList.add("player-roll");
+      div.closest(".mars5e-action").classList.add("has-player-roll");
     }
     div.replaceWith(result);
     // result.dataset.flavorFormula = roll.flavorFormula;
-    if (game.dice3d) {
+    if (this.id && game.dice3d) {
       result.innerHTML = `<span class='result-total'>...</span>`;
       await game.dice3d.showForRoll(
         roll,
         game.user,
-        this.data.whisper,
-        !!result.closest(".blind, .mars5e-invisible-target")
+        true,
+        this.data.whisper.length
+          ? this.data.whisper
+          : !!result.closest(".blind, .mars5e-invisible-target")
+          ? ChatMessage.getWhisperRecipients("GM")
+          : undefined
       );
     }
     result.innerHTML = `<span class='result-total'>${roll.total}</span>`;
@@ -718,22 +765,62 @@ export default class Mars5eMessage extends ChatMessage {
   _onApplyDmg(ev) {
     const menu = ev.target.closest(".mars5e-apply-dmg-menu");
     if (!menu) return false;
+    this._applyDmg(ev, menu);
+    return true;
+  }
+
+  async _applyDmg(ev, menu) {
     const btn = ev.target.closest("button");
     const target = this._getTarget(menu);
     // apply modifier of -1, since i'm calculating with heal -> positive, dmg -> negative
     // But the applyDamage expects a positive number for applying dmg...
-    if (target) target.actor.applyDamage(-1 * Number(btn.dataset.amount || 0));
-    else {
-      canvas.tokens.controlled.forEach((token) => {
-        token.actor.applyDamage(-1 * Number(btn.dataset.amount || 0));
-      });
+    let applied = 0;
+    let statisticsData = { dmgDone: 0, healingDone: 0, kills: 0 };
+    let apply = async (actor, button = btn) => {
+      let oldHp = duplicate(actor.data.data.attributes.hp);
+      oldHp = oldHp.value + parseInt(oldHp.temp || 0);
+      const amount = -1 * Number(button.dataset.amount || 0);
+      if (amount === 0) return;
+      await actor.applyDamage(amount);
+      let newHp = duplicate(actor.data.data.attributes.hp);
+      newHp = newHp.value + parseInt(newHp.temp || 0);
+
+      applied = oldHp - newHp;
+
+      if (newHp <= 0 && oldHp > 0) {
+        statisticsData.kills++;
+      }
+    };
+    if (target) {
+      await apply(target.actor);
+    } else if (menu.classList.contains("mars5e-apply-all")) {
+      const btnType = btn.classList.contains("mars5e-apply-versatile")
+        ? ".mars5e-apply-versatile"
+        : ".mars5e-apply";
+      const targetBtns = Array.from(
+        menu
+          .closest(".mars5e-targets")
+          .querySelectorAll(`.mars5e-target ${btnType}`)
+      );
+      for (const btn of targetBtns) {
+        const target = this._getTarget(btn);
+        if (!target) continue;
+        await apply(target.actor, btn);
+      }
+    } else {
+      for (let token of canvas.tokens.controlled) {
+        await apply(token.actor);
+      }
     }
+    if (applied < 0) statisticsData.healingDone = applied;
+    else statisticsData.dmgDone = applied;
+    Mars5eUserStatistics.update(this.user, statisticsData);
   }
 
   _getTarget(el) {
     if (!canvas?.ready) return null; // sadly needed for the creation of a token instance
     const targetDiv = el.closest(".mars5e-target");
-    const targetId = targetDiv.dataset.targetId;
+    const targetId = targetDiv?.dataset.targetId;
     if (!targetId) return null;
     const content = el.closest(".mars5e-card");
     const sceneId = content.dataset.sceneId;
@@ -746,8 +833,10 @@ export default class Mars5eMessage extends ChatMessage {
 
   scrollIntoView() {
     const card = this.card.closest(".message");
+    if (!card) return;
     const { bottom } = card.getBoundingClientRect();
-    const logBox = card.closest("#chat-log").getBoundingClientRect();
+    const logBox = card.closest("#chat-log")?.getBoundingClientRect();
+    if (!logBox) return;
     if (bottom > logBox.bottom)
       card.scrollIntoView({ behavior: "smooth", block: "nearest" });
   }
@@ -779,16 +868,95 @@ export default class Mars5eMessage extends ChatMessage {
   }
 
   mars5eUpdate(div) {
+    if (!this.id) return;
     if (this.data.user === game.user.id || game.user.isGM) {
-      this.update({ content: this.card.parentNode.innerHTML });
+      // const statistics = duplicate(this.mars5eStatistics);
+
+      Mars5eUserStatistics.update(
+        game.users.get(this.data.user),
+        this.mars5eStatistics
+      ).then(() => {
+        this.update({ content: this.card.parentNode.innerHTML });
+      });
     } else {
       const targetDiv = div.closest(".mars5e-target");
+      const { nat1, nat20 } = this.mars5eStatistics;
+      this.mars5eStatistics.nat1 = 0;
+      this.mars5eStatistics.nat20 = 0;
+      Mars5eUserStatistics.update(game.user, { nat1, nat20 });
       game.socket.emit("module.mars-5e", {
         content: targetDiv.innerHTML,
         author: this.user.id,
         target: targetDiv.dataset.targetId,
         messageId: this.id,
+        statistics: this.mars5eStatistics,
       });
     }
+  }
+
+  static async create(createData, options = {}) {
+    if (!game.dice3d) {
+      // only think of autorolling without DsN activated and/or try to delay it to after creation? :thinking:
+      createData = createData instanceof Array ? createData : [createData];
+      for (const data of createData) await this.autoRoll(data);
+    }
+    return super.create(createData, options);
+    // }
+    // let messages = await super.create(createData, options);
+    // messages = messages instanceof Array ? messages : [messages];
+    // console.log(messages[0].card);
+    // for (const message of messages) await this.autoRoll(message);
+    // return messages.length === 1 ? messages[0] : messages;
+  }
+
+  async autoRoll() {
+    if (!this.card) {
+      const div = document.createElement("div");
+      div.insertAdjacentHTML("afterbegin", this.data.content);
+      this._card = div.children[0];
+      if (!div.querySelector(".mars5e-card .rollable")) return false;
+    }
+
+    // check if its the card create for a template...
+    if (
+      this._card.querySelector(".mars5e-area-dmg") &&
+      this._card.querySelector(
+        ".mars5e-target:not([data-target-id]):not(.mars5e-area-dmg)"
+      )
+    )
+      return false;
+    let attackRolls;
+    if (window.mars5e.autoRoll.hit) {
+      attackRolls = Array.from(
+        this._card.querySelectorAll(".attack .roll-d20")
+      );
+
+      let promises = [];
+      for (const roll of attackRolls) promises.push(this._onAttack(roll));
+
+      await Promise.all(promises);
+    }
+    let areaDmg;
+    let dmgRolls;
+    if (window.mars5e.autoRoll.dmg) {
+      let promises = [];
+      areaDmg = this._card.querySelector(".mars5e-area-dmg .rollable");
+      if (areaDmg) promises.push(this._onDmg(areaDmg));
+
+      dmgRolls = Array.from(this._card.querySelectorAll(".damage .rollable"));
+      for (const roll of dmgRolls) promises.push(this._onDmg(roll));
+      await Promise.all(promises);
+    }
+    return attackRolls?.length || areaDmg || dmgRolls?.length;
+  }
+
+  static async autoRoll(data) {
+    if (!(window.mars5e.autoRoll.hit || window.mars5e.autoRoll.dmg)) return;
+    const message = new CONFIG.ChatMessage.entityClass(data);
+    await message.autoRoll();
+    data.content = message.card.outerHTML;
+
+    await Mars5eUserStatistics.update(game.user, message.mars5eStatistics);
+    message.resetStatistics();
   }
 }

@@ -27,12 +27,15 @@ Its not difficult to put at least some effort into something that you want someo
 	- [Hit/Miss and Success/Fail (GM only)](#hitmiss-and-successfail-gm-only)
 	- [Crit](#crit)
 	- [Resistance multiplier (GM only)](#resistance-multiplier-gm-only)
+	- [Automatic Hit/Dmg rolls](#automatic-hitdmg-rolls)
+- [Statistics](#statistics)
 - [Miscellaneous features](#miscellaneous-features)
 	- [Whetstone Integration](#whetstone-integration)
 	- [Dice tooltips](#dice-tooltips)
 	- [Apply damage buttons (GM only)](#apply-damage-buttons-gm-only)
 	- [Fudge rolls (GM only)](#fudge-rolls-gm-only)
 	- [Dice So Nice support](#dice-so-nice-support)
+	- [Confeftti Support!](#confeftti-support)
 	- [Automatic template targetting](#automatic-template-targetting)
 - [Known Module incompatibilities](#known-module-incompatibilities)
 - [Planned ToDo's](#planned-todos)
@@ -113,6 +116,17 @@ Before you rolled damage you can toggle whether the dmg roll was a crit or not!
 
 You can toggle through the resistance multiplier applied, when using the apply to target buttons.
 
+### Automatic Hit/Dmg rolls
+
+Check the settings to enable automatic Hit/Dmg rolls
+
+## Statistics
+
+![](doc/statistics-overview.w
+
+Want to finally end the dispute of who tanks the most or deals the most damage?  
+Mars 5e tracks a few basic stats for your players!
+
 ## Miscellaneous features
 
 ### Whetstone Integration
@@ -143,9 +157,13 @@ Double clicking on a dice result allows the GM to modify the displayed result. O
 
 ### Dice So Nice support
 
+### Confeftti Support!
+
+Throw confetti on fumbles/crits! yay!
+
 ### Automatic template targetting
 
-(needs DnD 1.2.1)  
+(needs DnD 1.2.1+)  
 When using the automatically created spell templates the module will autotarget everyone in it.
 
 ## Known Module incompatibilities
@@ -153,7 +171,7 @@ When using the automatically created spell templates the module will autotarget 
 - BetterRolls for 5e
   - completly incompatible, since both tackle a similar thing in completly different ways
 - MidiQoL
-  - [Everything related to automatic rolling](https://github.com/Moerill/fvtt-mars-5e/issues/10#issuecomment-749528287) 
+  - [More Information](https://github.com/Moerill/fvtt-mars-5e/issues/33)
 - Dynamic Active Effects (DAE)
   - [Setting: Use ability save field when rolling ability saves](https://github.com/Moerill/fvtt-mars-5e/issues/11)
 
@@ -161,10 +179,10 @@ When using the automatically created spell templates the module will autotarget 
 
 These are just ideas, they may or may not happen.
 
-- [ ] template auto targetting
-- [ ] Basic roll statistics
-- [ ] Chat Filter (filtering on player, action and whisper basis)
-- [ ] Automatic rolling of attack/dmg rolls
+- [x] template auto targetting (incoming with DnD 1.2.1++)
+- [x] Basic roll statistics
+- [ ] ~~Chat Filter (filtering on player, action and whisper basis)~~
+- [x] Automatic rolling of attack/dmg rolls
 - [ ] Clean-up SCSS (and code)
 - [ ] Manifest+
 - [ ] (look into Sadness Chan support, only a maybe)

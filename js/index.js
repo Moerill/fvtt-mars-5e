@@ -5,7 +5,11 @@ import initActorClass from "./actor/entity.js";
 
 import Mars5eMessage from "./chat/message.js";
 
-const replacementName = "???";
+import templateAutotargeting from "./item/ability-template.js";
+
+import Mars5eUserStatistics from "./statistics.js";
+
+import { initConfetti } from "./util.js";
 import { TweenMax } from "/scripts/greensock/esm/all.js";
 
 Hooks.on("init", () => {
@@ -26,10 +30,12 @@ Hooks.on("init", () => {
   document.body.appendChild(advDiv);
 
   mars5e.getAdvantage = () => {
-    return {
+    const ret = {
       advantage: mars5e.advDiv.dataset.advantage === "2",
       disadvantage: mars5e.advDiv.dataset.advantage === "0",
     };
+    mars5e.advDiv.dataset.advantage = 1;
+    return ret;
   };
   const classList =
     ".item .item-name, .ability-name, .ability-mod, .ability-save, .ability-title, .skill, .macro";
@@ -105,7 +111,6 @@ Hooks.on("init", () => {
         const target = ev.target.closest(classList);
         if (!target) return;
         const rect = target.getBoundingClientRect();
-        console.log(rect);
         mars5e.advDiv.style.top = rect.bottom - 22 + "px";
         mars5e.advDiv.style.left = rect.left + "px";
         mars5e.advDiv.style.right = null;
@@ -155,28 +160,12 @@ Hooks.on("renderChatMessage", async (app, html, options) => {
   } else html[0].style.borderLeftColor = app.user.color;
 });
 
-function isTokenViewable(div) {
-  const sceneId = div.closest("mars-card")?.dataset.sceneId;
-  const tokenId = div.dataset.targetId || div.dataset.tokenId;
-  if (!tokenId || !sceneId) return false;
-  const scene = game.scenes.get(sceneId);
-  const tokenData = scene?.data.tokens.find((e) => e._id === tokenId);
-  if (!tokenData) return false;
-  const token = new Token(tokenData, sceneId);
-
-  const viewmode = token.data.displayName;
-  return (
-    token.owner ||
-    viewmode === CONST.TOKEN_DISPLAY_MODES.HOVER ||
-    viewmode === CONST.TOKEN_DISPLAY_MODES.ALWAYS
-  );
-}
-
 Hooks.on("init", () => {
   loadTemplates([
     "modules/mars-5e/html/chat/targets.hbs",
     "modules/mars-5e/html/chat/dmg.hbs",
   ]);
+  Mars5eUserStatistics.initHooks();
 });
 
 Hooks.on("ready", async () => {
@@ -200,121 +189,53 @@ Hooks.on("ready", async () => {
     await renderTemplate("modules/mars-5e/html/definitions.hbs", data)
   );
   templateAutotargeting();
+  initConfetti();
+  registerSettings();
 });
 
-function templateAutotargeting() {
-  /**
-   * This code is heavily based (mostly copied) on https://gitlab.com/foundrynet/dnd5e/-/blob/master/module/pixi/ability-template.js
-   * licensed unter LGPLv3 https://gitlab.com/foundrynet/dnd5e/-/blob/master/LICENSE.txt
-   */
-  class AbilityTemplate extends game.dnd5e.canvas.AbilityTemplate {
-    static fromItem(item) {
-      const template = super.fromItem(item);
-      template.item = item;
-      return template;
-    }
-    refresh() {
-      super.refresh();
-      this.getTargets();
-    }
+function registerSettings() {
+  game.settings.register("mars-5e", "auto-roll-hit", {
+    name: "MARS5E.settings.autoRoll.hit.name",
+    hint: "MARS5E.settings.autoRoll.hit.hint",
+    scope: "client",
+    config: true,
+    default: false,
+    type: Boolean,
+    onChange: (data) => {
+      window.mars5e.autoRoll.hit = data;
+    },
+  });
+  game.settings.register("mars-5e", "auto-roll-dmg", {
+    name: "MARS5E.settings.autoRoll.dmg.name",
+    hint: "MARS5E.settings.autoRoll.dmg.hint",
+    scope: "client",
+    config: true,
+    default: false,
+    type: Boolean,
+    onChange: (data) => {
+      window.mars5e.autoRoll.dmg = data;
+    },
+  });
 
-    isTokenInside(token) {
-      const grid = canvas.scene.data.grid,
-        templatePos = { x: this.data.x, y: this.data.y };
-      // Check for center of  each square the token uses.
-      // e.g. for large tokens all 4 squares
-      const startX = token.width >= 1 ? 0.5 : token.width / 2;
-      const startY = token.height >= 1 ? 0.5 : token.height / 2;
-      for (let x = startX; x < token.width; x++) {
-        for (let y = startY; y < token.height; y++) {
-          const currGrid = {
-            x: token.x + x * grid - templatePos.x,
-            y: token.y + y * grid - templatePos.y,
-          };
-          const contains = this.shape.contains(currGrid.x, currGrid.y);
-          if (contains) return true;
-        }
-      }
-      return false;
-    }
+  window.mars5e.autoRoll = {
+    hit: game.settings.get("mars-5e", "auto-roll-hit"),
+    dmg: game.settings.get("mars-5e", "auto-roll-dmg"),
+  };
+  if (!game.user.isGM) return;
+  game.settings.register("mars-5e", "invisible-target", {
+    name: "MARS5E.settings.invisibleTarget.name",
+    hint: "MARS5E.settings.invisibleTarget.hint",
+    scope: "client",
+    config: true,
+    default: true,
+    type: Boolean,
+    onChange: (data) => {
+      window.mars5e.invisibleTarget = data;
+    },
+  });
 
-    getTargets() {
-      const tokens = canvas.scene.getEmbeddedCollection("Token");
-      let targets = [];
-
-      for (const token of tokens)
-        if (this.isTokenInside(token)) {
-          targets.push(token._id);
-        }
-      game.user.updateTokenTargets(targets);
-    }
-    activatePreviewListeners(initialLayer) {
-      const handlers = {};
-      let moveTime = 0;
-
-      // Update placement (mouse-move)
-      handlers.mm = (event) => {
-        event.stopPropagation();
-        let now = Date.now(); // only update every 60th second
-        if (now - moveTime <= 1000 / 60) return;
-        const center = event.data.getLocalPosition(this.layer);
-        const snapped = canvas.grid.getSnappedPosition(center.x, center.y, 2);
-        this.data.x = snapped.x;
-        this.data.y = snapped.y;
-        this.refresh();
-        moveTime = now;
-      };
-
-      // Cancel the workflow (right-click)
-      handlers.rc = (event) => {
-        this.layer.preview.removeChildren();
-        canvas.stage.off("mousemove", handlers.mm);
-        canvas.stage.off("mousedown", handlers.lc);
-        canvas.app.view.oncontextmenu = null;
-        canvas.app.view.onwheel = null;
-        initialLayer.activate();
-      };
-
-      // Confirm the workflow (left-click)
-      handlers.lc = (event) => {
-        handlers.rc(event);
-
-        // Confirm final snapped position
-        const destination = canvas.grid.getSnappedPosition(this.x, this.y, 2);
-        this.data.x = destination.x;
-        this.data.y = destination.y;
-
-        // Create the template
-        canvas.scene.createEmbeddedEntity("MeasuredTemplate", this.data);
-        this.item.updateTargets();
-      };
-
-      // Rotate the template by 3 degree increments (mouse-wheel)
-      handlers.mw = (event) => {
-        if (event.ctrlKey) event.preventDefault(); // Avoid zooming the browser window
-        event.stopPropagation();
-        let delta = canvas.grid.type > CONST.GRID_TYPES.SQUARE ? 30 : 15;
-        let snap = event.shiftKey ? delta : 5;
-        this.data.direction += snap * Math.sign(event.deltaY);
-        this.refresh();
-      };
-
-      // Activate listeners
-      canvas.stage.on("mousemove", handlers.mm);
-      canvas.stage.on("mousedown", handlers.lc);
-      canvas.app.view.oncontextmenu = handlers.rc;
-      canvas.app.view.onwheel = handlers.mw;
-    }
-  }
-  game.dnd5e.canvas.AbilityTemplate = AbilityTemplate;
-  //  rather ugly, maybe find a better way at some point :shrug:
-  // const AbilityTemplate = game.dnd5e.canvas.AbilityTemplate;
-  // const origPrevListeners = AbilityTemplate.prototype.activatePreviewListeners.toString();
-  // const newFun = origPrevListeners.replace(
-  //   /this\.refresh\(\)\;/,
-  //   // get targets
-  //   `this.refresh();
-  // 	this.getTargets(this);
-  // `
-  // );
+  window.mars5e.invisibleTarget = game.settings.get(
+    "mars-5e",
+    "invisible-target"
+  );
 }

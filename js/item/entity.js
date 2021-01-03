@@ -17,171 +17,6 @@ export default function initItemClass() {
      * Code heavily based on https://gitlab.com/foundrynet/dnd5e , but partially modified.
      * The original code is licensed under GNU GPLv3 https://gitlab.com/foundrynet/dnd5e/-/blob/master/LICENSE.txt
      */
-    // async roll({
-    //   configureDialog = false,
-    //   rollMode = null,
-    //   createMessage = true,
-    // } = {}) {
-    //   // const roll = await super.roll({configureDialog, rollMode, createMessage:true});
-    //   // console.log(roll);
-    //   const adv = mars5e.getAdvantage();
-
-    //   // Basic template rendering data
-    //   const token = this.actor.token;
-    //   const hideNames = hideNamesForNonGM();
-    //   const templateData = {
-    //     actor: this.actor,
-    //     sceneId: token?.scene._id || canvas.scene.id,
-    //     tokenId: token?.id || null,
-    //     item: this.data,
-    //     data: this.getChatData(),
-    //     labels: this.labels,
-    //     hasAttack: this.hasAttack,
-    //     isHealing: this.isHealing,
-    //     hasDamage: this.hasDamage,
-    //     isVersatile: this.isVersatile,
-    //     isSpell: this.data.type === "spell",
-    //     hasSave: this.hasSave,
-    //     hasAreaTarget: this.hasAreaTarget,
-    //     isGM: game.user.isGM,
-    //   };
-
-    //   // For feature items, optionally show an ability usage dialog
-    //   if (this.data.type === "feat") {
-    //     const configured = await this._rollFeat(configureDialog);
-    //     if (configured === false) return;
-    //   } else if (this.data.type === "consumable") {
-    //     const configured = await this._rollConsumable(configureDialog);
-    //     if (configured === false) return;
-    //   }
-
-    //   if (templateData.hasAttack) {
-    //     const consume = duplicate(this.data.data.consume);
-    //     this.data.data.consume = null;
-    //     const attackRoll = await this.rollAttack({
-    //       fastForward: true,
-    //       chatMessage: false,
-    //       ...adv,
-    //     });
-    //     this.data.data.consume = consume;
-    //     const mod = attackRoll.modifier;
-    //     templateData.attack = {
-    //       mod: (mod >= 0 ? "+ " : "- ") + Math.abs(mod),
-    //       flavor: attackRoll.flavorFormula.replace("1d20 ", ""),
-    //       advantage: adv.advantage ? 2 : adv.disadvantage ? 0 : 1,
-    //     };
-    //   }
-
-    //   if (
-    //     (templateData.hasDamage && templateData.hasAreaTarget) ||
-    //     templateData.isHealing
-    //   ) {
-    //     // check for upcasting
-    //     // why so complicated? since the roll function gets called from the spell as upcast variant (meaning: level is set to the upcast level)
-    //     let spellLevel = null;
-    //     if (this.type === "spell") {
-    //       const origItem = this.actor.getOwnedItem(this.id);
-
-    //       if (origItem.data.data.level !== this.data.data.level) {
-    //         spellLevel = this.data.data.level;
-    //         this.data.data.level = origItem.data.data.level;
-    //       }
-    //     }
-    //     templateData.damage = await this.rollDamage({
-    //       spellLevel,
-    //     });
-    //   }
-
-    //   // Only add targets when the item is actually something that can target
-    //   if (
-    //     templateData.hasDamage ||
-    //     templateData.hasAttack ||
-    //     templateData.hasSave ||
-    //     templateData.isHealing
-    //   ) {
-    //     templateData.targets = Array.from(game.user.targets).map((target) =>
-    //       this._getTargetChatData(target, templateData)
-    //     );
-    //     if (!templateData.targets.length)
-    //       templateData.targets.push(
-    //         this._getTargetChatData(undefined, templateData)
-    //       );
-    //   }
-
-    //   if (templateData.hasSave) {
-    //     templateData.labels.save =
-    //       game.i18n.localize("DND5E.AbbreviationDC") +
-    //       " " +
-    //       templateData.data.save.dc;
-    //     templateData.labels.saveAbi =
-    //       CONFIG.DND5E.abilities[templateData.data.save.ability];
-    //   }
-
-    //   // For items which consume a resource, handle that here
-    //   const allowed = await this._handleResourceConsumption({
-    //     isCard: true,
-    //     isAttack: false,
-    //   });
-    //   if (allowed === false) return;
-
-    //   if (templateData.data.formula) {
-    //     const r = new Roll(templateData.data.formula, this.actor.getRollData());
-    //     templateData.formula = {
-    //       formula: r.formula,
-    //       flavorFormula: r.flavorFormula,
-    //     };
-    //   }
-
-    //   if (this.type === "tool") {
-    //     const r = await this.rollToolCheck({
-    //       fastForward: true,
-    //       chatMessage: false,
-    //       ...adv,
-    //     });
-    //     templateData.toolCheck = {
-    //       formula: r.formula,
-    //       flavorFormula: r.flavorFormula,
-    //       mod: r.modifier,
-    //     };
-    //   }
-    //   console.log(templateData);
-
-    //   const template = "modules/mars-5e/html/item-card.hbs";
-    //   const html = await renderTemplate(template, templateData);
-    //   // console.log(html);
-    //   // Basic chat message data
-    //   const chatData = {
-    //     user: game.user._id,
-    //     type: CONST.CHAT_MESSAGE_TYPES.OTHER,
-    //     content: html,
-    //     flavor: this.name,
-    //     speaker: {
-    //       actor: this.actor._id,
-    //       token: this.actor.token,
-    //       alias: this.actor.name,
-    //       user: game.user.name,
-    //     },
-    //     flags: {
-    //       "core.canPopout": true,
-    //     },
-    //   };
-
-    //   // If the consumable was destroyed in the process - embed the item data in the surviving message
-    //   if (this.data.type === "consumable" && !this.actor.items.has(this.id)) {
-    //     chatData.flags["dnd5e.itemData"] = this.data;
-    //   }
-
-    //   // Toggle default roll mode
-    //   rollMode = rollMode || game.settings.get("core", "rollMode");
-    //   if (["gmroll", "blindroll"].includes(rollMode))
-    //     chatData["whisper"] = ChatMessage.getWhisperRecipients("GM");
-    //   if (rollMode === "blindroll") chatData["blind"] = true;
-
-    //   // Create the chat message
-    //   if (createMessage) return ChatMessage.create(chatData);
-    //   else return chatData;
-    // }
-
     async displayCard({ rollMode, createmessage = true } = {}) {
       const templateData = await this._getTemplateData();
 
@@ -211,14 +46,14 @@ export default function initItemClass() {
       }
 
       // Apply the roll mode to adjust message visibility
-      ChatMessage.applyRollMode(
+      CONFIG.ChatMessage.entityClass.applyRollMode(
         chatData,
         rollMode || game.settings.get("core", "rollMode")
       );
 
       // Create the chat message
       if (createmessage) {
-        this._lastMessage = ChatMessage.create(chatData);
+        this._lastMessage = CONFIG.ChatMessage.entityClass.create(chatData);
         return this._lastMessage;
       } else return chatData;
     }
@@ -243,6 +78,7 @@ export default function initItemClass() {
         hasSave: this.hasSave,
         hasAreaTarget: this.hasAreaTarget,
         isGM: game.user.isGM,
+        invisibleTarget: window.mars5e.invisibleTarget ?? true,
       };
 
       if (templateData.hasAttack) {
@@ -266,9 +102,11 @@ export default function initItemClass() {
       }
 
       if (
-        (templateData.hasDamage &&
-          (templateData.hasAreaTarget || templateData.hasSave)) ||
-        templateData.isHealing
+        // (
+        templateData.hasDamage
+        // 	&&
+        //   (templateData.hasAreaTarget || templateData.hasSave)) ||
+        // templateData.isHealing
       ) {
         // check for upcasting
         // why so complicated? since the roll function gets called from the spell as upcast variant (meaning: level is set to the upcast level)
@@ -366,10 +204,10 @@ export default function initItemClass() {
       }
 
       targetData.visible =
-        (!game.user.isGM && target.owner) ||
         actor?.hasPlayerOwner ||
         target.data.viewmode === CONST.TOKEN_DISPLAY_MODES.HOVER ||
         target.data.viewmode === CONST.TOKEN_DISPLAY_MODES.ALWAYS;
+
       // Nothing todo here?
       // if (templateData.hasSave) {
 
@@ -398,6 +236,7 @@ export default function initItemClass() {
           ".mars5e-target:not([data-target-id]):not(.mars5e-area-dmg)"
         )
         .remove();
+      await message.autoRoll();
       message.scrollIntoView();
       message.mars5eUpdate(oldTargets);
     }
@@ -413,10 +252,13 @@ export default function initItemClass() {
 
       let rolls = [];
 
-      const parts = duplicate(this.data.data.damage.parts);
-      this.data.data.damage.parts = [parts[0]];
+      const tempItem = new game.dnd5e.entities.Item5e(duplicate(this.data));
+      tempItem.options.actor = this.actor;
 
-      const roll = await super.rollDamage({ spellLevel, options });
+      const parts = duplicate(tempItem.data.data.damage.parts);
+      tempItem.data.data.damage.parts = [parts[0]];
+
+      const roll = await tempItem.rollDamage({ spellLevel, options });
       roll.dmgType = parts[0][1];
       if (roll.dmgType === "healing") {
         roll.dmgTypeLabel = game.i18n.localize("DND5E.Healing");

@@ -1,3 +1,26 @@
+# v0.4
+
+- *New Feature* Autoroll attack and dmg rolls!
+  - Setting user based in the settings menu!
+- *New Feature* Support for Calegos Confetti module!
+  - throws confetti on crits/fumbles
+  - Use at your own risk in combination with auto rolls!
+- *New Feature* Apply damage to all targets buttons!
+- *New Feature* Statistics! 
+  - track a few of your players statistics, like damage done, damage taken, nat20s/1s, ...
+  - Statistics are tracked over the whole worlds time and a session (session stats are reset if >= 6 hours are between updates)
+  - Including a small overview window!
+  - Future plans: 
+    - provide awards and/or achievements
+  	-	maybe add a few more statistics
+- *New Setting* Added setting on whether to automatically hide gm rolls or not.
+- Improved the AbilityTemplate code to copy less from the original DnD system.
+- *Fix* apply damage buttons for area damage showing "NaN", when saving throw was rolled already
+- Area dmg div now removed after it is rolled and applied to the targets
+- Advantage is now reset after each throw
+- *Fix* toggling successfull saves not modifying the applied resistance of damage rolls
+- *Fix* some more bugfixes, that i noticed on the way
+
 # v0.3.3
 
 - Advantage selection now gets shown for hotbar items as well.
