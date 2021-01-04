@@ -1,4 +1,4 @@
-# v0.4
+# v1.0
 
 - *New Feature* Autoroll attack and dmg rolls!
   - Setting user based in the settings menu!
