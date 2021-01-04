@@ -1,3 +1,7 @@
+# v1.0.1
+
+- *Fix* general rolls for players not working.
+
 # v1.0
 
 - *New Feature* Autoroll attack and dmg rolls!

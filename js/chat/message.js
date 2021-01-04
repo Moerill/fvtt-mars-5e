@@ -953,10 +953,11 @@ export default class Mars5eMessage extends ChatMessage {
   static async autoRoll(data) {
     if (!(window.mars5e.autoRoll.hit || window.mars5e.autoRoll.dmg)) return;
     const message = new CONFIG.ChatMessage.entityClass(data);
-    await message.autoRoll();
-    data.content = message.card.outerHTML;
+    if (await message.autoRoll()) {
+      data.content = message.card.outerHTML;
 
-    await Mars5eUserStatistics.update(game.user, message.mars5eStatistics);
-    message.resetStatistics();
+      await Mars5eUserStatistics.update(game.user, message.mars5eStatistics);
+      message.resetStatistics();
+    }
   }
 }
