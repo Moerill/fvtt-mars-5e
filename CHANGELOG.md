@@ -1,3 +1,8 @@
+# v1.1
+
+- *New Feature* Reapply without using resources button - which is useful for just rerolling an item for multiple targets, if basic automation/information is not available. (Like Magic Missile or Scorching Ray)
+- *Fix* damage amount not updating, when not rolling main damage roll.
+
 # v1.0.1
 
 - *Fix* general rolls for players not working.

@@ -16,10 +16,13 @@
 			"miss": "Miss!",
 			"apply": "Apply",
 			"applyAll": "Apply all targets damage.",
-			"applyAllVersatile": "Apply all targets versatile damage."
+			"applyAllVersatile": "Apply all targets versatile damage.",
+			"COMMENT_FOR_reapply": "use \\A followed by a whitespace to force a line break in the tooltip",
+			"reapply": "Reapply item to target without\\A consuming resources.\\A Useful for e.g. applying magic missile missiles."
 		},
 		"errors": {
-			"userNotOnline": "Cannot roll, owner of this chat card is not online."
+			"userNotOnline": "Cannot roll, owner of this chat card is not online.",
+			"reapplyNotAllowed": "You're not allowed to reapply this item!"
 		},
 		"tool-tip": {
 			"right-click": "Right-click",

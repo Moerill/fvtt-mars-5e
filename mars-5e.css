@@ -185,7 +185,6 @@
 
 .mars-5e-statistics th {
   background: rgba(0, 0, 0, 0.07);
-  color: var(--mars5e-font-color);
   text-shadow: none;
   position: relative; }
 
@@ -240,7 +239,6 @@
     z-index: 1;
     top: -1.5em;
     left: 0;
-    font-size: 0.8em;
     line-height: 1em;
     white-space: nowrap;
     display: block;
@@ -421,7 +419,8 @@
     /* prettier-ignore */
     content: var(--mars5e-apply-label) " " var(--mars5e-versatile-label) ": " attr(data-amount); }
 
-.mars5e-card .mars5e-apply-dmg-menu {
+.mars5e-card .mars5e-apply-dmg-menu,
+.mars5e-card .mars5e-reapply-btn {
   position: absolute;
   flex: 0;
   width: 3ch;
@@ -431,7 +430,8 @@
   overflow: visible;
   transition: all 0.15s 0.6s ease-in;
   font-size: 0.9em; }
-  .mars5e-card .mars5e-apply-dmg-menu button {
+  .mars5e-card .mars5e-apply-dmg-menu button,
+  .mars5e-card .mars5e-reapply-btn button {
     background: var(--mars5e-tooltip-bg-color);
     color: var(--mars5e-tooltip-font-color);
     border: 1px solid var(--mars5e-tooltip-border-color);
@@ -448,10 +448,12 @@
     margin: 0;
     cursor: pointer;
     position: relative; }
-    .mars5e-card .mars5e-apply-dmg-menu button i {
+    .mars5e-card .mars5e-apply-dmg-menu button i,
+    .mars5e-card .mars5e-reapply-btn button i {
       margin: 0.2em;
       font-size: 1.3em; }
-    .mars5e-card .mars5e-apply-dmg-menu button:before {
+    .mars5e-card .mars5e-apply-dmg-menu button:before,
+    .mars5e-card .mars5e-reapply-btn button:before {
       content: var(--mars5e-apply-label) ": " attr(data-amount);
       background: var(--mars5e-tooltip-bg-color);
       color: var(--mars5e-tooltip-font-color);
@@ -466,21 +468,23 @@
       z-index: 1;
       top: -1.5em;
       left: 0;
-      font-size: 0.8em;
       line-height: 1em;
       white-space: nowrap;
       display: block;
       visibility: hidden; }
-    .mars5e-card .mars5e-apply-dmg-menu button:hover:before {
+    .mars5e-card .mars5e-apply-dmg-menu button:hover:before,
+    .mars5e-card .mars5e-reapply-btn button:hover:before {
       opacity: 1;
       transition: opacity 0.15s 1.2s ease-in;
       visibility: visible; }
-    .mars5e-card .mars5e-apply-dmg-menu button:before {
+    .mars5e-card .mars5e-apply-dmg-menu button:before,
+    .mars5e-card .mars5e-reapply-btn button:before {
       z-index: 1;
       top: -1.7em;
       pointer-events: none;
       left: -0.3ch; }
-    .mars5e-card .mars5e-apply-dmg-menu button:hover:before {
+    .mars5e-card .mars5e-apply-dmg-menu button:hover:before,
+    .mars5e-card .mars5e-reapply-btn button:hover:before {
       transition-delay: 0s; }
 
 .mars5e-card .mars5e-area-dmg label,
@@ -519,7 +523,7 @@
     justify-content: flex-end;
     width: 6.5ch;
     height: 3ch;
-    right: 0;
+    right: 6.5ch;
     top: -3ch; }
     .mars5e-card .mars5e-targets .mars5e-apply-all .mars5e-apply:before {
       content: var(--mars5e-apply-all-label); }
@@ -530,10 +534,40 @@
     .mars5e-card .mars5e-targets .mars5e-apply-all button:before {
       right: 0;
       left: unset; }
+  .mars5e-card .mars5e-targets .mars5e-reapply-btn {
+    top: -3ch;
+    width: 6ch;
+    height: 3ch;
+    right: 0; }
+    .mars5e-card .mars5e-targets .mars5e-reapply-btn button {
+      width: 6ch; }
+      .mars5e-card .mars5e-targets .mars5e-reapply-btn button:before {
+        content: var(--mars5e-reapply-label);
+        text-align: left;
+        right: 0;
+        left: unset;
+        white-space: pre;
+        top: unset;
+        bottom: 3ch; }
+    .mars5e-card .mars5e-targets .mars5e-reapply-btn i {
+      margin: 0; }
+    .mars5e-card .mars5e-targets .mars5e-reapply-btn :nth-child(2) {
+      position: relative; }
+      .mars5e-card .mars5e-targets .mars5e-reapply-btn :nth-child(2):after {
+        position: absolute;
+        content: "";
+        top: 40%;
+        right: -0.3ch;
+        border-top: 2px solid;
+        border-color: var(--mars5e-fail);
+        display: block;
+        width: 1.5ch;
+        transform: rotate(45deg); }
 
 .mars5e-gm .mars5e-target:hover .mars5e-apply-dmg-menu,
 .mars5e-gm .mars5e-apply-dmg-menu:hover,
-.mars5e-gm .mars5e-targets:hover .mars5e-apply-all {
+.mars5e-gm .mars5e-targets:hover .mars5e-apply-all,
+.mars5e-targets:hover .mars5e-reapply-btn {
   opacity: 1;
   transition: all 0.15s 0.3s ease-in; }
 
@@ -584,7 +618,6 @@
     z-index: 1;
     top: -1.5em;
     left: 0;
-    font-size: 0.8em;
     line-height: 1em;
     white-space: nowrap;
     display: block;

@@ -141,15 +141,15 @@ export default class Mars5eMessage extends ChatMessage {
   }
 
   onClick(ev) {
-    if (!this.user.active && !game.user.isGM)
+    if (!this.isAuthor && !this.user.active && !game.user.isGM)
       return ui.notifications.error(
         game.i18n.localize("MARS5E.errors.userNotOnline")
       );
     if (this._onClickSave(ev)) return;
 
-    if (!this._eventAllowed(ev)) return;
+    if (this._onClickReapply(ev)) return;
 
-    if (this._onApplyDmg(ev)) return;
+    if (!this._eventAllowed(ev)) return;
 
     if (this._onClickAttack(ev)) return;
 
@@ -158,6 +158,8 @@ export default class Mars5eMessage extends ChatMessage {
     if (this._onClickRoll(ev)) return;
 
     if (!game.user.isGM) return;
+    if (this._onApplyDmg(ev)) return;
+
     if (this._onClickToggleVisibility(ev)) return;
   }
 
@@ -288,7 +290,7 @@ export default class Mars5eMessage extends ChatMessage {
     //   target.previousElementSibling.previousElementSibling.dataset.resistance =
     //     target.dataset.resistance;
     // }
-    this._updateApplyDmgAmount(ev.target.closest(".damage"));
+    this._updateApplyDmgAmount(target.closest(".damage"));
 
     return true;
   }
@@ -521,8 +523,7 @@ export default class Mars5eMessage extends ChatMessage {
       return;
     }
 
-    const spellLevel = parseInt(this.card.dataset.spellLevel) || null;
-
+    const spellLevel = parseInt(this.card.dataset.spellLevel) ?? null;
     let data = await this.item.rollDamage({
       options: { critical },
       spellLevel,
@@ -663,7 +664,7 @@ export default class Mars5eMessage extends ChatMessage {
         ".mars5e-result:not(.versatile):not(.non-versatile)"
       ) || []
     );
-    const mainRoll = dmgDiv.querySelector(".mars5e-result.non-versatile");
+    let mainRoll = dmgDiv.querySelector(".mars5e-result.non-versatile");
     const versatileRoll = dmgDiv.querySelector(".mars5e-result.versatile");
     const calcTotal = (arr) => {
       return arr
@@ -676,8 +677,10 @@ export default class Mars5eMessage extends ChatMessage {
         )
         .reduce((a, b) => a + b, 0);
     };
-    if (mainRoll) {
-      applyMenu.children[0].dataset.amount = calcTotal([...results, mainRoll]);
+    if (mainRoll || results.length) {
+      if (mainRoll) mainRoll = [...results, mainRoll];
+      else mainRoll = results;
+      applyMenu.children[0].dataset.amount = calcTotal(mainRoll);
     }
     if (versatileRoll) {
       applyMenu.children[1].dataset.amount = calcTotal([
@@ -817,6 +820,28 @@ export default class Mars5eMessage extends ChatMessage {
     Mars5eUserStatistics.update(this.user, statisticsData);
   }
 
+  _onClickReapply(ev) {
+    const target = ev.target.closest(".mars5e-reapply-btn");
+    if (!target) return false;
+    console.log(this.isAuthor, this);
+    if (!this.isAuthor && !game.user.isGM) {
+      ui.notifications.error(
+        game.i18n.localize("MARS5E.errors.reapplyNotAllowed")
+      );
+      return false;
+    }
+
+    this._onReapply(target).then((html) => this.mars5eUpdate(html));
+
+    return true;
+  }
+
+  async _onReapply(btn) {
+    const item = this.item;
+    item._lastMessage = this;
+    await item.updateTargets();
+  }
+
   _getTarget(el) {
     if (!canvas?.ready) return null; // sadly needed for the creation of a token instance
     const targetDiv = el.closest(".mars5e-target");
@@ -879,6 +904,13 @@ export default class Mars5eMessage extends ChatMessage {
         this.update({ content: this.card.parentNode.innerHTML });
       });
     } else {
+      if (!div) {
+        ui.notifications.error("No target div provided to update!");
+        console.error(
+          "Mars 5e | No target div provided to foreign call of Message#mars5eUpdate."
+        );
+        return;
+      }
       const targetDiv = div.closest(".mars5e-target");
       const { nat1, nat20 } = this.mars5eStatistics;
       this.mars5eStatistics.nat1 = 0;

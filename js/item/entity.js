@@ -1,17 +1,9 @@
-import { damageRoll } from "../../../../systems/dnd5e/module/dice.js";
-
 /**
  * Make sure that CONFIG.Item.entityClass was predefined.
  * Why am i not importing the 5e item class here?
  * I want to catch changes from other modules extending the base class and allow for better forge CDN compatiblity. (though last one is only a guess and hope!)
  */
 export default function initItemClass() {
-  const oldDmgRoll = damageRoll;
-  //	damageRoll = async function (options) {
-  //		console.log(options.parts);
-  //		return oldDmgRoll(options);
-  //	};
-
   return class MarsItem5e extends CONFIG.Item.entityClass {
     /**
      * Code heavily based on https://gitlab.com/foundrynet/dnd5e , but partially modified.
@@ -118,10 +110,14 @@ export default function initItemClass() {
             spellLevel = this.data.data.level;
             this.data.data.level = origItem.data.data.level;
           }
-        }
-        templateData.damage = await this.rollDamage({
-          spellLevel,
-        });
+          templateData.damage = await this.rollDamage({
+            spellLevel,
+          });
+          if (spellLevel) this.data.data.level = spellLevel;
+        } else
+          templateData.damage = await this.rollDamage({
+            spellLevel,
+          });
       }
 
       // Only add targets when the item is actually something that can target
@@ -235,7 +231,7 @@ export default function initItemClass() {
         .querySelector(
           ".mars5e-target:not([data-target-id]):not(.mars5e-area-dmg)"
         )
-        .remove();
+        ?.remove();
       await message.autoRoll();
       message.scrollIntoView();
       message.mars5eUpdate(oldTargets);

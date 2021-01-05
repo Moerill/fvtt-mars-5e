@@ -269,7 +269,8 @@
       }
     }
   }
-  .mars5e-apply-dmg-menu {
+  .mars5e-apply-dmg-menu,
+  .mars5e-reapply-btn {
     position: absolute;
     flex: 0;
     width: 3ch;
@@ -369,7 +370,7 @@
       justify-content: flex-end;
       width: 6.5ch;
       height: 3ch;
-      right: 0;
+      right: 6.5ch;
       top: -3ch;
 
       .mars5e-apply {
@@ -388,16 +389,56 @@
         left: unset;
       }
     }
+    .mars5e-reapply-btn {
+      top: -3ch;
+      width: 6ch;
+      height: 3ch;
+      right: 0;
+
+      button {
+        width: 6ch;
+
+        &:before {
+          content: var(--mars5e-reapply-label);
+          text-align: left;
+          right: 0;
+          left: unset;
+          white-space: pre;
+          top: unset;
+          bottom: 3ch;
+        }
+      }
+      i {
+        margin: 0;
+      }
+
+      :nth-child(2) {
+        position: relative;
+        &:after {
+          position: absolute;
+          content: "";
+          top: 40%;
+          right: -0.3ch;
+          border-top: 2px solid;
+          border-color: var(--mars5e-fail);
+          display: block;
+          width: 1.5ch;
+
+          transform: rotate(45deg);
+        }
+      }
+    }
   }
 }
 
+.mars5e-gm .mars5e-target:hover .mars5e-apply-dmg-menu,
+.mars5e-gm .mars5e-apply-dmg-menu:hover,
+.mars5e-gm .mars5e-targets:hover .mars5e-apply-all,
+.mars5e-targets:hover .mars5e-reapply-btn {
+  opacity: 1;
+  transition: all $animation-duration $animation-delay $animation-easing;
+}
 .mars5e-gm {
-  .mars5e-target:hover .mars5e-apply-dmg-menu,
-  .mars5e-apply-dmg-menu:hover,
-  .mars5e-targets:hover .mars5e-apply-all {
-    opacity: 1;
-    transition: all $animation-duration $animation-delay $animation-easing;
-  }
   .mars5e-gm-target {
     .mars5e-toggle-target-visibility {
       position: absolute;
