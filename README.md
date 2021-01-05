@@ -157,6 +157,8 @@ Double clicking on a dice result allows the GM to modify the displayed result. O
 
 ### Barebone Dice So Nice support
 
+Some barebones dice so nice support ist available. Its opinionated on few decisions and probably incomplete, since i neither know or use Dice so Nice. (So .. i probably forget stuff that its abel to do, and i'll not add everything)
+
 ### Confeftti Support!
 
 Throw confetti on fumbles/crits! yay!
