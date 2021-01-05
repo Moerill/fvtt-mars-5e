@@ -34,7 +34,7 @@ Its not difficult to put at least some effort into something that you want someo
 	- [Dice tooltips](#dice-tooltips)
 	- [Apply damage buttons (GM only)](#apply-damage-buttons-gm-only)
 	- [Fudge rolls (GM only)](#fudge-rolls-gm-only)
-	- [Dice So Nice support](#dice-so-nice-support)
+	- [Barebone Dice So Nice support](#barebone-dice-so-nice-support)
 	- [Confeftti Support!](#confeftti-support)
 	- [Automatic template targetting](#automatic-template-targetting)
 - [Known Module incompatibilities](#known-module-incompatibilities)
@@ -155,7 +155,7 @@ The damage amounts will automatically get updated when the resistance multiplier
 
 Double clicking on a dice result allows the GM to modify the displayed result. Only numeric input is allowed!
 
-### Dice So Nice support
+### Barebone Dice So Nice support
 
 ### Confeftti Support!
 
