@@ -16,6 +16,8 @@ Also ideally be somewhat responsive in this issues thread so you can answer poss
 A clear and concise description of what the bug is.  
 Also post console errors (F12 for most browsers) here that occur.
 
+*If its related to an item, please provide a screenshot of how the item is configured. (The Items Details tab)*
+
 **To Reproduce**
 Steps to reproduce the behavior:
 1. Go to '...'
