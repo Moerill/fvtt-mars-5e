@@ -170,21 +170,12 @@ When using the automatically created spell templates the module will autotarget 
 
 ## Known Module incompatibilities
 
-- BetterRolls for 5e
-  - completly incompatible, since both tackle a similar thing in completly different ways
-- MidiQoL
-  - [More Information](https://github.com/Moerill/fvtt-mars-5e/issues/33)
-- Dynamic Active Effects (DAE)
-  - [Setting: Use ability save field when rolling ability saves](https://github.com/Moerill/fvtt-mars-5e/issues/11)
+See [here](https://github.com/Moerill/fvtt-mars-5e/issues/50) for a list.
 
 ## Planned ToDo's
 
 These are just ideas, they may or may not happen.
 
-- [x] template auto targetting (incoming with DnD 1.2.1++)
-- [x] Basic roll statistics
-- [ ] ~~Chat Filter (filtering on player, action and whisper basis)~~
-- [x] Automatic rolling of attack/dmg rolls
 - [ ] Clean-up SCSS (and code)
 - [ ] Manifest+
 - [ ] (look into Sadness Chan support, only a maybe)
