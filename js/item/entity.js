@@ -57,8 +57,9 @@ export default function initItemClass() {
       const token = this.actor.token;
       const templateData = {
         actor: this.actor,
-        sceneId: token?.scene._id || canvas.scene.id,
-        tokenId: token ? token.id : null,
+        // keep the scene id separated, since its used for e.g. linked actors to get the entity
+        sceneId: token?.scene._id || canvas.scene?.id,
+        tokenId: token ? `${token.scene._id}.${token.id}` : null,
         item: this.data,
         data: this.getChatData(),
         labels: this.labels,

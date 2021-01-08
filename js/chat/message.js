@@ -877,11 +877,18 @@ export default class Mars5eMessage extends ChatMessage {
   get item() {
     if (this._item) return this._item;
     const card = this.card;
-    if (!this.card) return null;
+    if (!card) return null;
 
-    const sceneId = card.dataset.sceneId,
-      tokenId = card.dataset.tokenId,
-      itemId = card.dataset.itemId;
+    let tokenId = card.dataset.tokenId;
+    let sceneId;
+    // Starting Mars 1.2, like dnd system: Saved in one dataset "sceneId.tokenId"
+    [sceneId, tokenId] = tokenId?.split(".") || [null, null];
+    // Pre Mars 1.2: scene and targetid are saved in different datasets
+    if (!tokenId) {
+      tokenId = sceneId;
+      sceneId = card.dataset.sceneId;
+    }
+    const itemId = card.dataset.itemId;
     if (!itemId) return null;
     const scene = game.scenes.get(sceneId);
     const tokenData = scene?.data.tokens.find((e) => e._id === tokenId);
