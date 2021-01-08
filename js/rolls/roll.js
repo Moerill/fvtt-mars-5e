@@ -67,6 +67,7 @@ class Mars5eRoll extends Roll {
   static replaceFormulaData(formula, data, { missing, warn = false } = {}) {
     // Check for replacement data, and add it as flavor
     // Mars v1.2: Added check for whether its inside of parentheses, if yes, ignore, since evaluating numerical terms inside of parentheses results in errors thrown by fvtt. Consider creating an issue for this or see if it will change when Atro introduces the concept of flavored integers at some point.
+
     let dataRgx = new RegExp(/(?<!\(.*)@([a-z.0-9_\-]+)(?!.*\))/gi);
     formula = formula.replace(dataRgx, (match, term) => {
       return `${match} [${term}]`;
