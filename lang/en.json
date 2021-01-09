@@ -77,6 +77,15 @@
 				"nat20s": "Amount of natural 20s rolled with a d20.",
 				"unconscious": "Number of times the represented actor dropped to 0 hit points.",
 				"session": "A session resets after 6 hours of inactivity."
+			},
+			"headerButtons": {
+				"reset": {
+					"label": "Reset",
+					"menu": {
+						"title": "Reset statistics",
+						"description": "Are you sure you want to reset <em>all</em> statistics?"
+					}
+				}
 			}
 		}
 	}

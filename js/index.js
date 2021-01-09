@@ -197,6 +197,8 @@ Hooks.once("ready", async () => {
   templateAutotargeting();
   initConfetti();
   registerSettings();
+
+  game.socket.on("module.mars-5e", handleSocket);
 });
 
 function registerSettings() {
@@ -227,6 +229,7 @@ function registerSettings() {
     hit: game.settings.get("mars-5e", "auto-roll-hit"),
     dmg: game.settings.get("mars-5e", "auto-roll-dmg"),
   };
+
   if (!game.user.isGM) return;
   game.settings.register("mars-5e", "invisible-target", {
     name: "MARS5E.settings.invisibleTarget.name",
@@ -244,4 +247,14 @@ function registerSettings() {
     "mars-5e",
     "invisible-target"
   );
+}
+
+function handleSocket(data) {
+  const socketEvents = {
+    updateMessage: Mars5eMessage.onSocket,
+    showStatisticsApp: Mars5eUserStatistics.showStatisticsApp,
+  };
+  if (!data.type) return;
+
+  socketEvents[data.type](data);
 }

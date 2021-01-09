@@ -96,8 +96,6 @@ export default class Mars5eMessage extends ChatMessage {
       }
     });
 
-    game.socket.on("module.mars-5e", this.onSocket);
-
     Hooks.on("ready", () => {
       if (game.dice3d)
         Hooks.on("renderChatMessage", async (message, html) => {
@@ -433,6 +431,7 @@ export default class Mars5eMessage extends ChatMessage {
   }
 
   _setTargetResistance(dmgDiv, saveSuccess = false) {
+    if (!dmgDiv) return;
     dmgDiv = dmgDiv.closest(".damage");
     const target = this._getTarget(dmgDiv)?.actor;
     if (!target) return;
@@ -657,6 +656,7 @@ export default class Mars5eMessage extends ChatMessage {
   }
 
   async _updateApplyDmgAmount(dmgDiv) {
+    if (!dmgDiv) return;
     const applyMenu = dmgDiv.querySelector(".mars5e-apply-dmg-menu");
     if (!applyMenu) return;
     const results = Array.from(
@@ -928,6 +928,7 @@ export default class Mars5eMessage extends ChatMessage {
       this.mars5eStatistics.nat20 = 0;
       Mars5eUserStatistics.update(game.user, { nat1, nat20 });
       game.socket.emit("module.mars-5e", {
+        type: "updateMessage",
         content: targetDiv.innerHTML,
         author: this.user.id,
         target: targetDiv.dataset.targetId,

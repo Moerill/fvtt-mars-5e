@@ -49,8 +49,21 @@ export default class Mars5eUserStatistics {
     //   if (game.user.character?.id !== actor.id) return;
     //   this.onHpChange(actor, udata);
     // });
+    game.settings.register("mars-5e", "hide-statistics-btn", {
+      name: "MARS5E.settings.hidesStatisticsBtn.name",
+      hint: "MARS5E.settings.hidesStatisticsBtn.hint",
+      scope: "world",
+      config: true,
+      default: false,
+      type: Boolean,
+    });
 
     Hooks.on("renderPlayerList", (app, html, options) => {
+      if (
+        !game.user.isGM &&
+        game.settings.get("mars-5e", "hide-statistics-btn")
+      )
+        return;
       const header = html[0].querySelector("h3");
 
       const btn = document.createElement("a");
@@ -73,6 +86,17 @@ export default class Mars5eUserStatistics {
       mars5e.statisticsApp?.render();
     });
   }
+
+  static showStatisticsApp() {
+    if (!mars5e.statisticsApp) mars5e.statisticsApp = new StatisticsApp();
+    mars5e.statisticsApp.render(true);
+  }
+
+  static async resetAll() {
+    for (let user of game.users) {
+      await user.unsetFlag("mars-5e", "statistics");
+    }
+  }
 }
 
 class StatisticsApp extends Application {
@@ -90,7 +114,7 @@ class StatisticsApp extends Application {
           initial: "session",
         },
       ],
-      width: "auto",
+      width: 620,
       height: "auto",
       popOut: true,
     };
@@ -177,5 +201,48 @@ class StatisticsApp extends Application {
         target: th,
       })
     );
+  }
+
+  _getHeaderButtons() {
+    const buttons = super._getHeaderButtons();
+    if (!game.user.isGM) return buttons;
+
+    buttons.unshift({
+      label: "JOURNAL.ActionShow",
+      class: "share-image",
+      icon: "fas fa-eye",
+      onclick: (ev) => {
+        game.socket.emit("module.mars-5e", { type: "showStatisticsApp" });
+      },
+    });
+
+    buttons.unshift({
+      label: "MARS5E.statistics.headerButtons.reset.label",
+      class: "reset-statistics",
+      icon: "fas fa-redo",
+      onclick: (ev) => {
+        new Dialog({
+          title: game.i18n.localize(
+            "MARS5E.statistics.headerButtons.reset.menu.title"
+          ),
+          content: `<p>${game.i18n.localize(
+            "MARS5E.statistics.headerButtons.reset.menu.description"
+          )}</p>`,
+          buttons: {
+            yes: {
+              icon: '<i class="fas fa-check"></i>',
+              label: "Yes",
+              callback: () => Mars5eUserStatistics.resetAll(),
+            },
+            no: {
+              icon: '<i class="fas fa-times"></i>',
+              label: "No",
+            },
+          },
+        }).render(true);
+      },
+    });
+
+    return buttons;
   }
 }
