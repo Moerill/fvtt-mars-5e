@@ -135,7 +135,6 @@ Hooks.on("init", () => {
     );
   });
 });
-initRollChanges();
 
 Hooks.on("renderChatMessage", async (app, html, options) => {
   // const sender = html[0].querySelector(".message-sender");
@@ -163,7 +162,7 @@ Hooks.on("renderChatMessage", async (app, html, options) => {
   } else html[0].style.borderLeftColor = app.user.color;
 });
 
-Hooks.on("init", () => {
+Hooks.once("init", () => {
   loadTemplates([
     "modules/mars-5e/html/chat/targets.hbs",
     "modules/mars-5e/html/chat/dmg.hbs",
@@ -171,7 +170,8 @@ Hooks.on("init", () => {
   Mars5eUserStatistics.initHooks();
 });
 
-Hooks.on("ready", async () => {
+Hooks.once("ready", async () => {
+  initRollChanges();
   const translationData = {
     toggle: game.i18n.localize("MARS5E.tool-tip.toggle"),
     "right-click": game.i18n.localize("MARS5E.tool-tip.right-click"),
