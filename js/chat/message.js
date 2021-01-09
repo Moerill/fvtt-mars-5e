@@ -157,8 +157,9 @@ export default class Mars5eMessage extends ChatMessage {
 
     if (this._onClickRoll(ev)) return;
 
-    if (!game.user.isGM) return;
     if (this._onApplyDmg(ev)) return;
+
+    if (!game.user.isGM) return;
 
     if (this._onClickToggleVisibility(ev)) return;
   }
@@ -231,8 +232,6 @@ export default class Mars5eMessage extends ChatMessage {
       const dmgDiv = action.closest(".mars5e-target").querySelector(".damage");
       if (dmgDiv) {
         this._setTargetResistance(dmgDiv, success);
-
-        this._updateApplyDmgAmount(dmgDiv);
       }
     }
 
@@ -545,6 +544,7 @@ export default class Mars5eMessage extends ChatMessage {
       const dmgRolls = Array.from(dmgDiv.querySelectorAll(".rollable"));
       for (const roll of dmgRolls) promises.push(this._onDmg(roll));
       await Promise.all(promises);
+      await this._updateApplyDmgAmount(dmgDiv);
     }
     this.scrollIntoView();
 
@@ -582,7 +582,7 @@ export default class Mars5eMessage extends ChatMessage {
     actionDiv.classList.remove("mars5e-toggleable");
     if (actionDiv.parentNode.classList.contains("mars5e-area-dmg"))
       await this._applyAreaDmg(actionDiv);
-    this._updateApplyDmgAmount(actionDiv);
+    // this._updateApplyDmgAmount(actionDiv);
 
     this.scrollIntoView();
     return resultDiv;
@@ -639,7 +639,7 @@ export default class Mars5eMessage extends ChatMessage {
       dmg
         .querySelectorAll(".result-total")
         .forEach((e) => e.classList.add("mars5e-toggleable"));
-      this._updateApplyDmgAmount(dmg);
+      await this._updateApplyDmgAmount(dmg);
       resultDivs.push(div);
     }
     dmgDiv.closest(".mars5e-area-dmg")?.remove();
@@ -823,7 +823,6 @@ export default class Mars5eMessage extends ChatMessage {
   _onClickReapply(ev) {
     const target = ev.target.closest(".mars5e-reapply-btn");
     if (!target) return false;
-    console.log(this.isAuthor, this);
     if (!this.isAuthor && !game.user.isGM) {
       ui.notifications.error(
         game.i18n.localize("MARS5E.errors.reapplyNotAllowed")
@@ -899,8 +898,12 @@ export default class Mars5eMessage extends ChatMessage {
     return this._item;
   }
 
-  mars5eUpdate(div) {
+  async mars5eUpdate(div) {
     if (!this.id) return;
+    if (div) {
+      const dmgDiv = div.closest(".damage");
+      if (dmgDiv) await this._updateApplyDmgAmount(dmgDiv);
+    }
     if (this.data.user === game.user.id || game.user.isGM) {
       // const statistics = duplicate(this.mars5eStatistics);
 
@@ -918,6 +921,7 @@ export default class Mars5eMessage extends ChatMessage {
         );
         return;
       }
+
       const targetDiv = div.closest(".mars5e-target");
       const { nat1, nat20 } = this.mars5eStatistics;
       this.mars5eStatistics.nat1 = 0;
@@ -985,6 +989,9 @@ export default class Mars5eMessage extends ChatMessage {
       dmgRolls = Array.from(this._card.querySelectorAll(".damage .rollable"));
       for (const roll of dmgRolls) promises.push(this._onDmg(roll));
       await Promise.all(promises);
+
+      const dmgDivs = Array.from(this._card.querySelectorAll("damage"));
+      for (const dmgDiv of dmgDivs) this._updateApplyDmgAmount(dmgDiv);
     }
     return attackRolls?.length || areaDmg || dmgRolls?.length;
   }

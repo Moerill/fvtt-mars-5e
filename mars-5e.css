@@ -22,7 +22,7 @@
     color: var(--mars5e-tooltip-font-color);
     background: var(--mars5e-tooltip-bg-color);
     position: absolute;
-    top: 1.5em;
+    top: calc(50% + 1em);
     right: 0;
     font-size: 0.8em;
     display: block;
@@ -30,6 +30,9 @@
     white-space: nowrap;
     content: "( Right-Click to toggle (dis-)advantage )";
     opacity: 0; }
+  .mars5e-adv-div.right:before {
+    right: unset;
+    left: 0; }
   .mars5e-adv-div.mars5e-show-hint:before {
     opacity: 1; }
 

@@ -37,8 +37,7 @@ Hooks.on("init", () => {
     mars5e.advDiv.dataset.advantage = 1;
     return ret;
   };
-  const classList =
-    ".item .item-name, .ability-name, .ability-mod, .ability-save, .ability-title, .skill, .macro";
+  const classList = ".item .item-name, .ability,  .skill, .macro";
   let tween = TweenMax.to(mars5e.advDiv, 1, {
     onComplete: () => {
       mars5e.advDiv.classList.add("mars5e-show-hint");
@@ -64,15 +63,19 @@ Hooks.on("init", () => {
       (ev) => {
         const target = ev.target.closest(classList);
         if (!target) return;
+        const isTidyGridLayout = target.closest(".grid-layout");
         const rect = target.getBoundingClientRect();
         mars5e.advDiv.style.top = rect.top + "px";
-        if (rect.left < 50) {
+        // Tidy5e Compat: Always show on the right side if its grid layout
+        if (rect.left < 50 || isTidyGridLayout) {
           mars5e.advDiv.style.left = rect.right + "px";
           mars5e.advDiv.style.right = null;
+          mars5e.advDiv.classList.add("right");
         } else {
           mars5e.advDiv.style.right =
             window.innerWidth - rect.right + rect.width + "px";
           mars5e.advDiv.style.left = null;
+          mars5e.advDiv.classList.remove("right");
         }
         mars5e.advDiv.style.display = "flex";
         mars5e.advDiv.style.height = rect.height + "px";
