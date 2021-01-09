@@ -1,5 +1,14 @@
 # v1.2
 
+- *New Feature* You can now hide the statistics app from your players.
+  - you can still force show it like journals
+- *New Feature* Reset statistics
+- *Fix* Dynamic Active Effects compatibility issues
+  - Ternary operations didn't work for DaE. Those and possibly more are (hopefully) fixed. I need user input here, since i don't use that module.
+- *Fix* Tooltip placement in Tidy5e
+- *Fix* now respects DsN "don't show for NPCs" setting.
+- *Fix* Class features like sneak attack
+  - the actual fix is nested rolls with flavor inside are fixed now.
 - *Fix* rendering default dice messages not working on startup.
 
 # v1.1
