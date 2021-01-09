@@ -1,3 +1,7 @@
+# v1.2.1
+
+- *Fix* another attempt at fixing DAE ternaries!
+
 # v1.2
 
 - *New Feature* You can now hide the statistics app from your players.

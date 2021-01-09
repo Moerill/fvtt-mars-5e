@@ -170,7 +170,7 @@ Hooks.once("init", () => {
   Mars5eUserStatistics.initHooks();
 });
 
-Hooks.once("setup", () => {
+Hooks.once("init", () => {
   initRollChanges();
 });
 
