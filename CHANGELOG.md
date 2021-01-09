@@ -1,4 +1,4 @@
-ä v1.2.2
+# v1.2.2
 
 - *Fix* broken rolling.. sorry for that!
 
