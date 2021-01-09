@@ -1,3 +1,8 @@
+ä v1.2.2
+
+- *Fix* broken rolling.. sorry for that!
+
+
 # v1.2.1
 
 - *Fix* another attempt at fixing DAE ternaries!
