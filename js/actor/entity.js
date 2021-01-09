@@ -1,5 +1,6 @@
 import Mars5eUserStatistics from "../statistics.js";
 import { markSuccess, markFail } from "../util.js";
+import { rollDsN } from "../rolls/dsn.js";
 
 export default function initActorClass() {
   return class Mars5eActor extends CONFIG.Actor.entityClass {
@@ -118,15 +119,16 @@ export default function initActorClass() {
       if (rollMode === "blindroll") chatData["blind"] = true;
 
       // result.dataset.flavorFormula = roll.flavorFormula;
-      if (game.dice3d) {
-        await game.dice3d.showForRoll(
+      await rollDsN(
+        [
           roll,
           game.user,
           true,
           chatData.whisper || null,
-          chatData.blind || null
-        );
-      }
+          chatData.blind || null,
+        ],
+        this
+      );
 
       return CONFIG.ChatMessage.entityClass.create(chatData);
     }

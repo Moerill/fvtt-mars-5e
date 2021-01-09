@@ -1,6 +1,8 @@
 import { markSuccess, markFail } from "../util.js";
 import Mars5eUserStatistics from "../statistics.js";
 
+import { rollDsN } from "../rolls/dsn.js";
+
 export default class Mars5eMessage extends ChatMessage {
   /**
    * Stop rerendering if mars5e adds some information.
@@ -702,15 +704,18 @@ export default class Mars5eMessage extends ChatMessage {
     // result.dataset.flavorFormula = roll.flavorFormula;
     if (this.id && game.dice3d) {
       result.innerHTML = `<span class='result-total'>...</span>`;
-      await game.dice3d.showForRoll(
-        roll,
-        game.user,
-        true,
-        this.data.whisper.length
-          ? this.data.whisper
-          : !!result.closest(".blind, .mars5e-invisible-target")
-          ? ChatMessage.getWhisperRecipients("GM")
-          : undefined
+      await rollDsN(
+        [
+          roll,
+          game.user,
+          true,
+          this.data.whisper.length
+            ? this.data.whisper
+            : !!result.closest(".blind, .mars5e-invisible-target")
+            ? ChatMessage.getWhisperRecipients("GM")
+            : undefined,
+        ],
+        this.item.actor
       );
     }
     result.innerHTML = `<span class='result-total'>${roll.total}</span>`;
@@ -945,12 +950,6 @@ export default class Mars5eMessage extends ChatMessage {
       for (const data of createData) await this.autoRoll(data);
     }
     return super.create(createData, options);
-    // }
-    // let messages = await super.create(createData, options);
-    // messages = messages instanceof Array ? messages : [messages];
-    // console.log(messages[0].card);
-    // for (const message of messages) await this.autoRoll(message);
-    // return messages.length === 1 ? messages[0] : messages;
   }
 
   async autoRoll() {

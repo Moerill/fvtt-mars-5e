@@ -51,6 +51,10 @@
 			"invisibleTarget": {
 				"name": "Hide GM rolls from players?",
 				"hint": "Even with \"Public Roll\" selected. Players will then only be able to see the targets token and possibly name when rolling publicly. You can show/hide targets on demand at any time."
+			},
+			"hidesStatisticsBtn": {
+				"name": "Hide statistics from players.",
+				"hint": "This hides the button on top of the player list. GMs can still see it and you can still show the overview to your players using the header button of the statistics overview window."
 			}
 		},
 		"statistics": {
