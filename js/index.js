@@ -170,8 +170,11 @@ Hooks.once("init", () => {
   Mars5eUserStatistics.initHooks();
 });
 
-Hooks.once("ready", async () => {
+Hooks.once("setup", () => {
   initRollChanges();
+});
+
+Hooks.once("ready", async () => {
   const translationData = {
     toggle: game.i18n.localize("MARS5E.tool-tip.toggle"),
     "right-click": game.i18n.localize("MARS5E.tool-tip.right-click"),

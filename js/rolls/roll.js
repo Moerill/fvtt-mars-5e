@@ -4,9 +4,7 @@
 
 import NumberTerm from "./number-term.js";
 
-export function initRollChanges() {
-  CONFIG.Dice.terms[NumberTerm.DENOMINATION] = NumberTerm;
-
+function replaceClass() {
   class Mars5eRoll extends Roll {
     constructor(formula, data = {}) {
       super(formula, data);
@@ -67,6 +65,16 @@ export function initRollChanges() {
         .join(" ");
     }
 
+    /**
+     * Overwrite this, set the class to "Roll", so we can render rolls before we replace this class.
+     * Why? Due to DaE i had to push class Creation to the ready hook, but rendering rolls happens before..
+     */
+    toJSON() {
+      let ret = super.toJSON();
+      ret.class = "Roll";
+      return ret;
+    }
+
     static replaceFormulaData(formula, data, { missing, warn = false } = {}) {
       // Check for replacement data, and add it as flavor
       // Mars v1.2: Added check for whether its inside of parentheses, if yes, ignore, since evaluating numerical terms inside of parentheses results in errors thrown by fvtt. Consider creating an issue for this or see if it will change when Atro introduces the concept of flavored integers at some point.
@@ -80,9 +88,15 @@ export function initRollChanges() {
   }
   Roll = Mars5eRoll;
   // else chat message stuff won't work....... cause they use Roll.create and that uses the class defined here......
-  CONFIG.Dice.rolls[0] = Mars5eRoll;
+  CONFIG.Dice.rolls = [Mars5eRoll, ...CONFIG.Dice.rolls];
+}
+
+export function initRollChanges() {
+  CONFIG.Dice.terms[NumberTerm.DENOMINATION] = NumberTerm;
 
   const oldMatchTerm = DiceTerm.matchTerm;
+
+  Hooks.once("ready", replaceClass);
 
   DiceTerm.matchTerm = function (expression) {
     const match = oldMatchTerm(expression);

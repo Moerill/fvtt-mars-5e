@@ -1,3 +1,7 @@
+# v1.2
+
+- *Fix* rendering default dice messages not working on startup.
+
 # v1.1
 
 - *New Feature* Reapply without using resources button - which is useful for just rerolling an item for multiple targets, if basic automation/information is not available. (Like Magic Missile or Scorching Ray)
