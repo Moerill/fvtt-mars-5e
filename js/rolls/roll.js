@@ -103,7 +103,7 @@ export function initRollChanges() {
     // const possible_operators = "\\?\\:\\<\\>\\&\\|\\*\\+";
     // const negative_lookahead_for_dae_ternaries = `(?!.*[${possible_operators}])`;
     // DAE compat: Check if ternary operation, by checking if followed by a "?"
-    const rgx = new RegExp(`^([0-9]+)${DiceTerm.FLAVOR_TEXT_REGEX}(?!.*\\?)`);
+    const rgx = new RegExp(`^([0-9]+)${DiceTerm.FLAVOR_TEXT_REGEX}(?!.*[:?])`);
     const ret = expression.match(rgx);
     if (ret) return [null, ret[1], "n", null, ret[2]]; // is sliced, number, denomination, no modifier, flavor
     return null;

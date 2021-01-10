@@ -1,4 +1,14 @@
-ä v1.2.2
+# v1.3
+
+- Added 2 new translations!
+  - French thanks to GitHub user @Nildran
+  - German
+- *New Feature* quickly roll (Dis-)Advantage using the modifier keys you may know and love from MidiQoL or BetterRolls!
+  - Press Ctrl while clicking to automatically roll disadvantage
+  - Press Shift or Alt while clicking to automatically roll advantag
+- *Fix* some more DaE compat fixes...
+
+# v1.2.2
 
 - *Fix* broken rolling.. sorry for that!
 

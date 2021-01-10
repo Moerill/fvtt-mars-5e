@@ -40,6 +40,7 @@ Its not difficult to put at least some effort into something that you want someo
 - [Known Module incompatibilities](#known-module-incompatibilities)
 - [Planned ToDo's](#planned-todos)
 - [Licensing](#licensing)
+- [Special Thanks](#special-thanks)
 - [Support the development](#support-the-development)
 
 ## Targets
@@ -97,7 +98,8 @@ For each damage type an automatic resistance check will be made and the appropri
 
 ![](doc/toggle-adv.gif)
 
-You can toggle (Dis-)Advantage when right clicking rollable objects like items, saving throws, ...
+You can toggle (Dis-)Advantage when right clicking rollable objects like items, saving throws, ...  
+Alternatively you can also use CTRL + click for disadvantage and Shift or Alt + click for Advantage throws. (The chosen hotkeys are based on what people may be used to from MidiQoL and BetterRolls)
 
 ### Hit/Miss and Success/Fail (GM only)
 
@@ -174,17 +176,18 @@ See [here](https://github.com/Moerill/fvtt-mars-5e/issues/50) for a list.
 
 ## Planned ToDo's
 
-These are just ideas, they may or may not happen.
-
-- [ ] Clean-up SCSS (and code)
-- [ ] Manifest+
-- [ ] (look into Sadness Chan support, only a maybe)
+Check the issue board for a list of stuff that may still come. Imo its kinda feature complete, but if i find something i still want to add or someone got a good suggestion i'll add it.  
 
 
 ## Licensing
 <img alt="GitHub" src="https://img.shields.io/github/license/moerill/fvtt-mars-5e?style=flat-square">
 
 This work is licensed under Foundry Virtual Tabletop [EULA - Limited License Agreement for module development](https://foundryvtt.com/article/license/).
+
+## Special Thanks
+
+Special thanks to 
+	- @Nildran for providing the french translation
 
 
 ## Support the development
