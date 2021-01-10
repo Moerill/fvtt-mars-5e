@@ -1,0 +1,96 @@
+{
+	"MARS5E": {
+		"chat-card": {
+			"targets": {
+				"unknown": "aucune cible"
+			},
+			"error": {
+				"resources": "Not enough resources left!"
+			}
+		},
+		"label": {
+			"Advantage": "Avantage",
+			"Disadvantage": "Désavantage",
+			"NormalRoll": "Normal",
+			"hit": "Touché !",
+			"miss": "Raté !",
+			"apply": "Appliquer",
+			"applyAll": "Appliquer à toutes les cibles.",
+			"applyAllVersatile": "Appliquer polyvalent à toutes les cibles.",
+			"COMMENT_FOR_reapply": "use \\A followed by a whitespace to force a line break in the tooltip",
+			"reapply": "Réappliquer à la cible \\A sans consommer de ressources. \\A Utile, par exemple, pour relancer\\A les missiles magiques"
+		},
+		"errors": {
+			"userNotOnline": "Impossible de relancer, le propriétaire de ce jet n'est pas en ligne.",
+			"reapplyNotAllowed": "Vous n'avez pas le droit de réappliquer cela !"
+		},
+		"tool-tip": {
+			"right-click": "Clic droit",
+			"toggle": "changer",
+			"toggle-resistance": "{right-click} pour {toggle} le multiplicateur de résistance.",
+			"success": "{right-click} pour {toggle} Succès/Echec.",
+			"advantage": "{right-click} pour {toggle} (Dé-)Avantage."
+		},
+		"settings": {
+			"autoRoll": {
+				"hit": {
+					"name": "Lancer automatiquement les jets d'attaques ?",
+					"hint": " "
+				},
+				"dmg": {
+					"name": "Lancer automatiquement les jets de dégâts ?",
+					"hint": " "
+				}
+			},
+			"confetti": {
+				"crit": {
+					"name": "Activer le support du module crit confetti.",
+					"hint": "Jette une énorme quantité de confettis sur les crits. Nécessite le module Confetti de Calegos pour fonctionner. (Paramètres du monde)"
+				}
+			},
+			"invisibleTarget": {
+				"name": "Cacher les jets du MJ aux joueurs ?",
+				"hint": "Même avec \"jet public\" sélectionné, les joueurs ne pourront alors voir que le jeton de la cible et éventuellement son nom lors du lancer public. Vous pouvez afficher/masquer les cibles à la demande à tout moment."
+			},
+			"hidesStatisticsBtn": {
+				"name": "Cacher les statistiques aux joueurs.",
+				"hint": "Cela permet de cacher le bouton en haut de la liste des joueurs. Les MJs peuvent toujours le voir et vous pouvez toujours montrer l'aperçu à vos joueurs en utilisant le bouton en-tête de la fenêtre d'aperçu des statistiques."
+			}
+		},
+		"statistics": {
+			"title": "MARS 5e - User Statistics",
+			"done": "done",
+			"taken": "taken",
+			"hit": "hit",
+			"kills": "Kills",
+			"made": "made",
+			"natural": "Natural",
+			"unconscious": "x unconscious",
+			"1s": "1s",
+			"20s": "20s",
+			"session": "Session",
+			"world": "All-time",
+			"tooltips": {
+				"dmgDone": "All damage applied. (using the apply damage buttons)",
+				"dmgTaken": "All negative hit point changes for represented actors.",
+				"healingDone": "All healing applied. (using the apply damage buttons)",
+				"attacks": "Number of all successful attack rolls and failed saving throws forced.",
+				"made": "Number of all attack rolls and saving throws forced.",
+				"kills": "Amount of enemies reduced to 0 hit points. (using the apply damage buttons)",
+				"nat1s": "Amount of natural 1s rolled with a d20.",
+				"nat20s": "Amount of natural 20s rolled with a d20.",
+				"unconscious": "Number of times the represented actor dropped to 0 hit points.",
+				"session": "A session resets after 6 hours of inactivity."
+			},
+			"headerButtons": {
+				"reset": {
+					"label": "Reset",
+					"menu": {
+						"title": "Reset statistics",
+						"description": "Are you sure you want to reset <em>all</em> statistics?"
+					}
+				}
+			}
+		}
+	}
+}

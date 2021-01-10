@@ -17,6 +17,11 @@
 			"lang": "en",
 			"name": "English",
 			"path": "lang/en.json"
+		},
+		{
+			"lang": "fr",
+			"name": "Francais",
+			"path": "lang/fr.json"
 		}
 	],
 	"systems": ["dnd5e"],
