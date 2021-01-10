@@ -240,12 +240,13 @@
     pointer-events: none;
     transition: opacity 0.15s ease-in;
     z-index: 1;
-    top: -1.5em;
+    bottom: 2.5em;
     left: 0;
     line-height: 1em;
-    white-space: nowrap;
+    white-space: pre;
     display: block;
-    visibility: hidden; }
+    visibility: hidden;
+    height: min-content; }
   .mars5e-card .target-header:hover:before {
     opacity: 1;
     transition: opacity 0.15s 1.2s ease-in;
@@ -430,7 +431,6 @@
   display: block;
   flex-flow: row wrap;
   opacity: 0;
-  overflow: visible;
   transition: all 0.15s 0.6s ease-in;
   font-size: 0.9em; }
   .mars5e-card .mars5e-apply-dmg-menu button,
@@ -469,12 +469,13 @@
       pointer-events: none;
       transition: opacity 0.15s ease-in;
       z-index: 1;
-      top: -1.5em;
+      bottom: 2.5em;
       left: 0;
       line-height: 1em;
-      white-space: nowrap;
+      white-space: pre;
       display: block;
-      visibility: hidden; }
+      visibility: hidden;
+      height: min-content; }
     .mars5e-card .mars5e-apply-dmg-menu button:hover:before,
     .mars5e-card .mars5e-reapply-btn button:hover:before {
       opacity: 1;
@@ -485,7 +486,9 @@
       z-index: 1;
       top: -1.7em;
       pointer-events: none;
-      left: -0.3ch; }
+      left: -0.3ch;
+      width: fit-content;
+      max-width: calc(272px - 4em); }
     .mars5e-card .mars5e-apply-dmg-menu button:hover:before,
     .mars5e-card .mars5e-reapply-btn button:hover:before {
       transition-delay: 0s; }
@@ -607,7 +610,7 @@
 .mars5e-toggleable {
   position: relative; }
   .mars5e-toggleable:before {
-    content: "Right-Click to toggle";
+    content: var(--mars5e-tooltip-general-toggle);
     background: var(--mars5e-tooltip-bg-color);
     color: var(--mars5e-tooltip-font-color);
     border: 1px outset var(--mars5e-tooltip-border-color);
@@ -619,23 +622,26 @@
     pointer-events: none;
     transition: opacity 0.15s ease-in;
     z-index: 1;
-    top: -1.5em;
+    bottom: 2.5em;
     left: 0;
     line-height: 1em;
-    white-space: nowrap;
+    white-space: pre;
     display: block;
-    visibility: hidden; }
+    visibility: hidden;
+    height: min-content; }
   .mars5e-toggleable:hover:before {
     opacity: 1;
     transition: opacity 0.15s 1.2s ease-in;
     visibility: visible; }
-  .mars5e-toggleable .mars5e-action.attack.mars5e-success:before, .mars5e-toggleable .mars5e-action.attack.mars5e-fail:before,
-  .mars5e-toggleable .mars5e-action.save.mars5e-success:before,
-  .mars5e-toggleable .mars5e-action.save.mars5e-fail:before {
-    content: var(--mars5e-tooltip-success-toggle); }
-  .mars5e-toggleable .mars5e-action.attack:before,
-  .mars5e-toggleable .mars5e-action.save:before {
-    content: "Right-Click to toggle (Dis-)Advantage."; }
+
+.mars5e-action.attack.mars5e-toggleable.mars5e-success:before, .mars5e-action.attack.mars5e-toggleable.mars5e-fail:before,
+.mars5e-action.save.mars5e-toggleable.mars5e-success:before,
+.mars5e-action.save.mars5e-toggleable.mars5e-fail:before {
+  content: var(--mars5e-tooltip-success-toggle); }
+
+.mars5e-action.attack:before,
+.mars5e-action.save:before {
+  content: var(--mars5e-tooltip-success-toggle); }
 
 .result-total.mars5e-toggleable:before {
   top: 1.2em;

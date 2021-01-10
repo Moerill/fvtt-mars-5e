@@ -188,7 +188,14 @@ Hooks.once("ready", async () => {
       "MARS5E.tool-tip.success",
       translationData
     ),
-    toggleAdvantageTooltip: game.i18n.format("MARS5E.tool-tip.advantage"),
+    toggleAdvantageTooltip: game.i18n.format(
+      "MARS5E.tool-tip.advantage",
+      translationData
+    ),
+    toggleGeneralTooltip: game.i18n.format(
+      "MARS5E.tool-tip.toggle-general",
+      translationData
+    ),
   };
   document.head.insertAdjacentHTML(
     "beforeend",

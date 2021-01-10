@@ -30,13 +30,14 @@
   &:before {
     content: $content;
     @include tooltip-style;
-    top: -1.5em;
+    bottom: 2.5em;
     left: 0;
     // font-size: 0.8em;
     line-height: 1em;
-    white-space: nowrap;
+    white-space: pre;
     display: block;
     visibility: hidden;
+    height: min-content;
   }
   &:hover {
     &:before {

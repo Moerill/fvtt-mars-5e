@@ -278,7 +278,6 @@
     flex-flow: row wrap;
     // pointer-events: none;
     opacity: 0;
-    overflow: visible;
     transition: all $animation-duration #{$animation-delay * 2} $animation-easing;
     font-size: 0.9em;
     // margin: {
@@ -313,6 +312,8 @@
         top: -1.7em;
         pointer-events: none;
         left: -0.3ch;
+        width: fit-content;
+        max-width: calc(272px - 4em);
       }
       &:hover:before {
         transition-delay: 0s;
@@ -473,20 +474,20 @@
 }
 
 .mars5e-toggleable {
-  @include tooltip("Right-Click to toggle");
+  @include tooltip(var(--mars5e-tooltip-general-toggle));
+}
 
-  .mars5e-action.attack,
-  .mars5e-action.save {
-    &.mars5e-success,
-    &.mars5e-fail {
-      &:before {
-        content: var(--mars5e-tooltip-success-toggle);
-      }
-    }
-
+.mars5e-action.attack,
+.mars5e-action.save {
+  &.mars5e-toggleable.mars5e-success,
+  &.mars5e-toggleable.mars5e-fail {
     &:before {
-      content: "Right-Click to toggle (Dis-)Advantage.";
+      content: var(--mars5e-tooltip-success-toggle);
     }
+  }
+
+  &:before {
+    content: var(--mars5e-tooltip-success-toggle);
   }
 }
 

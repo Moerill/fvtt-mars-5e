@@ -1,0 +1,97 @@
+{
+	"MARS5E": {
+		"chat-card": {
+			"targets": {
+				"unknown": "Niemand"
+			},
+			"error": {
+				"resources": "Not enough resources left!"
+			}
+		},
+		"label": {
+			"Advantage": "Vorteil",
+			"Disadvantage": "Nachteil",
+			"NormalRoll": "Normal",
+			"hit": "Treffer!",
+			"miss": "Daneben!",
+			"apply": "Anwenden",
+			"applyAll": "Auf alle Ziele anwenden.",
+			"applyAllVersatile": "Vielseitigen Schadenswurf anwenden.",
+			"COMMENT_FOR_reapply": "use \\A followed by a whitespace to force a line break in the tooltip",
+			"reapply": "Gegenstand erneut gegen alle momen-\\A tanen Ziele verwenden ohne Ressourcen\\A zu verbrauchen.\\A Nützlich um z.B. die einzelnen Schüsse\\A des Magischen Geschoss Zaubers anzu-\\A wenden."
+		},
+		"errors": {
+			"userNotOnline": "Wurf nicht möglich. Besitzer der Chat Karte nicht online.",
+			"reapplyNotAllowed": "Du hast nicht die Berechtigungen dieses Item erneut zu nutzen."
+		},
+		"tool-tip": {
+			"right-click": "Rechtsklick",
+			"toggle": "umzuschalten",
+			"toggle-general": "{right-click} zum umschalten",
+			"toggle-resistance": "{right-click} um den Multiplikator für\\A Resistenzen {toggle}.",
+			"success": "{right-click} um zwischen\\A Erfolg und Misserfolg\\A {toggle}.",
+			"advantage": "{right-click} um zwischen\\A Vor- und Nachteil {toggle}."
+		},
+		"settings": {
+			"autoRoll": {
+				"hit": {
+					"name": "Angriffswürfe automatisch werfen?",
+					"hint": " "
+				},
+				"dmg": {
+					"name": "Schadenswürfe automatisch werfen?",
+					"hint": " "
+				}
+			},
+			"confetti": {
+				"crit": {
+					"name": "Konfetti Unterstützung anschaten.",
+					"hint": "Wirft viel Konfetti bei nem kritischen Treffer und wenig bei einer 1. Brauch Calegos Confetti module um zu funktionieren. (Globale Einstellung)"
+				}
+			},
+			"invisibleTarget": {
+				"name": "Spielleiter Würfe vor den Spielern verstecken?",
+				"hint": "Auch wenn \"öffentlich Werfen\" ausgewählt ist sehen Spieler dann nur das Ziel und womöglich den Namen, wenn Spielleiter würfelt. Bei Bedarf kann jedes Ziel versteckt/gezeigt werden, mit Hilfe des Buttons auf der Chat Karte."
+			},
+			"hidesStatisticsBtn": {
+				"name": "Statistiken  vor Spielern verstecken.",
+				"hint": "Dies versteckt den Statistik Knopf in der Spielerliste vor den Spielern. Spielleiter können diese den Spielern bei Bedarf trotzdem zeigen. Einfach die Statistiken aufrufen und auf \"Allen Zeigen\" drücken."
+			}
+		},
+		"statistics": {
+			"title": "MARS 5e - Spielerstatistiken",
+			"done": "gemacht",
+			"taken": "bekommen",
+			"hit": "Treffer",
+			"kills": "Tötungen",
+			"made": "gemacht",
+			"natural": "Natürliche",
+			"unconscious": "x ohnmächtig",
+			"1s": "1s",
+			"20s": "20s",
+			"session": "Sitzung",
+			"world": "Immer",
+			"tooltips": {
+				"dmgDone": "Schaden angewendet. (Mit Hilfe der \"Anwenden\" Tasten in Nachrichten die diesem Spieler gehören.)",
+				"dmgTaken": "Alle negativen Treffefrpunktänderungen für den repräsentierten Character.",
+				"healingDone": "Heilung angewendet. (Mit Hilfe der \"Anwenden\" Tasten in Nachrichten die diesem Spieler gehören.)",
+				"attacks": "Anzahl der erfolgreichen Angriffs- und unerfolgreichen Rettungswürfe, die bei Gegnern erzwungen wurden.",
+				"made": "Anzahl aller Angriffs- und erzwungenen Rettungswürfe.",
+				"kills": "Anzahl aller Gegner die auf 0 Trefferpunkte reduziert wurden. (Mit Hilfe der \"Anwenden\" Tasten in Nachrichten die diesem Spieler gehören.)",
+				"nat1s": "Anzahl der natürlichen 1en gewürfelt mit einem W20.",
+				"nat20s": "Anzahl der natürlichen 20er gewürfelt mit einem W20.",
+				"unconscious": "Anzahl der Male der repräsentierte Charakter auf 0 Trefferpunkte gefallen ist.",
+				"session": "Eine Sitzung startet nach der ersten aktualisierung nach 6 Stunden inaktivität neu."
+			},
+			"headerButtons": {
+				"reset": {
+					"label": "Zurücksetzen",
+					"menu": {
+						"title": "Statistiken zurücksetzen",
+						"description": "Bist du sicher, dass du <em>alle</em> Statistiken zurücksetzen möchtest?<br>Dies ist nicht rückgängig machbar!"
+					}
+				}
+			}
+		}
+	}
+}

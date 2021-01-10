@@ -27,6 +27,7 @@
 		"tool-tip": {
 			"right-click": "Right-click",
 			"toggle": "toggle",
+			"toggle-general": "{right-click} to {toggle}.",
 			"toggle-resistance": "{right-click} to {toggle} resistance multiplier.",
 			"success": "{right-click} to {toggle} Success/Fail.",
 			"advantage": "{right-click} to {toggle} (Dis-)Advantage."
