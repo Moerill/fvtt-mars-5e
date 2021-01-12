@@ -1,3 +1,8 @@
+# v1.4
+
+- **Fix** speaker not being specified correctly, causing issues with Chat Portrait.
+- **Fix** successful saves being stored as hit, which is unintented. Unsuccessful saves are stored as hit now. 
+
 # v1.3
 
 - Added 2 new translations!

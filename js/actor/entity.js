@@ -56,12 +56,10 @@ export default function initActorClass() {
       const chatData = {
         user: game.user._id,
         type: CONST.CHAT_MESSAGE_TYPES.OTHER,
-        speaker: {
-          actor: this._id,
+        speaker: ChatMessage.getSpeaker({
+          actor: this.actor,
           token: this.token,
-          alias: this.name,
-          user: game.user.name,
-        },
+        }),
         flags: {
           "core.canPopout": false,
         },

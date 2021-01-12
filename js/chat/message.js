@@ -424,9 +424,9 @@ export default class Mars5eMessage extends ChatMessage {
     if (r.total >= Number(div.dataset.dc || 10)) {
       actionDiv.classList.add("mars5e-success");
       // success = hit
-      this.mars5eStatistics.hits++;
     } else {
       actionDiv.classList.add("mars5e-fail");
+      this.mars5eStatistics.hits++;
     }
 
     return resultDiv;

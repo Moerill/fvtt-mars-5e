@@ -21,12 +21,10 @@ export default function initItemClass() {
         type: CONST.CHAT_MESSAGE_TYPES.OTHER,
         content: html,
         flavor: this.name,
-        speaker: {
-          actor: this.actor._id,
+        speaker: ChatMessage.getSpeaker({
+          actor: this.actor,
           token: this.actor.token,
-          alias: this.actor.name,
-          user: game.user.name,
-        },
+        }),
         flags: {
           "core.canPopout": false,
         },
