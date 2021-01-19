@@ -1,7 +1,9 @@
-# v1.4
+# v1.3.1
 
-- **Fix** speaker not being specified correctly, causing issues with Chat Portrait.
+- **Fix** speaker not being specified correctly, causing issues with other modules like Chat Portrait.
 - **Fix** successful saves being stored as hit, which is unintented. Unsuccessful saves are stored as hit now. 
+- **Fix** Saving throws sometimes not respecting (dis-)advantage.
+- **Fix** Now properly hides GM saving throws inside of player chat cards. (E.g. when saving throw gets substituted in)
 
 # v1.3
 

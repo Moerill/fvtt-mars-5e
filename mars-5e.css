@@ -113,6 +113,17 @@
   .mars5e-player .blind .mars5e-result .result-total {
     color: #0000; }
 
+.mars5e-player .save .gm-roll {
+  pointer-events: none; }
+  .mars5e-player .save .gm-roll .result-total {
+    color: #0000; }
+    .mars5e-player .save .gm-roll .result-total:before {
+      color: var(--mars5e-font-color);
+      content: "???";
+      font-weight: normal;
+      position: absolute;
+      left: calc(50% - 1ch); }
+
 :root {
   --mars5e-success: var(--Whetstone-accent-primary, rgb(0, 255, 0));
   --mars5e-fail: var(--Whetstone-accent-secondary, red);

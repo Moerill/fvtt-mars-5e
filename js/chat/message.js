@@ -699,7 +699,7 @@ export default class Mars5eMessage extends ChatMessage {
     if (!game.user.isGM) {
       result.classList.add("player-roll");
       div.closest(".mars5e-action").classList.add("has-player-roll");
-    }
+    } else result.classList.add("gm-roll");
     div.replaceWith(result);
     // result.dataset.flavorFormula = roll.flavorFormula;
     if (this.id && game.dice3d) {

@@ -38,9 +38,6 @@ export default function initActorClass() {
       } else {
         options.chatMessage = false;
         options.fastForward = true;
-        const adv = mars5e.getAdvantage();
-        options.advantage = adv.advantage;
-        options.disadvantage = adv.disadvantage;
         const r = super.rollAbilitySave(abilityId, options);
         return this._renderRoll(
           r,

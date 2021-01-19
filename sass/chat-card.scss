@@ -107,4 +107,18 @@ $dice-container-width: 1.55em;
       }
     }
   }
+
+  .save .gm-roll {
+    pointer-events: none;
+    .result-total {
+      &:before {
+        color: var(--mars5e-font-color);
+        content: "???";
+        font-weight: normal;
+        position: absolute;
+        left: calc(50% - 1ch);
+      }
+      color: #0000;
+    }
+  }
 }
