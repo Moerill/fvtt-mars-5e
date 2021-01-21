@@ -42,6 +42,15 @@
 				<a class='rollable roll-d20' data-flavor-formula="{{toolCheck.flavorFormula}}">{{toolCheck.formula}}</a>
 			</div>
 		</div>
+        {{else}}
+            {{#if formula}}
+                <div class='mars5e-target'>
+                    <div class='mars5e-action utility mars5e-toggleable'>
+                        <label>{{ localize "DND5E.Use" }} {{item.name}}</label>
+                        <a class='rollable' data-flavor-formula="{{formula.flavorFormula}}">{{formula.formula}}</a>
+                    </div>
+                </div>
+            {{/if}}
 		{{/if}}
 		{{!-- {{#if }} --}}
 		{{#if hasAreaTarget}}
