@@ -41,6 +41,7 @@ If applicable, add screenshots to help explain your problem.
  - Browser [e.g. chrome, safari]
  - FVTT Version [e.g. 0.6.6]
  - Module version [e.g. 0.1.0]
+ - Are you using a hosting provider?
 
 **Additional context**
 Add any other context about the problem here.
