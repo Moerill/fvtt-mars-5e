@@ -56,6 +56,10 @@
 			"hidesStatisticsBtn": {
 				"name": "Hide statistics from players.",
 				"hint": "This hides the button on top of the player list. GMs can still see it and you can still show the overview to your players using the header button of the statistics overview window."
+			},
+			"rclick": {
+				"name": "Right-click advantage",
+				"hint": "This controls the setting for whether right-click will rotate through advantage, disadvantage and normal. Ctrl and Shift will still modify your rolls."
 			}
 		},
 		"statistics": {

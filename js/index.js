@@ -60,14 +60,16 @@ Hooks.on("init", () => {
     html[0].addEventListener(
       "contextmenu",
       (ev) => {
-        const target = ev.target.closest(classList);
-        if (!target) return;
+        if (game.settings.get("mars-5e", "right-click")) {
+          const target = ev.target.closest(classList);
+          if (!target) return;
 
-        ev.preventDefault();
-        ev.stopPropagation();
-        mars5e.advDiv.dataset.advantage =
-          (Number(mars5e.advDiv.dataset.advantage) + 1) % 3;
-        tween.kill();
+          ev.preventDefault();
+          ev.stopPropagation();
+          mars5e.advDiv.dataset.advantage =
+            (Number(mars5e.advDiv.dataset.advantage) + 1) % 3;
+          tween.kill();
+        }
       },
       true
     );
@@ -113,11 +115,13 @@ Hooks.on("init", () => {
     html[0].addEventListener(
       "contextmenu",
       (ev) => {
-        const target = ev.target.closest(classList);
-        if (!target) return;
-        mars5e.advDiv.dataset.advantage =
-          (Number(mars5e.advDiv.dataset.advantage) + 1) % 3;
-        tween.kill();
+        if (game.settings.get("mars-5e", "right-click")) {
+          const target = ev.target.closest(classList);
+          if (!target) return;
+          mars5e.advDiv.dataset.advantage =
+            (Number(mars5e.advDiv.dataset.advantage) + 1) % 3;
+          tween.kill();
+        }
       },
       true
     );
@@ -249,6 +253,17 @@ function registerSettings() {
     hit: game.settings.get("mars-5e", "auto-roll-hit"),
     dmg: game.settings.get("mars-5e", "auto-roll-dmg"),
   };
+
+  game.settings.register("mars-5e", "right-click", {
+    name: "MARS5E.settings.rclick.name",
+    hint: "MARS5E.settings.rclick.hint",
+    scope: "client",
+    config: true,
+    default: true,
+    type: Boolean,
+    onChange: (data) => {
+    },
+  });
 
   if (!game.user.isGM) return;
   game.settings.register("mars-5e", "invisible-target", {
