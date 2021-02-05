@@ -1,10 +1,13 @@
-# v1.3.2
-- *New Feature* Utility actions and spells generate a roll in the chat window.
+# v1.4
+
+- **New Feature** Utility actions and spells generate a roll in the chat window.
+- **New Setting** Setting to disable right click to toggle stuff inside the character sheet.
+- **Fix** Attributes used in some item fields like limited uses breaking stuff.
 
 # v1.3.1
 
 - **Fix** speaker not being specified correctly, causing issues with other modules like Chat Portrait.
-- **Fix** successful saves being stored as hit, which is unintented. Unsuccessful saves are stored as hit now. 
+- **Fix** successful saves being stored as hit, which is unintented. Unsuccessful saves are stored as hit now.
 - **Fix** Saving throws sometimes not respecting (dis-)advantage.
 - **Fix** Now properly hides GM saving throws inside of player chat cards. (E.g. when saving throw gets substituted in)
 
@@ -13,88 +16,87 @@
 - Added 2 new translations!
   - French thanks to GitHub user @Nildran
   - German
-- *New Feature* quickly roll (Dis-)Advantage using the modifier keys you may know and love from MidiQoL or BetterRolls!
+- _New Feature_ quickly roll (Dis-)Advantage using the modifier keys you may know and love from MidiQoL or BetterRolls!
   - Press Ctrl while clicking to automatically roll disadvantage
   - Press Shift or Alt while clicking to automatically roll advantag
-- *Fix* some more DaE compat fixes...
+- _Fix_ some more DaE compat fixes...
 
 # v1.2.2
 
-- *Fix* broken rolling.. sorry for that!
-
+- _Fix_ broken rolling.. sorry for that!
 
 # v1.2.1
 
-- *Fix* another attempt at fixing DAE ternaries!
+- _Fix_ another attempt at fixing DAE ternaries!
 
 # v1.2
 
-- *New Feature* You can now hide the statistics app from your players.
+- _New Feature_ You can now hide the statistics app from your players.
   - you can still force show it like journals
-- *New Feature* Reset statistics
-- *Fix* Dynamic Active Effects compatibility issues
+- _New Feature_ Reset statistics
+- _Fix_ Dynamic Active Effects compatibility issues
   - Ternary operations didn't work for DaE. Those and possibly more are (hopefully) fixed. I need user input here, since i don't use that module.
-- *Fix* Tooltip placement in Tidy5e
-- *Fix* now respects DsN "don't show for NPCs" setting.
-- *Fix* Class features like sneak attack
+- _Fix_ Tooltip placement in Tidy5e
+- _Fix_ now respects DsN "don't show for NPCs" setting.
+- _Fix_ Class features like sneak attack
   - the actual fix is nested rolls with flavor inside are fixed now.
-- *Fix* rendering default dice messages not working on startup.
+- _Fix_ rendering default dice messages not working on startup.
 
 # v1.1
 
-- *New Feature* Reapply without using resources button - which is useful for just rerolling an item for multiple targets, if basic automation/information is not available. (Like Magic Missile or Scorching Ray)
-- *Fix* damage amount not updating, when not rolling main damage roll.
+- _New Feature_ Reapply without using resources button - which is useful for just rerolling an item for multiple targets, if basic automation/information is not available. (Like Magic Missile or Scorching Ray)
+- _Fix_ damage amount not updating, when not rolling main damage roll.
 
 # v1.0.1
 
-- *Fix* general rolls for players not working.
+- _Fix_ general rolls for players not working.
 
 # v1.0
 
-- *New Feature* Autoroll attack and dmg rolls!
+- _New Feature_ Autoroll attack and dmg rolls!
   - Setting user based in the settings menu!
-- *New Feature* Support for Calegos Confetti module!
+- _New Feature_ Support for Calegos Confetti module!
   - throws confetti on crits/fumbles
   - Use at your own risk in combination with auto rolls!
-- *New Feature* Apply damage to all targets buttons!
-- *New Feature* Statistics! 
+- _New Feature_ Apply damage to all targets buttons!
+- _New Feature_ Statistics!
   - track a few of your players statistics, like damage done, damage taken, nat20s/1s, ...
   - Statistics are tracked over the whole worlds time and a session (session stats are reset if >= 6 hours are between updates)
   - Including a small overview window!
-  - Future plans: 
+  - Future plans:
     - provide awards and/or achievements
-  	-	maybe add a few more statistics
-- *New Setting* Added setting on whether to automatically hide gm rolls or not.
+    - maybe add a few more statistics
+- _New Setting_ Added setting on whether to automatically hide gm rolls or not.
 - Improved the AbilityTemplate code to copy less from the original DnD system.
-- *Fix* apply damage buttons for area damage showing "NaN", when saving throw was rolled already
+- _Fix_ apply damage buttons for area damage showing "NaN", when saving throw was rolled already
 - Area dmg div now removed after it is rolled and applied to the targets
 - Advantage is now reset after each throw
-- *Fix* toggling successfull saves not modifying the applied resistance of damage rolls
-- *Fix* some more bugfixes, that i noticed on the way
+- _Fix_ toggling successfull saves not modifying the applied resistance of damage rolls
+- _Fix_ some more bugfixes, that i noticed on the way
 
 # v0.3.3
 
 - Advantage selection now gets shown for hotbar items as well.
-  - Right-click *will* toggle, but also show the context menu.. i wanted to quickly have something working there, cause it is a very valid request, but i couldn't think of something better for the time being. If you have an idea on how to tackle this better, please provide some feedback on github!
+  - Right-click _will_ toggle, but also show the context menu.. i wanted to quickly have something working there, cause it is a very valid request, but i couldn't think of something better for the time being. If you have an idea on how to tackle this better, please provide some feedback on github!
 
 # v0.3.2
 
-- *Fix* removed deprecated (and broken) function ``Mars5eActor#useSpell``
+- _Fix_ removed deprecated (and broken) function `Mars5eActor#useSpell`
 
 # v0.3.1
 
-- *Fix* saving throws not working when no chat message exists
-- *Fix* some rolling behaviours with +0 as modifiers (at least hopefully fixed!)
-- *Fix* Darkmode invis target background...
+- _Fix_ saving throws not working when no chat message exists
+- _Fix_ some rolling behaviours with +0 as modifiers (at least hopefully fixed!)
+- _Fix_ Darkmode invis target background...
 - Removed popout functionality for the chat cards
 
 # v0.3
 
-- *New* Dice so Nice support!
-- *Fix* weird css issues in the foundry app, resulting in a blur applied to chat cards when scrolling
-- *Fix* Toolcheck not owrking
-- *Fix* flavorformulas not working
-- *Fix* Apply dmg not correctly updating for AoE spells when there was no target chosen.
+- _New_ Dice so Nice support!
+- _Fix_ weird css issues in the foundry app, resulting in a blur applied to chat cards when scrolling
+- _Fix_ Toolcheck not owrking
+- _Fix_ flavorformulas not working
+- _Fix_ Apply dmg not correctly updating for AoE spells when there was no target chosen.
 
 # v0.2.3
 
@@ -106,18 +108,18 @@
 
 # v0.2.1
 
-- Added DnD5e as system requirement.. sorry for that, i forgot to add it! This module is *not* compatible with other systems! 
+- Added DnD5e as system requirement.. sorry for that, i forgot to add it! This module is _not_ compatible with other systems!
 
 # v0.2
 
-- Tooltips for everything! (or at least *more* tooltips to help find what can actually be toggled using right-click)
+- Tooltips for everything! (or at least _more_ tooltips to help find what can actually be toggled using right-click)
 - Faster animations, buttons inside the chat card are now visible when hovering it.
 - Removed many unneeded files.
 
 # v0.1.2
 
-- *Fix* fumbles still being able to hit, although they shouldn't.
-- *Fix* crits still being able to fail, although they shouldn't.
+- _Fix_ fumbles still being able to hit, although they shouldn't.
+- _Fix_ crits still being able to fail, although they shouldn't.
 
 # v0.1.1
 
