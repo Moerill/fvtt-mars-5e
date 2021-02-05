@@ -1,3 +1,6 @@
+# v1.3.2
+- *New Feature* Utility actions and spells generate a roll in the chat window.
+
 # v1.3.1
 
 - **Fix** speaker not being specified correctly, causing issues with other modules like Chat Portrait.
