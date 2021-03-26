@@ -9,7 +9,7 @@ import templateAutotargeting from "./item/ability-template.js";
 
 import Mars5eUserStatistics from "./statistics.js";
 
-import { initConfetti } from "./util.js";
+import { initConfetti, log } from "./util.js";
 import { TweenMax } from "/scripts/greensock/esm/all.js";
 
 Hooks.once("devModeReady", ({ registerPackageDebugFlag }) => {
@@ -80,9 +80,10 @@ Hooks.on("init", () => {
     html[0].addEventListener(
       "mouseenter",
       (ev) => {
-        const target = ev.target.closest(classList);
+        let target = ev.target.closest(classList);
         if (!target) return;
-        const isTidyGridLayout = target.closest(".grid-layout");
+        const isTidyGridLayout = target.closest(".grid-layout, .list-layout");
+        if (isTidyGridLayout) target = target.lastElementChild;
         const rect = target.getBoundingClientRect();
         mars5e.advDiv.style.top = rect.top + "px";
         // Tidy5e Compat: Always show on the right side if its grid layout

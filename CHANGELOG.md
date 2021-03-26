@@ -10,6 +10,7 @@
 - **New** Developer Mode Module support
   - Less stray debug logs ( i hope)
 - **Fix** Dicepools not working for dmg rolls.
+- Modified tooltip position for Tidy5e Sheets item/spellbook view, so it doesn't block vision on the nice "new" popup
 
 # v1.3.1
 
