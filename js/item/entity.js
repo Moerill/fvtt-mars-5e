@@ -226,11 +226,10 @@ export default function initItemClass() {
       }
       const oldTargets = card.querySelector(".mars5e-targets");
       oldTargets.insertAdjacentHTML("beforeend", html);
-      oldTargets
-        .querySelector(
-          ".mars5e-target:not([data-target-id]):not(.mars5e-area-dmg)"
-        )
-        ?.remove();
+      const emptyTarget = oldTargets.querySelectorAll(
+        ".mars5e-target:not([data-target-id]):not(.mars5e-area-dmg)" // :not(:has(.mars5e-result)) removed since not workign for some reason?
+      );
+      if (emptyTarget) emptyTarget.forEach((el) => el.remove());
       await message.autoRoll();
       message.scrollIntoView();
       message.mars5eUpdate(oldTargets);

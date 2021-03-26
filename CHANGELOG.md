@@ -1,8 +1,14 @@
 # v1.4
 
-- **New Feature** Utility actions and spells generate a roll in the chat window.
-- **New Setting** Setting to disable right click to toggle stuff inside the character sheet.
+- **New Feature** Utility actions and spells generate a roll in the chat window. Thanks to Github User @theMaster23 for implementing this!
+- **New Setting** Setting to disable right click to toggle stuff inside the character sheet. Thanks to Github User @Grygon for implementin this!
 - **Fix** Attributes used in some item fields like limited uses breaking stuff.
+- **New Feature** Now all rolls use the Mars 5e chat card style
+  - hidden rolls are really hidden now!
+- **New** Bug Reporter support.
+  - Use the Bug Reporter module to directly report bugs from inside FVTT!
+- **New** Developer Mode Module support
+  - Less stray debug logs ( i hope)
 
 # v1.3.1
 

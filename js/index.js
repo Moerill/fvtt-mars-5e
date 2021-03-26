@@ -12,6 +12,10 @@ import Mars5eUserStatistics from "./statistics.js";
 import { initConfetti } from "./util.js";
 import { TweenMax } from "/scripts/greensock/esm/all.js";
 
+Hooks.once("devModeReady", ({ registerPackageDebugFlag }) => {
+  registerPackageDebugFlag("mars-5e");
+});
+
 Hooks.on("init", () => {
   window["mars5e"] = {};
   const MarsItem5e = initItemClass();
@@ -261,8 +265,7 @@ function registerSettings() {
     config: true,
     default: true,
     type: Boolean,
-    onChange: (data) => {
-    },
+    onChange: (data) => {},
   });
 
   if (!game.user.isGM) return;

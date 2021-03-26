@@ -1,8 +1,10 @@
-<div class='mars5e-card mars5e-roll-card {{#if isGM}}mars5e-gm-card{{/if}}'>
+<div class='mars5e-card mars5e-roll-card {{#if mars5e.gmRoll}}mars5e-gm-card{{/if}}'>
 	<div class="mars5e-action">
+			{{#unless mars5e.noFormula}}
 			{{#if label}}
 			<label>{{label}}</label>
 			{{/if}}
-			<a class='mars5e-roll mars5e-result' data-advantage='{{advantage}}'><span class='result-total'>{{total}}</span>{{{tooltip}}}</a>
+			{{/unless}}
+			<a class='mars5e-roll mars5e-result {{#if mars5e.critical}}critical{{/if}} {{#if mars5e.fumble}}fumble{{/if}}' ><span class='result-total'>{{total}}</span>{{{tooltip}}}</a>
 	</div>
 </div>

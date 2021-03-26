@@ -2,6 +2,7 @@ const timeDiff = 1000 * 60 * 60 * 6; // 6 hours
 
 export default class Mars5eUserStatistics {
   static async update(user, data) {
+    await data;
     //property, amount) {
     let statistics = duplicate(user.getFlag("mars-5e", "statistics") || {});
 

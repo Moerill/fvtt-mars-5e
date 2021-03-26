@@ -3,6 +3,8 @@
  */
 
 import NumberTerm from "./number-term.js";
+import { log, markFail, markSuccess } from "../util.js";
+import Mars5eUserStatistics from "../statistics.js";
 
 function replaceClass() {
   class Mars5eRoll extends Roll {
@@ -65,21 +67,55 @@ function replaceClass() {
         .join(" ");
     }
 
-    /**
-     * Overwrite this, set the class to "Roll", so we can render rolls before we replace this class.
-     * Why? Due to DaE i had to push class Creation to the ready hook, but rendering rolls happens before..
-     */
     toJSON() {
       let ret = super.toJSON();
-      ret.class = "Roll";
+      ret.class = "Mars5eRoll";
+      if (this.mars5e) ret.mars5e = this.mars5e;
+      ret.formula = this.flavorFormula;
       return ret;
+    }
+
+    static fromData(data) {
+      let r = super.fromData(data);
+      r.mars5e = data.mars5e;
+      return r;
+    }
+
+    /**
+     * Add some roll information to the roll, based on the roll type needed for rendering
+     *
+     * @param {*} messageData
+     * @param {*} param1
+     */
+    toMessage(messageData = {}, { rollMode = null, create = true } = {}) {
+      const type = messageData["flags.dnd5e.roll"]?.type;
+      if (type && ["skill", "save", "ability"].includes(type)) {
+        this.mars5e = {};
+        if (game.user.isGM) this.mars5e.gmRoll = true;
+        const dice = this.terms[0];
+        if (dice.total >= dice.options.critical) {
+          markSuccess();
+          this.mars5e.critical = true;
+        } else if (dice.total <= dice.options.fumble) {
+          markFail();
+          this.mars5e.fumble = true;
+        }
+        Mars5eUserStatistics.update(
+          game.user,
+          Mars5eUserStatistics.getD20Statistics(dice)
+        );
+        this.mars5e.noFormula = true;
+      }
+      super.toMessage(messageData, { rollMode, create });
     }
 
     static replaceFormulaData(formula, data, { missing, warn = false } = {}) {
       // Check for replacement data, and add it as flavor
       // Mars v1.2: Added check for whether its inside of parentheses, if yes, ignore, since evaluating numerical terms inside of parentheses results in errors thrown by fvtt. Consider creating an issue for this or see if it will change when Atro introduces the concept of flavored integers at some point.
 
-      if (data.warn) {
+      // This flag is only set to true (as far as i can see) when the whole roll object is constructed
+      // Check for this to avoid issues with stuff where, like in Item5e#prepareData, where only the formula is replaced and evaluated and no complete roll object is created
+      if (warn) {
         // DAE compat: Check if ternary operation, by checking that its not followed by /or is not following a "?"
         let dataRgx = new RegExp(
           /(?<![\(\\?].*)@([a-z.0-9_\-]+)(?!.*[\)\\?])/gi
@@ -89,6 +125,36 @@ function replaceClass() {
         });
       }
       return super.replaceFormulaData(formula, data, { missing, warn });
+    }
+
+    async render(chatOptions = {}) {
+      chatOptions = mergeObject(
+        {
+          flavor: null,
+          template: "modules/mars-5e/html/roll.hbs",
+        },
+        chatOptions
+      );
+      if (!this._rolled) this.roll();
+
+      const user = game.users.get(chatOptions.user);
+      const chatData = {
+        roll: this,
+        flavor: chatOptions.flavor,
+        user: chatOptions.user,
+        tooltip: await this.getTooltip(),
+        mars5e: {
+          //advantage: this.mars5e?.advantage,
+          gmRoll: this.mars5e?.gmRoll,
+          noFormula: this.mars5e?.noFormula,
+          critical: this.mars5e?.critical,
+          fumble: this.mars5e?.fumble,
+        },
+        total: this.total,
+        label: chatOptions.flavor ? chatOptions.flavor : this.flavorFormula,
+      };
+
+      return renderTemplate(chatOptions.template, chatData);
     }
   }
   Roll = Mars5eRoll;

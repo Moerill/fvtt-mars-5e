@@ -1,6 +1,7 @@
 import Mars5eUserStatistics from "../statistics.js";
 import { markSuccess, markFail } from "../util.js";
 import { rollDsN } from "../rolls/dsn.js";
+import { log } from "../util.js";
 
 export default function initActorClass() {
   return class Mars5eActor extends CONFIG.Actor.entityClass {
@@ -15,9 +16,6 @@ export default function initActorClass() {
       if (options.fromMars5eChatCard)
         return super.rollAbilitySave(abilityId, options);
 
-      const adv = mars5e.getAdvantage();
-      options.advantage = adv.advantage;
-      options.disadvantage = adv.disadvantage;
       const log = document.getElementById("chat-log");
       const card = log.lastElementChild;
       let id = this.token?.id || this.id;
@@ -35,16 +33,9 @@ export default function initActorClass() {
         const ev = new Event("click", { target: targetDiv, bubbles: true });
 
         targetDiv.dispatchEvent(ev);
+        return;
       } else {
-        options.chatMessage = false;
-        options.fastForward = true;
-        const r = super.rollAbilitySave(abilityId, options);
-        return this._renderRoll(
-          r,
-          `${game.i18n.localize("DND5E.SavingThrow")} (${
-            CONFIG.DND5E.abilities[abilityId]
-          })`
-        );
+        return this.processRoll(super.rollAbilitySave, abilityId, options);
       }
     }
 
@@ -129,28 +120,21 @@ export default function initActorClass() {
     }
 
     rollAbilityTest(abilityId, options = {}) {
-      options.chatMessage = false;
-      options.fastForward = true;
-      const adv = mars5e.getAdvantage();
-      options.advantage = adv.advantage;
-      options.disadvantage = adv.disadvantage;
-      const r = super.rollAbilityTest(abilityId, options);
-      return this._renderRoll(r, `${CONFIG.DND5E.abilities[abilityId]}`);
+      return this.processRoll(super.rollAbilityTest, abilityId, options);
     }
 
     rollSkill(skillId, options = {}) {
-      options.chatMessage = false;
+      return this.processRoll(super.rollSkill, skillId, options);
+    }
+
+    async processRoll(fun, id, options) {
       options.fastForward = true;
+      //const toChat = options.chatMessage;
+      //options.chatMessage = false;
       const adv = mars5e.getAdvantage();
       options.advantage = adv.advantage;
       options.disadvantage = adv.disadvantage;
-      const r = super.rollSkill(skillId, options);
-      return this._renderRoll(
-        r,
-        `${game.i18n.format("DND5E.SkillPromptTitle", {
-          skill: CONFIG.DND5E.skills[skillId],
-        })}`
-      );
+      return fun.call(this, id, options);
     }
 
     async update(data, options = {}) {

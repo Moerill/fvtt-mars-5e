@@ -33,6 +33,22 @@ export default class Mars5eMessage extends ChatMessage {
     this.resetStatistics();
   }
 
+  // Really hide hidden rolls - part 1!
+  get isContentVisible() {
+    return this.visible;
+  }
+
+  // Really hide hidden rolls - part 2!
+  get visible() {
+    if (this.data.whisper.length) {
+      return (
+        this.data.user === game.user._id ||
+        this.data.whisper.indexOf(game.user._id) !== -1
+      );
+    }
+    return true;
+  }
+
   _onUpdate(...args) {
     super._onUpdate(...args);
     this.resetStatistics();

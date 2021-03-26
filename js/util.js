@@ -3,8 +3,8 @@ let allowConfetti = {
   fail: true,
 };
 
-export function markSuccess(resultDiv) {
-  resultDiv.classList.add("critical");
+export function markSuccess(resultDiv = null) {
+  resultDiv?.classList.add("critical");
   if (allowConfetti.success && mars5e.confetti?.crit && window.confetti) {
     shootConfetti(window.confetti.confettiStrength.high);
     allowConfetti.success = false;
@@ -14,8 +14,8 @@ export function markSuccess(resultDiv) {
   }
 }
 
-export function markFail(resultDiv) {
-  resultDiv.classList.add("fumble");
+export function markFail(resultDiv = null) {
+  resultDiv?.classList.add("fumble");
   if (allowConfetti.fail && mars5e.confetti?.crit && window.confetti) {
     shootConfetti(window.confetti.confettiStrength.low);
     allowConfetti.fail = false;
@@ -46,4 +46,15 @@ export function initConfetti() {
   mars5e.confetti = {
     crit: game.settings.get("mars-5e", "crit-confetti") && !!window.confetti,
   };
+}
+
+export function log(data = [], force = false) {
+  try {
+    const isDebugging = window.DEV?.getPackageDebugValue("mars-5e");
+
+    if (force || isDebugging) {
+      if (Array.isArray(data)) console.log("Mars 5e | ", ...data);
+      else console.log("Mars 5e | ", data);
+    }
+  } catch (e) {}
 }
