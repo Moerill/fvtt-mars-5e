@@ -9,6 +9,7 @@
   - Use the Bug Reporter module to directly report bugs from inside FVTT!
 - **New** Developer Mode Module support
   - Less stray debug logs ( i hope)
+- **Fix** Dicepools not working for dmg rolls.
 
 # v1.3.1
 

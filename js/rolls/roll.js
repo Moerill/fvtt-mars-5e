@@ -61,7 +61,7 @@ function replaceClass() {
     get flavorFormula() {
       return this.terms
         .map((e) => {
-          if (!(e instanceof DiceTerm)) return e;
+          if (!(e instanceof DiceTerm || e instanceof DicePool)) return e;
           return e.formula;
         })
         .join(" ");
