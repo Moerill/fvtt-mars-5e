@@ -1,4 +1,4 @@
-import { markSuccess, markFail } from "../util.js";
+import { log, markSuccess, markFail } from "../util.js";
 import Mars5eUserStatistics from "../statistics.js";
 
 import { rollDsN } from "../rolls/dsn.js";
@@ -932,6 +932,8 @@ export default class Mars5eMessage extends ChatMessage {
         game.users.get(this.data.user),
         this.mars5eStatistics
       ).then(() => {
+        // Reset description shown to default view style on update
+        this.card.querySelector(".card-content").style.display = null;
         this.update({ content: this.card.parentNode.innerHTML });
       });
     } else {
