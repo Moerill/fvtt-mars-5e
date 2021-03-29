@@ -1,3 +1,8 @@
+# v1.4.1
+
+- **Fix** `Roll#toMessage` not returning anything
+  - this resulted in e.g. initiative rolling being broken
+
 # v1.4
 
 - **New Feature** Utility actions and spells generate a roll in the chat window. Thanks to Github User @theMaster23 for implementing this!

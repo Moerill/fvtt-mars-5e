@@ -1,0 +1,152 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/3.0.1/github-markdown.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.18.1/lib/index.min.js">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/markdown-it-texmath@0.6.5/css/texmath.css">
+<link rel="stylesheet" href="https://gitcdn.xyz/repo/goessner/mdmath/master/css/vscode-texmath.css">
+
+</head>
+<body class="markdown-body">
+<h1 id="mars-5e---moerills-alternative-rolling-style-for-5e----omit-in-toc-1" data-line="0" class="code-line">MARS 5e - Moerills alternative rolling style for 5e <!-- omit in toc --></h1>
+<p data-line="2" class="code-line"><img alt="GitHub release (latest by date)" src="https://img.shields.io/github/v/release/moerill/fvtt-mars-5e?style=flat-square"> <img alt="GitHub" src="https://img.shields.io/github/license/moerill/fvtt-mars-5e?style=flat-square"> <img alt="GitHub Releases" src="https://img.shields.io/github/downloads/moerill/fvtt-mars-5e/latest/total?style=flat-square"></p>
+<p data-line="4" class="code-line">This module provides an opinionated alternative to how the roll workflow in DnD5e and how they're displayed.<br>
+Main goal is to provide some flexibility in how much information is displayed to the players from the GM side, while also automating some basic tasks. To avoid having to care about all possible edge cases and houserules almost every automatic generated result is toggleable.</p>
+<p data-line="7" class="code-line"><strong>This is a replacement for the part of MESS that modified DnD 5es rolling! While it is not exactly the same, this is my new revision of it and MESS won't be maintained in this regard anymore!</strong></p>
+<h2 id="bug-reporting-and-feature-suggestions----omit-in-toc-1" data-line="9" class="code-line">Bug Reporting and Feature Suggestions <!-- omit in toc --></h2>
+<p data-line="11" class="code-line">Go to the <a href="https://github.com/Moerill/fvtt-mars-5e/issues" data-href="https://github.com/Moerill/fvtt-mars-5e/issues">GitHub's issue board</a> and create an issue with the template fitting to what you want to post and follow its instructions.</p>
+<p data-line="13" class="code-line"><strong>I will ignore half-hearted bug reports ignoring the issue template or Discord mentions!</strong><br>
+Its not difficult to put at least some effort into something that you want someone else to put their spare time into to fix!</p>
+<h2 id="table-of-contents----omit-in-toc-1" data-line="16" class="code-line">Table of Contents <!-- omit in toc --></h2>
+<ul>
+<li data-line="18" class="code-line"><a href="#targets" data-href="#targets">Targets</a>
+<ul>
+<li data-line="19" class="code-line"><a href="#itemspell-targets" data-href="#itemspell-targets">Item/Spell targets</a></li>
+<li data-line="20" class="code-line"><a href="#token-pictures" data-href="#token-pictures">Token pictures</a></li>
+</ul>
+</li>
+<li data-line="21" class="code-line"><a href="#gm-sees-it-all-players-do-not" data-href="#gm-sees-it-all-players-do-not">GM sees it all, players do not</a></li>
+<li data-line="22" class="code-line"><a href="#basic-automation" data-href="#basic-automation">Basic automation</a>
+<ul>
+<li data-line="23" class="code-line"><a href="#attack-rolls-vs-ac" data-href="#attack-rolls-vs-ac">Attack rolls vs AC</a></li>
+<li data-line="24" class="code-line"><a href="#saving-throw-vs-dc" data-href="#saving-throw-vs-dc">Saving throw vs DC</a></li>
+<li data-line="25" class="code-line"><a href="#resistance-check" data-href="#resistance-check">Resistance check</a></li>
+</ul>
+</li>
+<li data-line="26" class="code-line"><a href="#use-right-click-to-toggle-stuff" data-href="#use-right-click-to-toggle-stuff">Use Right-Click to toggle stuff</a>
+<ul>
+<li data-line="27" class="code-line"><a href="#dis-advantage" data-href="#dis-advantage">(Dis-)Advantage</a></li>
+<li data-line="28" class="code-line"><a href="#hitmiss-and-successfail-gm-only" data-href="#hitmiss-and-successfail-gm-only">Hit/Miss and Success/Fail (GM only)</a></li>
+<li data-line="29" class="code-line"><a href="#crit" data-href="#crit">Crit</a></li>
+<li data-line="30" class="code-line"><a href="#resistance-multiplier-gm-only" data-href="#resistance-multiplier-gm-only">Resistance multiplier (GM only)</a></li>
+<li data-line="31" class="code-line"><a href="#automatic-hitdmg-rolls" data-href="#automatic-hitdmg-rolls">Automatic Hit/Dmg rolls</a></li>
+</ul>
+</li>
+<li data-line="32" class="code-line"><a href="#statistics" data-href="#statistics">Statistics</a></li>
+<li data-line="33" class="code-line"><a href="#miscellaneous-features" data-href="#miscellaneous-features">Miscellaneous features</a>
+<ul>
+<li data-line="34" class="code-line"><a href="#whetstone-integration" data-href="#whetstone-integration">Whetstone Integration</a></li>
+<li data-line="35" class="code-line"><a href="#dice-tooltips" data-href="#dice-tooltips">Dice tooltips</a></li>
+<li data-line="36" class="code-line"><a href="#apply-damage-buttons-gm-only" data-href="#apply-damage-buttons-gm-only">Apply damage buttons (GM only)</a></li>
+<li data-line="37" class="code-line"><a href="#fudge-rolls-gm-only" data-href="#fudge-rolls-gm-only">Fudge rolls (GM only)</a></li>
+<li data-line="38" class="code-line"><a href="#barebone-dice-so-nice-support" data-href="#barebone-dice-so-nice-support">Barebone Dice So Nice support</a></li>
+<li data-line="39" class="code-line"><a href="#confeftti-support" data-href="#confeftti-support">Confeftti Support!</a></li>
+<li data-line="40" class="code-line"><a href="#automatic-template-targetting" data-href="#automatic-template-targetting">Automatic template targetting</a></li>
+</ul>
+</li>
+<li data-line="41" class="code-line"><a href="#known-module-incompatibilities" data-href="#known-module-incompatibilities">Known Module incompatibilities</a></li>
+<li data-line="42" class="code-line"><a href="#planned-todos" data-href="#planned-todos">Planned ToDo's</a></li>
+<li data-line="43" class="code-line"><a href="#licensing" data-href="#licensing">Licensing</a></li>
+<li data-line="44" class="code-line"><a href="#special-thanks" data-href="#special-thanks">Special Thanks</a></li>
+<li data-line="45" class="code-line"><a href="#support-the-development" data-href="#support-the-development">Support the development</a></li>
+</ul>
+<h2 id="targets-1" data-line="47" class="code-line">Targets</h2>
+<h3 id="itemspell-targets-1" data-line="49" class="code-line">Item/Spell targets</h3>
+<p data-line="51" class="code-line">Each item/spell usage having against targets (having an attack roll or saving throw) automatically creates target information on the chat card when rolled.</p>
+<h3 id="token-pictures-1" data-line="53" class="code-line">Token pictures</h3>
+<p data-line="55" class="code-line">(Video tokens are currently not supported!)</p>
+<p data-line="57" class="code-line">Hovering over the Targets token picture or name highlights the token on the canvas. Double clicking the picture/name automatically pans the camera to the token (if its visible to the player) and selects it (if possible).</p>
+<h2 id="gm-sees-it-all-players-do-not-1" data-line="59" class="code-line">GM sees it all, players do not</h2>
+<p data-line="61" class="code-line"><img src="https://raw.githubusercontent.com/Moerill/fvtt-mars-5e/master/doc/visibility-difference.png" alt="" class="loading" id="image-hash-54215791"><br>
+Left: GM, right: player</p>
+<p data-line="64" class="code-line">Mars automatically hides information about the the rolls, visible to the GM by the purple tint, similar to how FVTT shows whispered messages. If a target is hidden this way only the token art (and the name if visible) will be shown to the player. The GM can toggle this state by clicking on the eye icon, appearing when hovering the targets name.</p>
+<p data-line="66" class="code-line">Target names get automatically hidden from the players for tokens they do not know. This is determined by:</p>
+<ul>
+<li data-line="68" class="code-line">Is it a player character?</li>
+<li data-line="69" class="code-line">Is the name visibility of the token set to Always for &quot;Everyone/Hovered for Everyone&quot;</li>
+</ul>
+<p data-line="71" class="code-line">Other things that are hidden from GM created cards:</p>
+<ul>
+<li data-line="73" class="code-line">Item name</li>
+<li data-line="74" class="code-line">Item description</li>
+<li data-line="75" class="code-line">Attack rolls (only whether it hit is shown)</li>
+<li data-line="76" class="code-line">Roll tooltips of GM rolls (to avoid players seeing NPC statistics)</li>
+</ul>
+<h2 id="basic-automation-1" data-line="78" class="code-line">Basic automation</h2>
+<h3 id="attack-rolls-vs-ac-1" data-line="80" class="code-line">Attack rolls vs AC</h3>
+<p data-line="82" class="code-line">Attack rolls are automatically compared to the targets AC and decide whether they hit or not. This does not account for situational modifiers, like cover. For this reason you can toggle whether an attack hit or missed. (See below)</p>
+<h3 id="saving-throw-vs-dc-1" data-line="84" class="code-line">Saving throw vs DC</h3>
+<p data-line="86" class="code-line">When rolling a saving throw associated to the action, it automatically checks whether the DC was met or not. If its a saving throw + damage action it automatically applies a resistance modifier. (For cantrips a successfull save sets the modifier to 0, for everything else it halves the modifier)</p>
+<p data-line="88" class="code-line"><img src="https://raw.githubusercontent.com/Moerill/fvtt-mars-5e/master/doc/auto-save.gif" alt="" class="loading" id="image-hash--1751003507"></p>
+<p data-line="90" class="code-line">Additionally when a saving throw is rolled from a character sheet it will check if the last chat card expected this saving throw from the character. If yes it will automatically added inside the chat card instead of creating a new one.</p>
+<h3 id="resistance-check-1" data-line="92" class="code-line">Resistance check</h3>
+<p data-line="94" class="code-line">For each damage type an automatic resistance check will be made and the appropriate multiplier will be applied.</p>
+<h2 id="use-right-click-to-toggle-stuff-1" data-line="96" class="code-line">Use Right-Click to toggle stuff</h2>
+<h3 id="dis-advantage-1" data-line="98" class="code-line">(Dis-)Advantage</h3>
+<p data-line="100" class="code-line"><img src="https://raw.githubusercontent.com/Moerill/fvtt-mars-5e/master/doc/toggle-adv.gif" alt="" class="loading" id="image-hash-296580532"></p>
+<p data-line="102" class="code-line">You can toggle (Dis-)Advantage when right clicking rollable objects like items, saving throws, ...<br>
+Alternatively you can also use CTRL + click for disadvantage and Shift or Alt + click for Advantage throws. (The chosen hotkeys are based on what people may be used to from MidiQoL and BetterRolls)</p>
+<h3 id="hitmiss-and-successfail-gm-only-1" data-line="105" class="code-line">Hit/Miss and Success/Fail (GM only)</h3>
+<p data-line="107" class="code-line"><img src="https://raw.githubusercontent.com/Moerill/fvtt-mars-5e/master/doc/toggle-hit.gif" alt="" class="loading" id="image-hash--1939529580"></p>
+<p data-line="109" class="code-line">Toggle whether the attack roll hit or missed, as well as if the save was successfull or not!<br>
+This will also toggle associated damage fields. (For saving throws only when no hit roll is associated to the action)</p>
+<h3 id="crit-1" data-line="112" class="code-line">Crit</h3>
+<p data-line="114" class="code-line">Before you rolled damage you can toggle whether the dmg roll was a crit or not!</p>
+<h3 id="resistance-multiplier-gm-only-1" data-line="116" class="code-line">Resistance multiplier (GM only)</h3>
+<p data-line="118" class="code-line"><img src="https://raw.githubusercontent.com/Moerill/fvtt-mars-5e/master/doc/toggle-resistance.gif" alt="" class="loading" id="image-hash-1910853764"></p>
+<p data-line="120" class="code-line">You can toggle through the resistance multiplier applied, when using the apply to target buttons.</p>
+<h3 id="automatic-hitdmg-rolls-1" data-line="122" class="code-line">Automatic Hit/Dmg rolls</h3>
+<p data-line="124" class="code-line">Check the settings to enable automatic Hit/Dmg rolls</p>
+<h2 id="statistics-1" data-line="126" class="code-line">Statistics</h2>
+<p data-line="128" class="code-line">![](<a href="https://raw.githubusercontent.com/Moerill/fvtt-mars-5e/master/doc/statistics-overview.w" data-href="https://raw.githubusercontent.com/Moerill/fvtt-mars-5e/master/doc/statistics-overview.w">https://raw.githubusercontent.com/Moerill/fvtt-mars-5e/master/doc/statistics-overview.w</a></p>
+<p data-line="130" class="code-line">Want to finally end the dispute of who tanks the most or deals the most damage?<br>
+Mars 5e tracks a few basic stats for your players!</p>
+<h2 id="miscellaneous-features-1" data-line="133" class="code-line">Miscellaneous features</h2>
+<h3 id="whetstone-integration-1" data-line="135" class="code-line">Whetstone Integration</h3>
+<p data-line="137" class="code-line">The cards automatically use the global color settings defined in <a href="https://github.com/MajorVictory/Whetstone" data-href="https://github.com/MajorVictory/Whetstone">Whetstones</a>!</p>
+<h3 id="dice-tooltips-1" data-line="139" class="code-line">Dice tooltips</h3>
+<p data-line="141" class="code-line"><img src="https://raw.githubusercontent.com/Moerill/fvtt-mars-5e/master/doc/dice-tooltip.webp" alt="" class="loading" id="image-hash-960267625"></p>
+<p data-line="143" class="code-line">Hover a result to display a tooltip after a small delay, showing the details of the roll.<br>
+The players can only see tooltips from rolls made by players, not from GM rolls.</p>
+<h3 id="apply-damage-buttons-gm-only-1" data-line="146" class="code-line">Apply damage buttons (GM only)</h3>
+<p data-line="148" class="code-line"><img src="https://raw.githubusercontent.com/Moerill/fvtt-mars-5e/master/doc/apply-dmg-buttons.webp" alt="" class="loading" id="image-hash-1448968699"></p>
+<p data-line="150" class="code-line">When hovering the damage label or to the left of the dmg rolls 1-2 buttons will appear. (One for regular damage, one for versatile)<br>
+Clicking on these will apply the respective damage amount to the target. If the roll has no target, it will apply the damage to <em>all</em> selected tokens.</p>
+<p data-line="153" class="code-line"><img src="https://raw.githubusercontent.com/Moerill/fvtt-mars-5e/master/doc/auto-dmg-apply.gif" alt="" class="loading" id="image-hash-1760452795"></p>
+<p data-line="155" class="code-line">The damage amounts will automatically get updated when the resistance multiplier is changed or a new damage roll was rolled.</p>
+<h3 id="fudge-rolls-gm-only-1" data-line="157" class="code-line">Fudge rolls (GM only)</h3>
+<p data-line="159" class="code-line">Double clicking on a dice result allows the GM to modify the displayed result. Only numeric input is allowed!</p>
+<h3 id="barebone-dice-so-nice-support-1" data-line="161" class="code-line">Barebone Dice So Nice support</h3>
+<p data-line="163" class="code-line">Some barebones dice so nice support ist available. Its opinionated on few decisions and probably incomplete, since i neither know or use Dice so Nice. (So .. i probably forget stuff that its abel to do, and i'll not add everything)</p>
+<h3 id="confeftti-support-1" data-line="165" class="code-line">Confeftti Support!</h3>
+<p data-line="167" class="code-line">Throw confetti on fumbles/crits! yay!</p>
+<h3 id="automatic-template-targetting-1" data-line="169" class="code-line">Automatic template targetting</h3>
+<p data-line="171" class="code-line">(needs DnD 1.2.1+)<br>
+When using the automatically created spell templates the module will autotarget everyone in it.</p>
+<h2 id="known-module-incompatibilities-1" data-line="174" class="code-line">Known Module incompatibilities</h2>
+<p data-line="176" class="code-line">See <a href="https://github.com/Moerill/fvtt-mars-5e/issues/50" data-href="https://github.com/Moerill/fvtt-mars-5e/issues/50">here</a> for a list.</p>
+<h2 id="planned-todos-1" data-line="178" class="code-line">Planned ToDo's</h2>
+<p data-line="180" class="code-line">Check the issue board for a list of stuff that may still come. Imo its kinda feature complete, but if i find something i still want to add or someone got a good suggestion i'll add it.</p>
+<h2 id="licensing-1" data-line="182" class="code-line">Licensing</h2>
+<img alt="GitHub" src="https://img.shields.io/github/license/moerill/fvtt-mars-5e?style=flat-square">
+<p data-line="186" class="code-line">This work is licensed under Foundry Virtual Tabletop <a href="https://foundryvtt.com/article/license/" data-href="https://foundryvtt.com/article/license/">EULA - Limited License Agreement for module development</a>.</p>
+<h2 id="special-thanks-1" data-line="188" class="code-line">Special Thanks</h2>
+<p data-line="190" class="code-line">Special thanks to - @Nildran for providing the french translation</p>
+<h2 id="support-the-development-1" data-line="192" class="code-line">Support the development</h2>
+<p data-line="194" class="code-line">I'm doing this project mostly alone (with partial help of some wonderful people mentioned above) in my spare time and for free.<br>
+If you want to encourage me to keep doing this, i am happy about all kind of tokens of appreciation. (Like some nice words, recommending this project or contributions to the project).<br>
+What about donations? I do feel very honored that you think about giving me a donation! Instead I'd prefer if you send the cash to a good cause of your choosing!</p>
+
+</body></html>

@@ -106,7 +106,7 @@ function replaceClass() {
         );
         this.mars5e.noFormula = true;
       }
-      super.toMessage(messageData, { rollMode, create });
+      return super.toMessage(messageData, { rollMode, create });
     }
 
     static replaceFormulaData(formula, data, { missing, warn = false } = {}) {
