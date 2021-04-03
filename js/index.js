@@ -11,6 +11,7 @@ import Mars5eUserStatistics from "./statistics.js";
 
 import { initConfetti, log } from "./util.js";
 import { TweenMax } from "/scripts/greensock/esm/all.js";
+import { initAutomatedAnimations } from "./plugins/automated-animations.js";
 
 Hooks.once("devModeReady", ({ registerPackageDebugFlag }) => {
   registerPackageDebugFlag("mars-5e");
@@ -228,6 +229,8 @@ Hooks.once("ready", async () => {
   registerSettings();
 
   game.socket.on("module.mars-5e", handleSocket);
+
+  initAutomatedAnimations();
 });
 
 function registerSettings() {

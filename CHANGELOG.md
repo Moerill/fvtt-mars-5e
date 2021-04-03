@@ -1,3 +1,7 @@
+# v1.5.0
+
+- **New Feature** Basic support for the ![Automated Animations](https://www.foundryvtt-hub.com/package/automated-jb2a-animations/) module! Thanks to @Otigon for his awesome cooperation here!
+
 # v1.4.1
 
 - **Fix** `Roll#toMessage` not returning anything

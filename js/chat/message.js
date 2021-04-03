@@ -365,16 +365,39 @@ export default class Mars5eMessage extends ChatMessage {
       return resultDiv;
     }
 
-    const actor = await this._getTarget(resultDiv)?.actor;
+    const target = await this._getTarget(resultDiv);
+    const actor = target?.actor;
     const ac = actor.data.data.attributes.ac.value;
 
+    let hookData = {};
     if (critical || (r.total >= ac && !fumble)) {
       attack.classList.add("mars5e-success");
       this.mars5eStatistics.hits++;
       await this._renderDmg(resultDiv, critical);
+
+      hookData = {
+        source: this.token,
+        target: target,
+        item: this.item,
+        success: true,
+        critical,
+        fumble,
+        type: "attack",
+      };
     } else {
       attack.classList.add("mars5e-fail");
+      hookData = {
+        source: this.token,
+        target: target,
+        item: this.item,
+        success: false,
+        critical,
+        fumble,
+        type: "attack",
+      };
     }
+    if (this.id) Hooks.callAll("mars-5e.AtackRollComplete", hookData);
+    else this._attackTargets.push(hookData);
     return resultDiv;
   }
 
@@ -600,6 +623,18 @@ export default class Mars5eMessage extends ChatMessage {
     if (actionDiv.parentNode.classList.contains("mars5e-area-dmg"))
       await this._applyAreaDmg(actionDiv);
     // this._updateApplyDmgAmount(actionDiv);
+
+    if (this.id) {
+      console.log("yayayay");
+      const target = this._getTarget(resultDiv);
+      Hooks.callAll("mars-5e.DamageRollComplete", {
+        source: this.token,
+        target: target,
+        item: this.item,
+        roll: dmgRoll,
+        type: "damage",
+      });
+    }
 
     this.scrollIntoView();
     return resultDiv;
@@ -894,8 +929,8 @@ export default class Mars5eMessage extends ChatMessage {
     return this._card;
   }
 
-  get item() {
-    if (this._item) return this._item;
+  get token() {
+    if (this._token) return this._token;
     const card = this.card;
     if (!card) return null;
 
@@ -908,13 +943,27 @@ export default class Mars5eMessage extends ChatMessage {
       tokenId = sceneId;
       sceneId = card.dataset.sceneId;
     }
+
+    const scene =
+      sceneId === canvas.scene.id ? canvas.scene : game.scenes.get(sceneId);
+    if (!scene) return null;
+    let tokenData = scene?.data.tokens.find((e) => e._id === tokenId);
+    if (!tokenData) {
+      const actorId = card.dataset.actorId;
+      tokenData = scene.data.tokens.find((e) => e.actorId === actorId);
+    }
+    if (scene instanceof Scene) return canvas.tokens.get(tokenData._id);
+    this._token = new Token(tokenData);
+    return this._token;
+  }
+
+  get item() {
+    if (this._item) return this._item;
+    const card = this.card;
     const itemId = card.dataset.itemId;
     if (!itemId) return null;
-    const scene = game.scenes.get(sceneId);
-    const tokenData = scene?.data.tokens.find((e) => e._id === tokenId);
-    const actor = tokenData
-      ? new Token(tokenData).actor
-      : game.actors.get(card.dataset.actorId);
+    const token = this.token;
+    const actor = token?.actor ?? game.actors.get(card.dataset.actorId);
     this._item = actor.getOwnedItem(itemId);
     return this._item;
   }
@@ -977,6 +1026,7 @@ export default class Mars5eMessage extends ChatMessage {
       this._card = div.children[0];
       if (!div.querySelector(".mars5e-card .rollable")) return false;
     }
+    this._attackTargets = [];
 
     // check if its the card create for a template...
     if (
@@ -1010,6 +1060,13 @@ export default class Mars5eMessage extends ChatMessage {
 
       const dmgDivs = Array.from(this._card.querySelectorAll("damage"));
       for (const dmgDiv of dmgDivs) this._updateApplyDmgAmount(dmgDiv);
+    }
+    if (this._attackTargets.length) {
+      Hooks.callAll("mars-5e.AtackRollComplete", {
+        source: this.token,
+        targets: this._attackTargets,
+        item: this.item,
+      });
     }
     return attackRolls?.length || areaDmg || dmgRolls?.length;
   }
