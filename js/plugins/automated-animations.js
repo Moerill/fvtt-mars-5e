@@ -5,7 +5,6 @@ export function initAutomatedAnimations() {
     ({ source, target = null, targets = [], item, success } = {}) => {
       if (target) targets = [{ target, success }];
       //targets = targets.filter((e) => e.success);
-      targets, targets.map((e) => e.target);
       AutoAnimations.playAnimation(
         source,
         targets.map((e) => e.target),

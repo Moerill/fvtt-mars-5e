@@ -1,3 +1,7 @@
+# v1.5.1
+
+- **Fix** for automated animation compatibility where the target tokens where sometimes misplaced.
+
 # v1.5.0
 
 - **New Feature** Basic support for the ![Automated Animations](https://www.foundryvtt-hub.com/package/automated-jb2a-animations/) module! Thanks to @Otigon for his awesome cooperation here!

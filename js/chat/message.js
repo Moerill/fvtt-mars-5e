@@ -625,7 +625,6 @@ export default class Mars5eMessage extends ChatMessage {
     // this._updateApplyDmgAmount(actionDiv);
 
     if (this.id) {
-      console.log("yayayay");
       const target = this._getTarget(resultDiv);
       Hooks.callAll("mars-5e.DamageRollComplete", {
         source: this.token,
@@ -904,6 +903,9 @@ export default class Mars5eMessage extends ChatMessage {
     if (!targetId) return null;
     const content = el.closest(".mars5e-card");
     const sceneId = content.dataset.sceneId;
+    if (sceneId === canvas.scene.id) {
+      return canvas.tokens.get(targetId);
+    }
     const scene = game.scenes.get(sceneId);
     const data = scene.getEmbeddedEntity("Token", targetId);
     // const data = await fromUuid(`Scene.${sceneId}.Token.${targetId}`);
