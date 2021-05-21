@@ -1,7 +1,8 @@
 # v1.6
 
-- Sendername in chat messages now gets underlined by the user color
-- FVTT 0.8.4 and DnD 1.3.2 compatibility update
+- Sendername in chat messages now gets underlined by the user color.
+- Sendername in chat me ssages now got the user name as tooltip.
+- FVTT 0.8.4 and DnD 1.3.2 compatibility update.
 
 # v1.5.1
 
