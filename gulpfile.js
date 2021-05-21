@@ -2,7 +2,6 @@ const gulp = require("gulp");
 const fs = require("fs-extra");
 const path = require("path");
 const stringify = require("json-stringify-pretty-compact");
-const less = require("gulp-less");
 const git = require("gulp-git");
 const concat = require("gulp-concat");
 
@@ -10,8 +9,8 @@ const chalk = require("chalk");
 
 const argv = require("yargs").argv;
 
-const sass = require("gulp-sass");
-sass.compiler = require("node-sass");
+const sass = require("gulp-dart-sass");
+//sass.compiler = require("node-sass");
 
 const browserSync = require("browser-sync").create();
 
@@ -85,6 +84,9 @@ function buildWatch() {
     proxy: {
       target: "localhost:30000",
       ws: true,
+      proxyOptions: {
+        changeOrigin: false,
+      },
     },
     browser: "google-chrome",
     open: false,
@@ -246,7 +248,7 @@ function gitTag() {
 
 const execGit = gulp.series(gitAdd, gitCommit, gitTag);
 
-const execBuild = gulp.parallel(buildLess);
+const execBuild = gulp.parallel(buildSass);
 
 exports.build = gulp.series(execBuild);
 exports.watch = buildWatch;

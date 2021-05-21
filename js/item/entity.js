@@ -1,3 +1,5 @@
+import { log } from "../util.js";
+
 /**
  * Make sure that CONFIG.Item.entityClass was predefined.
  * Why am i not importing the 5e item class here?
@@ -52,12 +54,15 @@ export default function initItemClass() {
       const adv = mars5e.getAdvantage();
 
       // Basic template rendering data
-      const token = this.actor.token;
+      const token = this.actor.token?.object;
+      log([token, this.actor, this]);
       const templateData = {
         actor: this.actor,
         // keep the scene id separated, since its used for e.g. linked actors to get the entity
-        sceneId: token?.scene._id || canvas.scene?.id,
+        sceneId: token?.scene.id || canvas.scene?.id,
         tokenId: token ? `${token.scene._id}.${token.id}` : null,
+        actorId: this.actor.id,
+        itemId: this.id,
         item: this.data,
         data: this.getChatData(),
         labels: this.labels,
@@ -81,13 +86,14 @@ export default function initItemClass() {
           ...adv,
         });
         this.data.data.consume = consume;
-        const mod = attackRoll.shortenedFormula.replace(
-          /[12]?d20(k[hl])?\s/,
-          ""
-        );
+        let toHit = this.getAttackToHit();
+
+        toHit = new Roll(toHit.parts.join("+"), toHit.rollData);
+        await toHit.evaluate();
+        log(toHit);
         templateData.attack = {
-          mod: mod,
-          flavor: attackRoll.flavorFormula.replace(/[12]?d20(k[hl])?\s/, ""),
+          mod: toHit.total,
+          flavor: toHit.formula,
           advantage: adv.advantage ? 2 : adv.disadvantage ? 0 : 1,
         };
       }
@@ -147,8 +153,11 @@ export default function initItemClass() {
       if (templateData.data.formula) {
         const r = new Roll(templateData.data.formula, this.actor.getRollData());
         templateData.formula = {
-          formula: r.shortenedFormula,
-          flavorFormula: r.flavorFormula,
+          formula: await game.dnd5e.dice.simplifyRollFormula(
+            r.formula,
+            this.getRollData()
+          ),
+          flavorFormula: r.formula,
         };
       }
 
@@ -159,8 +168,11 @@ export default function initItemClass() {
           ...adv,
         });
         templateData.toolCheck = {
-          formula: r.shortenedFormula.replace(/[12]?d20(k[hl])?\s/, ""),
-          flavorFormula: r.flavorFormula.replace(/[12]?d20(k[hl])?\s/, ""),
+          formula: await game.dnd5e.dice.simplifyRollFormula(
+            r.formula,
+            this.getRollData()
+          ),
+          flavorFormula: r.formula.replace(/[12]?d20(k[hl])?\s/, ""),
           mod: r.modifier,
         };
       }
@@ -240,14 +252,19 @@ export default function initItemClass() {
         {
           fastForward: true,
           chatMessage: false,
+          critical: false,
+          // else error would be thrown. Hopefully fixed in DnD 1.3.x
+          event: {},
         },
         options
       );
 
       let rolls = [];
 
-      const tempItem = new game.dnd5e.entities.Item5e(duplicate(this.data));
-      tempItem.options.actor = this.actor;
+      const tempItem = new game.dnd5e.entities.Item5e(
+        foundry.utils.deepClone(this.data, { parent: this.parent })
+      );
+      Object.defineProperty(tempItem, "actor", { value: this.actor });
 
       const parts = duplicate(tempItem.data.data.damage.parts);
       tempItem.data.data.damage.parts = [parts[0]];
@@ -260,6 +277,10 @@ export default function initItemClass() {
         roll.dmgTypeLabel = game.i18n.localize(
           `DND5E.Damage${roll.dmgType.capitalize()}`
         );
+      roll.shortenedFormula = await game.dnd5e.dice.simplifyRollFormula(
+        roll.formula,
+        roll.data
+      );
       rolls.push(roll);
 
       let versatile;
@@ -271,6 +292,11 @@ export default function initItemClass() {
         });
         versatile.dmgType = roll.dmgType;
         versatile.dmgTypeLabel = game.i18n.localize("DND5E.Versatile");
+        versatile.shortenedFormula = await game.dnd5e.dice.simplifyRollFormula(
+          versatile.formula,
+          versatile.data
+        );
+
         // rolls.push(versatile);
         // console.log(Roll.fromData(versatile.toJSON()));
         // const roll = new Roll(this.data.data.damage.versatile)
@@ -283,7 +309,7 @@ export default function initItemClass() {
         if (options.critical) {
           r.alter(2, 0);
         }
-        r.roll();
+        await r.evaluate();
         r.dmgType = parts[i][1];
         if (r.dmgType === "healing") {
           r.dmgTypeLabel = game.i18n.localize("DND5E.Healing");
@@ -291,6 +317,10 @@ export default function initItemClass() {
           r.dmgTypeLabel = game.i18n.localize(
             `DND5E.Damage${r.dmgType.capitalize()}`
           );
+        r.shortenedFormula = await game.dnd5e.dice.simplifyRollFormula(
+          r.formula,
+          r.data
+        );
         rolls.push(r);
       }
 

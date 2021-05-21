@@ -1,6 +1,5 @@
-<div class="dnd5e chat-card item-card mars5e-card {{#if isGM}}mars5e-gm-card{{/if}}" data-actor-id="{{actor._id}}" data-item-id="{{item._id}}"
+<div class="dnd5e chat-card item-card mars5e-card {{#if isGM}}mars5e-gm-card{{/if}}" data-actor-id="{{actorId}}" data-item-id="{{itemId}}"
      {{#if tokenId}}data-token-id="{{tokenId}}"{{/if}} {{#if sceneId}}data-scene-id="{{sceneId}}"{{/if}} {{#if isSpell}}data-spell-level="{{item.data.level}}"{{/if}}>
-
 
 	<header class="card-header flexrow">
 		<img src="{{item.img}}" title="{{item.name}}"/>

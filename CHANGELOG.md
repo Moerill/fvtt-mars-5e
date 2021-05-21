@@ -1,3 +1,8 @@
+# v1.6
+
+- Sendername in chat messages now gets underlined by the user color
+- FVTT 0.8.4 and DnD 1.3.2 compatibility update
+
 # v1.5.1
 
 - **Fix** for automated animation compatibility where the target tokens where sometimes misplaced.

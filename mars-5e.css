@@ -4,126 +4,144 @@
   width: auto;
   pointer-events: none;
   text-align: right;
-  align-items: center; }
-  .mars5e-adv-div[data-advantage]:after {
-    color: var(--mars5e-tooltip-font-color);
-    background: var(--mars5e-tooltip-bg-color);
-    padding: 0.5ch;
-    border-radius: 0.5ch; }
-  .mars5e-adv-div[data-advantage="1"]:after {
-    content: var(--mars5e-normal-roll-label); }
-  .mars5e-adv-div[data-advantage="2"]:after {
-    color: var(--mars5e-success);
-    content: var(--mars5e-adv-label); }
-  .mars5e-adv-div[data-advantage="0"]:after {
-    color: var(--mars5e-fail);
-    content: var(--mars5e-dis-label); }
-  .mars5e-adv-div:before {
-    color: var(--mars5e-tooltip-font-color);
-    background: var(--mars5e-tooltip-bg-color);
-    position: absolute;
-    top: calc(50% + 1em);
-    right: 0;
-    font-size: 0.8em;
-    display: block;
-    padding: 0.5ch;
-    white-space: nowrap;
-    content: "( Right-Click to toggle (dis-)advantage )";
-    opacity: 0; }
-  .mars5e-adv-div.right:before {
-    right: unset;
-    left: 0; }
-  .mars5e-adv-div.mars5e-show-hint:before {
-    opacity: 1; }
-
+  align-items: center;
+}
+.mars5e-adv-div[data-advantage]:after {
+  color: var(--mars5e-tooltip-font-color);
+  background: var(--mars5e-tooltip-bg-color);
+  padding: 0.5ch;
+  border-radius: 0.5ch;
+}
+.mars5e-adv-div[data-advantage="1"]:after {
+  content: var(--mars5e-normal-roll-label);
+}
+.mars5e-adv-div[data-advantage="2"]:after {
+  color: var(--mars5e-success);
+  content: var(--mars5e-adv-label);
+}
+.mars5e-adv-div[data-advantage="0"]:after {
+  color: var(--mars5e-fail);
+  content: var(--mars5e-dis-label);
+}
+.mars5e-adv-div:before {
+  color: var(--mars5e-tooltip-font-color);
+  background: var(--mars5e-tooltip-bg-color);
+  position: absolute;
+  top: calc(50% + 1em);
+  right: 0;
+  font-size: 0.8em;
+  display: block;
+  padding: 0.5ch;
+  white-space: nowrap;
+  content: "( Right-Click to toggle (dis-)advantage )";
+  opacity: 0;
+}
+.mars5e-adv-div.right:before {
+  right: unset;
+  left: 0;
+}
+.mars5e-adv-div.mars5e-show-hint:before {
+  opacity: 1;
+}
 .chat-card.mars5e-card {
-  border-color: var(--mars5e-border-color); }
-  .chat-card.mars5e-card .card-header {
-    cursor: pointer;
-    align-items: center;
-    font-size: 1.7em;
-    padding: 0;
-    border-width: 1px;
-    border-left: none;
-    border-right: none; }
-    .chat-card.mars5e-card .card-header img {
-      width: 1.2em;
-      height: 1.2em;
-      flex: 0 auto;
-      border: none; }
-    .chat-card.mars5e-card .card-header h3 {
-      line-height: inherit;
-      font-size: unset; }
-  .chat-card.mars5e-card footer {
-    border-bottom: 1px groove; }
-  .chat-card.mars5e-card .card-content {
-    margin: 0; }
+  border-color: var(--mars5e-border-color);
+}
+.chat-card.mars5e-card .card-header {
+  cursor: pointer;
+  align-items: center;
+  font-size: 1.7em;
+  padding: 0;
+  border-width: 1px;
+  border-left: none;
+  border-right: none;
+}
+.chat-card.mars5e-card .card-header img {
+  width: 1.2em;
+  height: 1.2em;
+  flex: 0 auto;
+  border: none;
+}
+.chat-card.mars5e-card .card-header h3 {
+  line-height: inherit;
+  font-size: unset;
+}
+.chat-card.mars5e-card footer {
+  border-bottom: 1px groove;
+}
+.chat-card.mars5e-card .card-content {
+  margin: 0;
+}
 
 .mars5e-player .mars5e-gm-card .item-name,
 .mars5e-player .mars5e-gm-card .card-content {
-  display: none; }
-
+  display: none;
+}
 .mars5e-player .mars5e-gm-card .attack .roll-d20,
 .mars5e-player .mars5e-gm-card .damage .rollable,
 .mars5e-player .mars5e-gm-card .damage .rollable + span,
 .mars5e-player .mars5e-gm-card .attack .mars5e-result {
-  display: none; }
-
+  display: none;
+}
 .mars5e-player .mars5e-gm-card .mars5e-result {
-  pointer-events: none; }
-
+  pointer-events: none;
+}
 .mars5e-player .mars5e-gm-card .mars5e-result.player-roll {
-  pointer-events: unset; }
-
+  pointer-events: unset;
+}
 .mars5e-player .mars5e-gm-card .mars5e-action.has-player-roll {
-  display: flex; }
-
+  display: flex;
+}
 .mars5e-player .mars5e-hidden-target .target-header h3 {
-  display: none; }
-
+  display: none;
+}
 .mars5e-player .mars5e-hidden-target .target-header img {
-  top: 0; }
-
+  top: 0;
+}
 .mars5e-player .mars5e-target.mars5e-hidden-target:not(.mars5e-area-dmg) {
-  min-height: calc(4em + 3px); }
-
+  min-height: calc(4em + 3px);
+}
 .mars5e-player .mars5e-card .damage .mars5e-apply-dmg-menu {
-  display: none; }
-
+  display: none;
+}
 .mars5e-player .mars5e-invisible-target {
-  background: none; }
-  .mars5e-player .mars5e-invisible-target .mars5e-action {
-    display: none; }
-
+  background: none;
+}
+.mars5e-player .mars5e-invisible-target .mars5e-action {
+  display: none;
+}
 .mars5e-player .mars5e-result[data-resistance]:before {
-  display: none; }
-
+  display: none;
+}
 .mars5e-player .damage .result-total:before {
-  display: none; }
-
+  display: none;
+}
 .mars5e-player .blind .mars5e-result {
-  pointer-events: none; }
-  .mars5e-player .blind .mars5e-result:before {
-    color: var(--mars5e-font-color);
-    font-weight: normal;
-    font-size: 0.9;
-    position: absolute;
-    left: calc(50% - 1ch);
-    content: "???"; }
-  .mars5e-player .blind .mars5e-result .result-total {
-    color: #0000; }
-
+  pointer-events: none;
+}
+.mars5e-player .blind .mars5e-result:before {
+  color: var(--mars5e-font-color);
+  font-weight: normal;
+  font-size: 0.9;
+  position: absolute;
+  left: calc(50% - 1ch);
+  content: "???";
+}
+.mars5e-player .blind .mars5e-result .result-total {
+  color: #0000;
+}
 .mars5e-player .save .gm-roll {
-  pointer-events: none; }
-  .mars5e-player .save .gm-roll .result-total {
-    color: #0000; }
-    .mars5e-player .save .gm-roll .result-total:before {
-      color: var(--mars5e-font-color);
-      content: "???";
-      font-weight: normal;
-      position: absolute;
-      left: calc(50% - 1ch); }
-
+  pointer-events: none;
+}
+.mars5e-player .save .gm-roll .result-total {
+  color: #0000;
+}
+.mars5e-player .save .gm-roll .result-total:before {
+  color: var(--mars5e-font-color);
+  content: "???";
+  font-weight: normal;
+  position: absolute;
+  left: calc(50% - 1ch);
+}
 :root {
   --mars5e-success: var(--Whetstone-accent-primary, rgb(0, 255, 0));
   --mars5e-fail: var(--Whetstone-accent-secondary, red);
@@ -139,42 +157,44 @@
     "Modesto Condensed",
     "Palatino Linotype",
     serif
-  ); }
+  );
+}
 
 .dark-mode {
-  --mars5e-invis-target-background-color: #101a27; }
+  --mars5e-invis-target-background-color: #101a27;
+}
 
 
-
+@charset "UTF-8";
 .mars-5e-statistics .window-content {
-  color: var(--mars5e-font-color); }
-
+  color: var(--mars5e-font-color);
+}
 .mars-5e-statistics .window-content {
-  padding: 0; }
-
+  padding: 0;
+}
 .mars-5e-statistics nav {
   background: rgba(0, 0, 0, 0.05);
   padding: 6px 6px 0 6px;
-  margin: 0; }
-
+  margin: 0;
+}
 .mars-5e-statistics table {
   background: none;
-  margin-top: 0; }
-
+  margin-top: 0;
+}
 .mars-5e-statistics td,
 .mars-5e-statistics th {
   padding: 0.5ch 2ch 0.5ch 1ch;
-  text-align: center; }
-
+  text-align: center;
+}
 .mars-5e-statistics tr.tab[data-tab].active {
-  display: table-row; }
-
+  display: table-row;
+}
 .mars-5e-statistics th[data-sort-direction="1"]:after {
-  content: "\f0dd"; }
-
+  content: "";
+}
 .mars-5e-statistics th[data-sort-direction="0"]:after {
-  content: "\f0de"; }
-
+  content: "";
+}
 .mars-5e-statistics th[data-sort-direction="1"]:after,
 .mars-5e-statistics th[data-sort-direction="0"]:after {
   font-family: "Font Awesome 5 Free";
@@ -186,92 +206,96 @@
   line-height: 1;
   font-weight: 900;
   position: absolute;
-  padding-left: 0.25ch; }
-
+  padding-left: 0.25ch;
+}
 .mars-5e-statistics tr:nth-child(2) {
-  cursor: pointer; }
-
+  cursor: pointer;
+}
 .mars-5e-statistics tr:nth-child(even) {
-  background: none; }
-
-.mars-5e-statistics tr:nth-child(n + 3):hover {
-  background-color: rgba(255, 255, 255, 0.2); }
-
+  background: none;
+}
+.mars-5e-statistics tr:nth-child(n+3):hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
 .mars-5e-statistics th {
   background: rgba(0, 0, 0, 0.07);
   text-shadow: none;
-  position: relative; }
-
+  position: relative;
+}
 .mars-5e-statistics td:first-child {
   min-width: 15ch;
   text-overflow: ellipsis;
   text-align: left;
-  padding-left: 1ch; }
-
+  padding-left: 1ch;
+}
 .mars-5e-statistics .session-info {
   text-align: center;
   width: 100%;
-  display: block; }
-
+  display: block;
+}
 @charset "UTF-8";
 .mars5e-card .mars5e-target:not(:first-child) {
-  border-top: 2px groove var(--mars5e-border-color); }
-
+  border-top: 2px groove var(--mars5e-border-color);
+}
 .mars5e-card .target-header {
   flex-flow: row nowrap;
   align-items: center;
   cursor: pointer;
   background: rgba(0, 0, 0, 0.1);
   position: relative;
-  position: relative; }
-  .mars5e-card .target-header img {
-    height: 4em;
-    width: 4em;
-    border: none;
-    position: absolute;
-    left: 0;
-    top: calc(1.2em + 3px); }
-  .mars5e-card .target-header h3 {
-    font-family: var(--mars5e-font-header);
-    font-size: 1.2em;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    margin: -1px 0 -1px 0;
-    padding: 0 0.5ch; }
-  .mars5e-card .target-header:before {
-    content: "Double click to pan to/select target token. (If visible)";
-    background: var(--mars5e-tooltip-bg-color);
-    color: var(--mars5e-tooltip-font-color);
-    border: 1px outset var(--mars5e-tooltip-border-color);
-    box-shadow: 0 0px 10px #000c;
-    position: absolute;
-    padding: 0.5ch 1ch;
-    border-radius: 0.5ch;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.15s ease-in;
-    z-index: 1;
-    bottom: 2.5em;
-    left: 0;
-    line-height: 1em;
-    white-space: pre;
-    display: block;
-    visibility: hidden;
-    height: min-content; }
-  .mars5e-card .target-header:hover:before {
-    opacity: 1;
-    transition: opacity 0.15s 1.2s ease-in;
-    visibility: visible; }
-
+  position: relative;
+}
+.mars5e-card .target-header img {
+  height: 4em;
+  width: 4em;
+  border: none;
+  position: absolute;
+  left: 0;
+  top: calc(1.2em + 3px);
+}
+.mars5e-card .target-header h3 {
+  font-family: var(--mars5e-font-header);
+  font-size: 1.2em;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  margin: -1px 0 -1px 0;
+  padding: 0 0.5ch;
+}
+.mars5e-card .target-header:before {
+  content: "Double click to pan to/select target token. (If visible)";
+  background: var(--mars5e-tooltip-bg-color);
+  color: var(--mars5e-tooltip-font-color);
+  border: 1px outset var(--mars5e-tooltip-border-color);
+  box-shadow: 0 0px 10px #000c;
+  position: absolute;
+  padding: 0.5ch 1ch;
+  border-radius: 0.5ch;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.15s ease-in;
+  z-index: 1;
+  bottom: 2.5em;
+  left: 0;
+  line-height: 1em;
+  white-space: pre;
+  display: block;
+  visibility: hidden;
+  height: min-content;
+}
+.mars5e-card .target-header:hover:before {
+  opacity: 1;
+  transition: opacity 0.15s 1.2s ease-in;
+  visibility: visible;
+}
 .mars5e-card .mars5e-chat-flavor + .mars5e-targets {
-  border-top: 2px groove var(--mars5e-border-color); }
-
+  border-top: 2px groove var(--mars5e-border-color);
+}
 .mars5e-card .mars5e-targets {
-  font-size: 1.2em; }
-
+  font-size: 1.2em;
+}
 .mars5e-card .mars5e-target[data-target-id] {
-  min-height: calc(5.08em + 3px); }
-
+  min-height: calc(5.08em + 3px);
+}
 .mars5e-card .mars5e-action {
   display: flex;
   flex-flow: row wrap;
@@ -279,161 +303,190 @@
   justify-content: flex-start;
   margin-left: calc(4em + 3px);
   padding: 0 0 0 0.5em;
-  border-left: 2px groove var(--mars5e-border-color); }
-  .mars5e-card .mars5e-action label {
-    flex: 0;
-    flex-basis: 100%;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    margin-right: 1ch;
-    margin-bottom: 0.1em;
-    font-size: 0.9em; }
-  .mars5e-card .mars5e-action .rollable {
-    flex: 0 auto;
-    text-align: center;
-    min-width: 8ch; }
-    .mars5e-card .mars5e-action .rollable:before {
-      font-family: "Font Awesome 5 Free";
-      -webkit-font-smoothing: antialiased;
-      display: inline-block;
-      font-style: normal;
-      font-variant: normal;
-      text-rendering: auto;
-      line-height: 1;
-      font-weight: 900;
-      content: "\f522";
-      opacity: 0.6;
-      padding-right: 0.3ch; }
-    .mars5e-card .mars5e-action .rollable + span {
-      margin: 0 1ch; }
-  .mars5e-card .mars5e-action .break {
-    height: 0;
-    flex-basis: 100%; }
-  .mars5e-card .mars5e-action .rollable,
-  .mars5e-card .mars5e-action .mars5e-result {
-    position: relative;
-    margin: 0 0 0.1em 4ch; }
-    .mars5e-card .mars5e-action .rollable:after,
-    .mars5e-card .mars5e-action .mars5e-result:after {
-      margin: 0 0 0 1ch;
-      font-size: 0.8em;
-      opacity: 0.8;
-      width: 0;
-      display: inline-block;
-      font-size: 0.8em;
-      font-weight: normal;
-      text-align: left;
-      margin-left: 1ch;
-      position: absolute;
-      top: 0.1em; }
-    .mars5e-card .mars5e-action .rollable[data-advantage="0"]:after,
-    .mars5e-card .mars5e-action .mars5e-result[data-advantage="0"]:after {
-      content: var(--mars5e-dis-label); }
-    .mars5e-card .mars5e-action .rollable[data-advantage="2"]:after,
-    .mars5e-card .mars5e-action .mars5e-result[data-advantage="2"]:after {
-      content: var(--mars5e-adv-label); }
-  .mars5e-card .mars5e-action .rollable:after {
-    position: unset; }
-  .mars5e-card .mars5e-action.mars5e-success label:after, .mars5e-card .mars5e-action.mars5e-fail label:after {
-    margin: 0 0 0 0.5ch;
-    font-size: 1.2em;
-    opacity: 0.8;
-    display: flex;
-    flex-flow: row nowrap;
-    font-family: "Font Awesome 5 Free";
-    -webkit-font-smoothing: antialiased;
-    display: inline-block;
-    font-style: normal;
-    font-variant: normal;
-    text-rendering: auto;
-    line-height: 1;
-    font-weight: 900; }
-  .mars5e-card .mars5e-action.mars5e-success label:after {
-    content: var(--mars5e-hit-label); }
-  .mars5e-card .mars5e-action.mars5e-fail label:after {
-    content: var(--mars5e-miss-label); }
-  .mars5e-card .mars5e-action .mars5e-result {
-    text-shadow: none;
-    cursor: unset; }
-  .mars5e-card .mars5e-action .mars5e-result .dice-tooltip {
-    background: var(--mars5e-tooltip-bg-color);
-    color: var(--mars5e-tooltip-font-color);
-    border: 1px outset var(--mars5e-tooltip-border-color);
-    box-shadow: 0 0px 10px #000c;
-    position: absolute;
-    padding: 0.5ch 1ch;
-    border-radius: 0.5ch;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.15s ease-in;
-    z-index: 1;
-    width: none;
-    transition: all 0.15s 0.3s ease-in;
-    bottom: 1.7em;
-    position: absolute;
-    width: 0;
-    opacity: 0;
-    right: 50%;
-    z-index: -1;
-    visibility: hidden; }
-    .mars5e-card .mars5e-action .mars5e-result .dice-tooltip .part-header,
-    .mars5e-card .mars5e-action .mars5e-result .dice-tooltip .part-header > * {
-      flex-wrap: nowrap;
-      white-space: nowrap; }
-    .mars5e-card .mars5e-action .mars5e-result .dice-tooltip:after {
-      content: "";
-      position: absolute;
-      left: calc(50% - 0.25em);
-      top: 100%;
-      border: 0.5em solid;
-      border-color: var(--mars5e-tooltip-bg-color) transparent transparent transparent; }
-    .mars5e-card .mars5e-action .mars5e-result .dice-tooltip .part-flavor {
-      color: var(--mars5e-tooltip-font-color); }
-    .mars5e-card .mars5e-action .mars5e-result .dice-tooltip .dice-rolls {
-      min-width: 20ch; }
-  .mars5e-card .mars5e-action .mars5e-result:hover .dice-tooltip {
-    right: -50%;
-    width: 20ch;
-    opacity: 1;
-    transition: all 0.15s 0.6s ease-in;
-    z-index: 1;
-    visibility: visible;
-    backdrop-filter: blur(0.3em); }
-
+  border-left: 2px groove var(--mars5e-border-color);
+}
+.mars5e-card .mars5e-action label {
+  flex: 0;
+  flex-basis: 100%;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  margin-right: 1ch;
+  margin-bottom: 0.1em;
+  font-size: 0.9em;
+}
+.mars5e-card .mars5e-action .rollable {
+  flex: 0 auto;
+  text-align: center;
+  min-width: 8ch;
+}
+.mars5e-card .mars5e-action .rollable:before {
+  font-family: "Font Awesome 5 Free";
+  -webkit-font-smoothing: antialiased;
+  display: inline-block;
+  font-style: normal;
+  font-variant: normal;
+  text-rendering: auto;
+  line-height: 1;
+  font-weight: 900;
+  content: "";
+  opacity: 0.6;
+  padding-right: 0.3ch;
+}
+.mars5e-card .mars5e-action .rollable + span {
+  margin: 0 1ch;
+}
+.mars5e-card .mars5e-action .break {
+  height: 0;
+  flex-basis: 100%;
+}
+.mars5e-card .mars5e-action .rollable,
+.mars5e-card .mars5e-action .mars5e-result {
+  position: relative;
+  margin: 0 0 0.1em 4ch;
+}
+.mars5e-card .mars5e-action .rollable:after,
+.mars5e-card .mars5e-action .mars5e-result:after {
+  margin: 0 0 0 1ch;
+  font-size: 0.8em;
+  opacity: 0.8;
+  width: 0;
+  display: inline-block;
+  font-size: 0.8em;
+  font-weight: normal;
+  text-align: left;
+  margin-left: 1ch;
+  position: absolute;
+  top: 0.1em;
+}
+.mars5e-card .mars5e-action .rollable[data-advantage="0"]:after,
+.mars5e-card .mars5e-action .mars5e-result[data-advantage="0"]:after {
+  content: var(--mars5e-dis-label);
+}
+.mars5e-card .mars5e-action .rollable[data-advantage="2"]:after,
+.mars5e-card .mars5e-action .mars5e-result[data-advantage="2"]:after {
+  content: var(--mars5e-adv-label);
+}
+.mars5e-card .mars5e-action .rollable:after {
+  position: unset;
+}
+.mars5e-card .mars5e-action.mars5e-success label:after, .mars5e-card .mars5e-action.mars5e-fail label:after {
+  margin: 0 0 0 0.5ch;
+  font-size: 1.2em;
+  opacity: 0.8;
+  display: flex;
+  flex-flow: row nowrap;
+  font-family: "Font Awesome 5 Free";
+  -webkit-font-smoothing: antialiased;
+  display: inline-block;
+  font-style: normal;
+  font-variant: normal;
+  text-rendering: auto;
+  line-height: 1;
+  font-weight: 900;
+}
+.mars5e-card .mars5e-action.mars5e-success label:after {
+  content: var(--mars5e-hit-label);
+}
+.mars5e-card .mars5e-action.mars5e-fail label:after {
+  content: var(--mars5e-miss-label);
+}
+.mars5e-card .mars5e-action .mars5e-result {
+  text-shadow: none;
+  cursor: unset;
+}
+.mars5e-card .mars5e-action .mars5e-result .dice-tooltip {
+  background: var(--mars5e-tooltip-bg-color);
+  color: var(--mars5e-tooltip-font-color);
+  border: 1px outset var(--mars5e-tooltip-border-color);
+  box-shadow: 0 0px 10px #000c;
+  position: absolute;
+  padding: 0.5ch 1ch;
+  border-radius: 0.5ch;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.15s ease-in;
+  z-index: 1;
+  width: none;
+  transition: all 0.15s 0.3s ease-in;
+  bottom: 1.7em;
+  position: absolute;
+  width: 0;
+  opacity: 0;
+  right: 50%;
+  z-index: -1;
+  visibility: hidden;
+}
+.mars5e-card .mars5e-action .mars5e-result .dice-tooltip .part-header,
+.mars5e-card .mars5e-action .mars5e-result .dice-tooltip .part-header > * {
+  flex-wrap: nowrap;
+  white-space: nowrap;
+}
+.mars5e-card .mars5e-action .mars5e-result .dice-tooltip:after {
+  content: "";
+  position: absolute;
+  left: calc(50% - 0.25em);
+  top: 100%;
+  border: 0.5em solid;
+  border-color: var(--mars5e-tooltip-bg-color) transparent transparent transparent;
+}
+.mars5e-card .mars5e-action .mars5e-result .dice-tooltip .part-flavor {
+  color: var(--mars5e-tooltip-font-color);
+}
+.mars5e-card .mars5e-action .mars5e-result .dice-tooltip .dice-rolls {
+  min-width: 20ch;
+}
+.mars5e-card .mars5e-action .mars5e-result:hover .dice-tooltip {
+  right: -50%;
+  width: 20ch;
+  opacity: 1;
+  transition: all 0.15s 0.6s ease-in;
+  z-index: 1;
+  visibility: visible;
+  backdrop-filter: blur(0.3em);
+}
 .mars5e-card .damage {
-  position: relative; }
-  .mars5e-card .damage .rollable,
-  .mars5e-card .damage .mars5e-result {
-    position: relative; }
-    .mars5e-card .damage .rollable[data-dmg-type-label]:after,
-    .mars5e-card .damage .mars5e-result[data-dmg-type-label]:after {
-      content: attr(data-dmg-type-label); }
-  .mars5e-card .damage .mars5e-result[data-resistance]:before {
-    white-space: nowrap;
-    font-weight: normal;
-    text-align: right;
-    position: absolute;
-    right: calc(100% + 0.5ch);
-    opacity: 0.8;
-    content: attr(data-resistance) " •"; }
-  .mars5e-card .damage .mars5e-result[data-resistance="0.25"]:before {
-    content: "¼ •"; }
-  .mars5e-card .damage .mars5e-result[data-resistance="0.5"]:before {
-    content: "½ •"; }
-  .mars5e-card .damage.critical label:after {
-    text-align: right;
-    margin-left: 1ch;
-    content: var(--mars5e-crit-label); }
-  .mars5e-card .damage .dmg-type {
-    width: 0;
-    font-size: 0.9em; }
-  .mars5e-card .damage .mars5e-apply-dmg-menu {
-    left: -3.5ch;
-    top: 2ch; }
-  .mars5e-card .damage .mars5e-apply-versatile:hover:before {
-    /* prettier-ignore */
-    content: var(--mars5e-apply-label) " " var(--mars5e-versatile-label) ": " attr(data-amount); }
-
+  position: relative;
+}
+.mars5e-card .damage .rollable,
+.mars5e-card .damage .mars5e-result {
+  position: relative;
+}
+.mars5e-card .damage .rollable[data-dmg-type-label]:after,
+.mars5e-card .damage .mars5e-result[data-dmg-type-label]:after {
+  content: attr(data-dmg-type-label);
+}
+.mars5e-card .damage .mars5e-result[data-resistance]:before {
+  white-space: nowrap;
+  font-weight: normal;
+  text-align: right;
+  position: absolute;
+  right: calc(100% + 0.5ch);
+  opacity: 0.8;
+  content: attr(data-resistance) " •";
+}
+.mars5e-card .damage .mars5e-result[data-resistance="0.25"]:before {
+  content: "¼ •";
+}
+.mars5e-card .damage .mars5e-result[data-resistance="0.5"]:before {
+  content: "½ •";
+}
+.mars5e-card .damage.critical label:after {
+  text-align: right;
+  margin-left: 1ch;
+  content: var(--mars5e-crit-label);
+}
+.mars5e-card .damage .dmg-type {
+  width: 0;
+  font-size: 0.9em;
+}
+.mars5e-card .damage .mars5e-apply-dmg-menu {
+  left: -3.5ch;
+  top: 2ch;
+}
+.mars5e-card .damage .mars5e-apply-versatile:hover:before {
+  /* prettier-ignore */
+  content: var(--mars5e-apply-label) " " var(--mars5e-versatile-label) ": " attr(data-amount);
+}
 .mars5e-card .mars5e-apply-dmg-menu,
 .mars5e-card .mars5e-reapply-btn {
   position: absolute;
@@ -443,150 +496,172 @@
   flex-flow: row wrap;
   opacity: 0;
   transition: all 0.15s 0.6s ease-in;
-  font-size: 0.9em; }
-  .mars5e-card .mars5e-apply-dmg-menu button,
-  .mars5e-card .mars5e-reapply-btn button {
-    background: var(--mars5e-tooltip-bg-color);
-    color: var(--mars5e-tooltip-font-color);
-    border: 1px solid var(--mars5e-tooltip-border-color);
-    box-shadow: 0 0px 5px #000c;
-    pointer-events: initial;
-    flex: 0 3ch;
-    width: 3ch;
-    height: 3ch;
-    font-size: 1em;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0;
-    margin: 0;
-    cursor: pointer;
-    position: relative; }
-    .mars5e-card .mars5e-apply-dmg-menu button i,
-    .mars5e-card .mars5e-reapply-btn button i {
-      margin: 0.2em;
-      font-size: 1.3em; }
-    .mars5e-card .mars5e-apply-dmg-menu button:before,
-    .mars5e-card .mars5e-reapply-btn button:before {
-      content: var(--mars5e-apply-label) ": " attr(data-amount);
-      background: var(--mars5e-tooltip-bg-color);
-      color: var(--mars5e-tooltip-font-color);
-      border: 1px outset var(--mars5e-tooltip-border-color);
-      box-shadow: 0 0px 10px #000c;
-      position: absolute;
-      padding: 0.5ch 1ch;
-      border-radius: 0.5ch;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.15s ease-in;
-      z-index: 1;
-      bottom: 2.5em;
-      left: 0;
-      line-height: 1em;
-      white-space: pre;
-      display: block;
-      visibility: hidden;
-      height: min-content; }
-    .mars5e-card .mars5e-apply-dmg-menu button:hover:before,
-    .mars5e-card .mars5e-reapply-btn button:hover:before {
-      opacity: 1;
-      transition: opacity 0.15s 1.2s ease-in;
-      visibility: visible; }
-    .mars5e-card .mars5e-apply-dmg-menu button:before,
-    .mars5e-card .mars5e-reapply-btn button:before {
-      z-index: 1;
-      top: -1.7em;
-      pointer-events: none;
-      left: -0.3ch;
-      width: fit-content;
-      max-width: calc(272px - 4em); }
-    .mars5e-card .mars5e-apply-dmg-menu button:hover:before,
-    .mars5e-card .mars5e-reapply-btn button:hover:before {
-      transition-delay: 0s; }
-
+  font-size: 0.9em;
+}
+.mars5e-card .mars5e-apply-dmg-menu button,
+.mars5e-card .mars5e-reapply-btn button {
+  background: var(--mars5e-tooltip-bg-color);
+  color: var(--mars5e-tooltip-font-color);
+  border: 1px solid var(--mars5e-tooltip-border-color);
+  box-shadow: 0 0px 5px #000c;
+  pointer-events: initial;
+  flex: 0 3ch;
+  width: 3ch;
+  height: 3ch;
+  font-size: 1em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  position: relative;
+}
+.mars5e-card .mars5e-apply-dmg-menu button i,
+.mars5e-card .mars5e-reapply-btn button i {
+  margin: 0.2em;
+  font-size: 1.3em;
+}
+.mars5e-card .mars5e-apply-dmg-menu button:before,
+.mars5e-card .mars5e-reapply-btn button:before {
+  content: var(--mars5e-apply-label) ": " attr(data-amount);
+  background: var(--mars5e-tooltip-bg-color);
+  color: var(--mars5e-tooltip-font-color);
+  border: 1px outset var(--mars5e-tooltip-border-color);
+  box-shadow: 0 0px 10px #000c;
+  position: absolute;
+  padding: 0.5ch 1ch;
+  border-radius: 0.5ch;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.15s ease-in;
+  z-index: 1;
+  bottom: 2.5em;
+  left: 0;
+  line-height: 1em;
+  white-space: pre;
+  display: block;
+  visibility: hidden;
+  height: min-content;
+}
+.mars5e-card .mars5e-apply-dmg-menu button:hover:before,
+.mars5e-card .mars5e-reapply-btn button:hover:before {
+  opacity: 1;
+  transition: opacity 0.15s 1.2s ease-in;
+  visibility: visible;
+}
+.mars5e-card .mars5e-apply-dmg-menu button:before,
+.mars5e-card .mars5e-reapply-btn button:before {
+  z-index: 1;
+  top: -1.7em;
+  pointer-events: none;
+  left: -0.3ch;
+  width: fit-content;
+  max-width: calc(272px - 4em);
+}
+.mars5e-card .mars5e-apply-dmg-menu button:hover:before,
+.mars5e-card .mars5e-reapply-btn button:hover:before {
+  transition-delay: 0s;
+}
 .mars5e-card .mars5e-area-dmg label,
 .mars5e-card .mars5e-area-dmg .mars5e-apply-dmg-menu {
-  pointer-events: none; }
-
+  pointer-events: none;
+}
 .mars5e-card .mars5e-area-dmg .mars5e-apply-dmg-menu {
-  display: none; }
-
+  display: none;
+}
 .mars5e-card .mars5e-result {
-  flex: 0 auto; }
-  .mars5e-card .mars5e-result .result-total {
-    border: 1px outset var(--mars5e-border-color);
-    font-size: 1.2em;
-    height: 0.9em;
-    line-height: 0.9em;
-    font-weight: bold;
-    text-align: center;
-    background: rgba(0, 0, 0, 0.1);
-    display: inline-block;
-    width: 8ch;
-    border-radius: 0.4ch; }
-  .mars5e-card .mars5e-result.critical .result-total {
-    box-shadow: inset 0 -0.3em 0.6em 0em var(--mars5e-success); }
-  .mars5e-card .mars5e-result.fumble .result-total {
-    box-shadow: inset 0 -0.3em 0.6em 0em var(--mars5e-fail); }
-
+  flex: 0 auto;
+}
+.mars5e-card .mars5e-result .result-total {
+  border: 1px outset var(--mars5e-border-color);
+  font-size: 1.2em;
+  height: 0.9em;
+  line-height: 0.9em;
+  font-weight: bold;
+  text-align: center;
+  background: rgba(0, 0, 0, 0.1);
+  display: inline-block;
+  width: 8ch;
+  border-radius: 0.4ch;
+}
+.mars5e-card .mars5e-result.critical .result-total {
+  box-shadow: inset 0 -0.3em 0.6em 0em var(--mars5e-success);
+}
+.mars5e-card .mars5e-result.fumble .result-total {
+  box-shadow: inset 0 -0.3em 0.6em 0em var(--mars5e-fail);
+}
 .mars5e-card .mars5e-area-dmg .damage .mars5e-result:before {
-  display: none; }
-
+  display: none;
+}
 .mars5e-card .mars5e-targets {
-  position: relative; }
-  .mars5e-card .mars5e-targets .mars5e-apply-all {
-    display: flex;
-    flex-flow: row nowrap;
-    justify-content: flex-end;
-    width: 6.5ch;
-    height: 3ch;
-    right: 6.5ch;
-    top: -3ch; }
-    .mars5e-card .mars5e-targets .mars5e-apply-all .mars5e-apply:before {
-      content: var(--mars5e-apply-all-label); }
-    .mars5e-card .mars5e-targets .mars5e-apply-all .mars5e-apply-versatile {
-      margin-left: 0.5ch; }
-      .mars5e-card .mars5e-targets .mars5e-apply-all .mars5e-apply-versatile:before {
-        content: var(--mars5e-apply-all-versatile-label); }
-    .mars5e-card .mars5e-targets .mars5e-apply-all button:before {
-      right: 0;
-      left: unset; }
-  .mars5e-card .mars5e-targets .mars5e-reapply-btn {
-    top: -3ch;
-    width: 6ch;
-    height: 3ch;
-    right: 0; }
-    .mars5e-card .mars5e-targets .mars5e-reapply-btn button {
-      width: 6ch; }
-      .mars5e-card .mars5e-targets .mars5e-reapply-btn button:before {
-        content: var(--mars5e-reapply-label);
-        text-align: left;
-        right: 0;
-        left: unset;
-        white-space: pre;
-        top: unset;
-        bottom: 3ch; }
-    .mars5e-card .mars5e-targets .mars5e-reapply-btn i {
-      margin: 0; }
-    .mars5e-card .mars5e-targets .mars5e-reapply-btn :nth-child(2) {
-      position: relative; }
-      .mars5e-card .mars5e-targets .mars5e-reapply-btn :nth-child(2):after {
-        position: absolute;
-        content: "";
-        top: 40%;
-        right: -0.3ch;
-        border-top: 2px solid;
-        border-color: var(--mars5e-fail);
-        display: block;
-        width: 1.5ch;
-        transform: rotate(45deg); }
+  position: relative;
+}
+.mars5e-card .mars5e-targets .mars5e-apply-all {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: flex-end;
+  width: 6.5ch;
+  height: 3ch;
+  right: 6.5ch;
+  top: -3ch;
+}
+.mars5e-card .mars5e-targets .mars5e-apply-all .mars5e-apply:before {
+  content: var(--mars5e-apply-all-label);
+}
+.mars5e-card .mars5e-targets .mars5e-apply-all .mars5e-apply-versatile {
+  margin-left: 0.5ch;
+}
+.mars5e-card .mars5e-targets .mars5e-apply-all .mars5e-apply-versatile:before {
+  content: var(--mars5e-apply-all-versatile-label);
+}
+.mars5e-card .mars5e-targets .mars5e-apply-all button:before {
+  right: 0;
+  left: unset;
+}
+.mars5e-card .mars5e-targets .mars5e-reapply-btn {
+  top: -3ch;
+  width: 6ch;
+  height: 3ch;
+  right: 0;
+}
+.mars5e-card .mars5e-targets .mars5e-reapply-btn button {
+  width: 6ch;
+}
+.mars5e-card .mars5e-targets .mars5e-reapply-btn button:before {
+  content: var(--mars5e-reapply-label);
+  text-align: left;
+  right: 0;
+  left: unset;
+  white-space: pre;
+  top: unset;
+  bottom: 3ch;
+}
+.mars5e-card .mars5e-targets .mars5e-reapply-btn i {
+  margin: 0;
+}
+.mars5e-card .mars5e-targets .mars5e-reapply-btn :nth-child(2) {
+  position: relative;
+}
+.mars5e-card .mars5e-targets .mars5e-reapply-btn :nth-child(2):after {
+  position: absolute;
+  content: "";
+  top: 40%;
+  right: -0.3ch;
+  border-top: 2px solid;
+  border-color: var(--mars5e-fail);
+  display: block;
+  width: 1.5ch;
+  transform: rotate(45deg);
+}
 
 .mars5e-gm .mars5e-target:hover .mars5e-apply-dmg-menu,
 .mars5e-gm .mars5e-apply-dmg-menu:hover,
 .mars5e-gm .mars5e-targets:hover .mars5e-apply-all,
 .mars5e-targets:hover .mars5e-reapply-btn {
   opacity: 1;
-  transition: all 0.15s 0.3s ease-in; }
+  transition: all 0.15s 0.3s ease-in;
+}
 
 .mars5e-gm .mars5e-gm-target .mars5e-toggle-target-visibility {
   position: absolute;
@@ -594,72 +669,81 @@
   right: 0.5ch;
   top: 0.2ch;
   opacity: 0;
-  transition: opacity 0.15s 0.6s ease-in; }
-  .mars5e-gm .mars5e-gm-target .mars5e-toggle-target-visibility:after {
-    font-family: "Font Awesome 5 Free";
-    -webkit-font-smoothing: antialiased;
-    display: inline-block;
-    font-style: normal;
-    font-variant: normal;
-    text-rendering: auto;
-    line-height: 1;
-    font-weight: 900;
-    content: "\f06e"; }
-
+  transition: opacity 0.15s 0.6s ease-in;
+}
+.mars5e-gm .mars5e-gm-target .mars5e-toggle-target-visibility:after {
+  font-family: "Font Awesome 5 Free";
+  -webkit-font-smoothing: antialiased;
+  display: inline-block;
+  font-style: normal;
+  font-variant: normal;
+  text-rendering: auto;
+  line-height: 1;
+  font-weight: 900;
+  content: "";
+}
 .mars5e-gm .mars5e-gm-target:hover .target-header .mars5e-toggle-target-visibility {
   opacity: 1;
-  transition: opacity 0.15s 0.3s ease-in; }
-
+  transition: opacity 0.15s 0.3s ease-in;
+}
 .mars5e-gm .mars5e-gm-target.mars5e-invisible-target {
-  background: var(--mars5e-invis-target-background-color); }
-  .mars5e-gm .mars5e-gm-target.mars5e-invisible-target .mars5e-toggle-target-visibility:after {
-    content: "\f070"; }
-
+  background: var(--mars5e-invis-target-background-color);
+}
+.mars5e-gm .mars5e-gm-target.mars5e-invisible-target .mars5e-toggle-target-visibility:after {
+  content: "";
+}
 .mars5e-gm .mars5e-gm-target .mars5e-result {
-  cursor: text; }
+  cursor: text;
+}
 
 .mars5e-toggleable {
-  position: relative; }
-  .mars5e-toggleable:before {
-    content: var(--mars5e-tooltip-general-toggle);
-    background: var(--mars5e-tooltip-bg-color);
-    color: var(--mars5e-tooltip-font-color);
-    border: 1px outset var(--mars5e-tooltip-border-color);
-    box-shadow: 0 0px 10px #000c;
-    position: absolute;
-    padding: 0.5ch 1ch;
-    border-radius: 0.5ch;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.15s ease-in;
-    z-index: 1;
-    bottom: 2.5em;
-    left: 0;
-    line-height: 1em;
-    white-space: pre;
-    display: block;
-    visibility: hidden;
-    height: min-content; }
-  .mars5e-toggleable:hover:before {
-    opacity: 1;
-    transition: opacity 0.15s 1.2s ease-in;
-    visibility: visible; }
+  position: relative;
+}
+.mars5e-toggleable:before {
+  content: var(--mars5e-tooltip-general-toggle);
+  background: var(--mars5e-tooltip-bg-color);
+  color: var(--mars5e-tooltip-font-color);
+  border: 1px outset var(--mars5e-tooltip-border-color);
+  box-shadow: 0 0px 10px #000c;
+  position: absolute;
+  padding: 0.5ch 1ch;
+  border-radius: 0.5ch;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.15s ease-in;
+  z-index: 1;
+  bottom: 2.5em;
+  left: 0;
+  line-height: 1em;
+  white-space: pre;
+  display: block;
+  visibility: hidden;
+  height: min-content;
+}
+.mars5e-toggleable:hover:before {
+  opacity: 1;
+  transition: opacity 0.15s 1.2s ease-in;
+  visibility: visible;
+}
 
 .mars5e-action.attack.mars5e-toggleable.mars5e-success:before, .mars5e-action.attack.mars5e-toggleable.mars5e-fail:before,
 .mars5e-action.save.mars5e-toggleable.mars5e-success:before,
 .mars5e-action.save.mars5e-toggleable.mars5e-fail:before {
-  content: var(--mars5e-tooltip-success-toggle); }
-
+  content: var(--mars5e-tooltip-success-toggle);
+}
 .mars5e-action.attack:before,
 .mars5e-action.save:before {
-  content: var(--mars5e-tooltip-success-toggle); }
+  content: var(--mars5e-tooltip-success-toggle);
+}
 
 .result-total.mars5e-toggleable:before {
   top: 1.2em;
   font-size: 0.7em;
   font-weight: normal;
-  padding: 0.5ch 1ch; }
+  padding: 0.5ch 1ch;
+}
 
 .damage .result-total.mars5e-toggleable:before {
   content: var(--mars5e-tooltip-resistance-toggle);
-  left: -12ch; }
+  left: -12ch;
+}

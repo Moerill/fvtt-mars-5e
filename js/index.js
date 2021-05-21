@@ -20,9 +20,9 @@ Hooks.once("devModeReady", ({ registerPackageDebugFlag }) => {
 Hooks.on("init", () => {
   window["mars5e"] = {};
   const MarsItem5e = initItemClass();
-  CONFIG.Item.entityClass = MarsItem5e;
+  CONFIG.Item.documentClass = MarsItem5e;
   const MarsActor5e = initActorClass();
-  CONFIG.Actor.entityClass = MarsActor5e;
+  CONFIG.Actor.documentClass = MarsActor5e;
 
   Mars5eMessage.init();
 
@@ -181,8 +181,13 @@ Hooks.on("renderChatMessage", async (app, html, options) => {
   if (html[0].style.borderColor) {
     html[0].style.borderColor = null;
     // html[0].style.borderRightColor = app.user.color;
-    html[0].style.borderTopColor = app.user.color;
+    html[0].style.borderLeftColor = app.user.color;
   } else html[0].style.borderLeftColor = app.user.color;
+
+  // Experimental, maybe keep this?
+  const sender = html[0].querySelector(".message-sender");
+  sender.style.textDecoration = `underline ${app.user.color} 2px`;
+  sender.title = app.user.name;
 });
 
 Hooks.once("init", () => {

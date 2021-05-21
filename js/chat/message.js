@@ -140,9 +140,8 @@ export default class Mars5eMessage extends ChatMessage {
 
     message.mars5eStatistics = statistics;
     const card = message.card;
-    card.querySelector(
-      `.mars5e-target[data-target-id="${target}"]`
-    ).innerHTML = content;
+    card.querySelector(`.mars5e-target[data-target-id="${target}"]`).innerHTML =
+      content;
     message.mars5eUpdate();
     return true;
   }
@@ -267,16 +266,16 @@ export default class Mars5eMessage extends ChatMessage {
         const formula = el.dataset.flavorFormula;
         let r = new Roll(formula);
         r.alter(2, 0);
-        el.dataset.flavorFormula = r.flavorFormula;
+        el.dataset.flavorFormula = r.formula;
         el.innerText = r.formula;
       });
     } else {
       dmgDiv.querySelectorAll(".rollable").forEach((el) => {
         const formula = el.dataset.flavorFormula;
         let r = new Roll(formula);
-        // TODO: Switch to proper alter method usage in FVTT 0.7.8
-        for (const term of r.terms) if (term instanceof Die) term.number *= 0.5;
-        el.dataset.flavorFormula = r.flavorFormula;
+        r.alter(0.5, 0);
+        log(r);
+        el.dataset.flavorFormula = r.formula;
         el.innerText = r.formula;
       });
     }
@@ -907,9 +906,9 @@ export default class Mars5eMessage extends ChatMessage {
       return canvas.tokens.get(targetId);
     }
     const scene = game.scenes.get(sceneId);
-    const data = scene.getEmbeddedEntity("Token", targetId);
+    const data = scene.getEmbeddedDocument("Token", targetId);
     // const data = await fromUuid(`Scene.${sceneId}.Token.${targetId}`);
-    if (data) return new Token(data);
+    if (data) return new Config.Token.objectClass(data);
     return null;
   }
 
@@ -949,13 +948,15 @@ export default class Mars5eMessage extends ChatMessage {
     const scene =
       sceneId === canvas.scene.id ? canvas.scene : game.scenes.get(sceneId);
     if (!scene) return null;
-    let tokenData = scene?.data.tokens.find((e) => e._id === tokenId);
+    let tokenData = scene.getEmbeddedDocument("Token", tokenId); //tokens.find((e) => e.id === tokenId);
     if (!tokenData) {
       const actorId = card.dataset.actorId;
-      tokenData = scene.data.tokens.find((e) => e.actorId === actorId);
+      tokenData = scene.tokens.find((e) => e.data.actorId === actorId);
     }
-    if (scene instanceof Scene) return canvas.tokens.get(tokenData._id);
-    this._token = new Token(tokenData);
+    if (!tokenData) return;
+    this._token = canvas.tokens.get(tokenData.id);
+
+    if (!this._token) this._token = new CONFIG.Token.objectClass(tokenData);
     return this._token;
   }
 
@@ -966,7 +967,7 @@ export default class Mars5eMessage extends ChatMessage {
     if (!itemId) return null;
     const token = this.token;
     const actor = token?.actor ?? game.actors.get(card.dataset.actorId);
-    this._item = actor.getOwnedItem(itemId);
+    this._item = actor.items.get(itemId);
     return this._item;
   }
 

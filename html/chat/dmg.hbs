@@ -1,4 +1,5 @@
 <div class="mars5e-action damage mars5e-toggleable {{#if critical}}critical{{/if}}">
+{{log @root}}
     <label>{{localize 'DND5E.Damage'}}</label>
 		<div class="mars5e-apply-dmg-menu" style="height: 19px;">
 			<button class="mars5e-apply" data-amount="0"><i class="fas fa-fist-raised"></i></button>
@@ -8,7 +9,7 @@
 		</div>
     {{#each rolls}}
 		<a class="rollable 
-		{{#if @first}}non-versatile{{/if}}" data-dmg-type="{{this.dmgType}}" data-flavor-formula="{{this.flavorFormula}}" data-resistance="{{this.resistance}}" data-dmg-type-label="{{this.dmgTypeLabel}}">{{this.shortenedFormula}}</a>
+		{{#if @first}}non-versatile{{/if}}" data-dmg-type="{{this.dmgType}}" data-flavor-formula="{{this.formula}}" data-resistance="{{this.resistance}}" data-dmg-type-label="{{this.dmgTypeLabel}}">{{this.shortenedFormula}}</a>
 		{{!-- {{#if this.dmgTypeLabel}}<span class="dmg-type 
 		{{!-- {{#if @root.versatile}}versatile{{/if}} --}}
 		{{!-- ">{{this.dmgTypeLabel}}</span>{{/if}}  --}}
