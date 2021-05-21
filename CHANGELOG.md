@@ -1,3 +1,7 @@
+# v1.6.1
+
+- Fix module json coreVersion not updated
+
 # v1.6
 
 - Sendername in chat messages now gets underlined by the user color.
