@@ -223,7 +223,9 @@ export default function initItemClass() {
     }
 
     async updateTargets() {
-      const message = await this._lastMessage;
+      console.log("???");
+      let message = await this._lastMessage;
+      if (Array.isArray(message)) message = message[0];
       if (!message) return;
 
       const card = message.card;

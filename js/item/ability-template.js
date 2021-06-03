@@ -48,8 +48,8 @@ export default function templateAutotargeting() {
       let targets = [];
 
       for (const token of tokens)
-        if (this.isTokenInside(token)) {
-          targets.push(token._id);
+        if (this.isTokenInside(token.data)) {
+          targets.push(token.id);
         }
       game.user.updateTokenTargets(targets);
     }
