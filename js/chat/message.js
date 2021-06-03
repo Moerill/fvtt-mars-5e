@@ -204,6 +204,7 @@ export default class Mars5eMessage extends ChatMessage {
   }
 
   _eventAllowed(ev) {
+    return this.isAuthor;
     return this.permission >= CONST.ENTITY_PERMISSIONS.OWNER;
   }
 
