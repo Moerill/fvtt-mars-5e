@@ -1,3 +1,7 @@
+# v1.8.2
+
+- **Fix** Players not being able to roll.
+
 # v1.6.1
 
 - Fix module json coreVersion not updated
