@@ -1,6 +1,8 @@
 # v1.8.2
 
 - **Fix** Players not being able to roll.
+- **Fix** Ability Templates not working
+- **Fix** Automated Animations not getting recognized after rename.
 
 # v1.6.1
 
