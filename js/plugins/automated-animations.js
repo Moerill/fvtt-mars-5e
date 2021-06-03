@@ -1,5 +1,5 @@
 export function initAutomatedAnimations() {
-  if (!game.modules.get("automated-jb2a-animations")?.active) return;
+  if (!game.modules.get("autoanimations")?.active) return;
   Hooks.on(
     "mars-5e.AtackRollComplete",
     ({ source, target = null, targets = [], item, success } = {}) => {
