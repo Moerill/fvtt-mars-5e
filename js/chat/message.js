@@ -59,7 +59,7 @@ export default class Mars5eMessage extends ChatMessage {
   }
 
   static init() {
-    CONFIG.ChatMessage.entityClass = Mars5eMessage;
+    CONFIG.ChatMessage.documentClass = Mars5eMessage;
 
     Hooks.on("renderChatLog", (app, html) => {
       const log = html[0].querySelector("#chat-log");

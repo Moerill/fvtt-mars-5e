@@ -6,7 +6,7 @@ import { log } from "../util.js";
  * I want to catch changes from other modules extending the base class and allow for better forge CDN compatiblity. (though last one is only a guess and hope!)
  */
 export default function initItemClass() {
-  return class MarsItem5e extends CONFIG.Item.entityClass {
+  return class MarsItem5e extends CONFIG.Item.documentClass {
     /**
      * Code heavily based on https://gitlab.com/foundrynet/dnd5e , but partially modified.
      * The original code is licensed under GNU GPLv3 https://gitlab.com/foundrynet/dnd5e/-/blob/master/LICENSE.txt
@@ -38,7 +38,7 @@ export default function initItemClass() {
       }
 
       // Apply the roll mode to adjust message visibility
-      CONFIG.ChatMessage.entityClass.applyRollMode(
+      CONFIG.ChatMessage.documentClass.applyRollMode(
         chatData,
         rollMode || game.settings.get("core", "rollMode")
       );

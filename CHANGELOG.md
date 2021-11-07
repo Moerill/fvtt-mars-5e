@@ -1,3 +1,9 @@
+# v1.8.3
+
+- **Fix** Fix items and spells not working with DnD 1.5.3
+
+**This is just a minor needed maintenance update for a breaking bug. I don't have the time to do any proper development on this module. If someone wants to properly work on this module i'm happy to add you as a developer to the repository.**
+
 # v1.8.2
 
 - **Fix** Players not being able to roll.
