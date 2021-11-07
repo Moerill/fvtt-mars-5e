@@ -1,41 +1,41 @@
 {
-  "name": "mars-5e",
-  "title": "Mars 5e - Moerills alternative rolling style for 5e",
-  "description": "This module provides an opinionated alternative to how the roll workflow in DnD5e and how they're displayed.<br>Main goal is to provide some flexibility in how much information is displayed to the players from the GM side, while also automating some basic tasks. To avoid having to care about all possible edge cases and houserules almost every automatic generated result is toggleable.",
-  "author": "Moerill",
-  "authors": [],
-  "url": "https://github.com/Moerill/fvtt-mars-5e",
-  "bugs": "https://github.com/Moerill/fvtt-mars-5e/issues",
-  "flags": {},
-  "version": "1.6.2",
-  "minimumCoreVersion": "0.8.4",
-  "compatibleCoreVersion": "0.8.6",
-  "scripts": [],
-  "esmodules": ["js/index.js"],
-  "styles": ["mars-5e.css"],
-  "languages": [
-    {
-      "lang": "en",
-      "name": "English",
-      "path": "lang/en.json"
-    },
-    {
-      "lang": "de",
-      "name": "Deutsch",
-      "path": "lang/de.json"
-    },
-    {
-      "lang": "fr",
-      "name": "Francais",
-      "path": "lang/fr.json"
-    }
-  ],
-  "packs": [],
-  "system": [],
-  "dependencies": [],
-  "socket": true,
-  "manifest": "https://raw.githubusercontent.com/Moerill/fvtt-mars-5e/master/module.json",
-  "download": "https://github.com/Moerill/fvtt-mars-5e/releases/download/v1.6.2/v1.6.2.zip",
-  "protected": false,
-  "minimumSystemVersion": "1.2.0"
+	"name": "mars-5e",
+	"title": "Mars 5e - Moerills alternative rolling style for 5e",
+	"description": "This module provides an opinionated alternative to how the roll workflow in DnD5e and how they're displayed.<br>Main goal is to provide some flexibility in how much information is displayed to the players from the GM side, while also automating some basic tasks. To avoid having to care about all possible edge cases and houserules almost every automatic generated result is toggleable.",
+	"author": "Moerill",
+	"authors": [],
+	"url": "https://github.com/Moerill/fvtt-mars-5e",
+	"bugs": "https://github.com/Moerill/fvtt-mars-5e/issues",
+	"flags": {},
+	"version": "1.6.3",
+	"minimumCoreVersion": "0.8.4",
+	"compatibleCoreVersion": "0.8.6",
+	"scripts": [],
+	"esmodules": ["js/index.js"],
+	"styles": ["mars-5e.css"],
+	"languages": [
+		{
+			"lang": "en",
+			"name": "English",
+			"path": "lang/en.json"
+		},
+		{
+			"lang": "de",
+			"name": "Deutsch",
+			"path": "lang/de.json"
+		},
+		{
+			"lang": "fr",
+			"name": "Francais",
+			"path": "lang/fr.json"
+		}
+	],
+	"packs": [],
+	"system": [],
+	"dependencies": [],
+	"socket": true,
+	"manifest": "https://raw.githubusercontent.com/Moerill/fvtt-mars-5e/master/module.json",
+	"download": "https://github.com/Moerill/fvtt-mars-5e/releases/download/v1.6.3/v1.6.3.zip",
+	"protected": false,
+	"minimumSystemVersion": "1.2.0"
 }
