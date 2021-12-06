@@ -10,16 +10,14 @@ import templateAutotargeting from "./item/ability-template.js";
 import Mars5eUserStatistics from "./statistics.js";
 
 import { initConfetti, log } from "./util.js";
+import { TweenMax } from '../../../../scripts/greensock/esm/gsap-core.js';
 import { initAutomatedAnimations } from "./plugins/automated-animations.js";
 
 Hooks.once("devModeReady", ({ registerPackageDebugFlag }) => {
   registerPackageDebugFlag("mars-5e");
 });
 
-Hooks.on("init", async () => {
-  // Dynamic fetch of Greensock respecting route prefix
-  let gs = await import(`/${ROUTE_PREFIX}/scripts/greensock/esm/all.js`);
-
+Hooks.on("init", () => {
   window["mars5e"] = {};
   const MarsItem5e = initItemClass();
   CONFIG.Item.documentClass = MarsItem5e;
@@ -58,7 +56,7 @@ Hooks.on("init", async () => {
     return ret;
   };
   const classList = ".item .item-name, .ability,  .skill, .macro";
-  let tween = gs.TweenMax.to(mars5e.advDiv, 1, {
+  let tween = TweenMax.to(mars5e.advDiv, 1, {
     onComplete: () => {
       mars5e.advDiv.classList.add("mars5e-show-hint");
     },
