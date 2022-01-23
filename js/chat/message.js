@@ -205,7 +205,7 @@ export default class Mars5eMessage extends ChatMessage {
 
   _eventAllowed(ev) {
     return this.isAuthor;
-    return this.permission >= CONST.ENTITY_PERMISSIONS.OWNER;
+    return this.permission >= CONST.DOCUMENT_PERMISSION_LEVELS.OWNER;
   }
 
   _toggleAdv(ev) {
@@ -216,7 +216,7 @@ export default class Mars5eMessage extends ChatMessage {
       target.querySelector(".mars5e-result")
 
       // || this._getTarget(target)?.actor.permission <
-      //   CONST.ENTITY_PERMISSIONS.OBSERVER
+      //   CONST.DOCUMENT_PERMISSION_LEVELS.OBSERVER
     )
       return false;
 
@@ -407,7 +407,7 @@ export default class Mars5eMessage extends ChatMessage {
     if (
       !roll ||
       this._getTarget(ev.target)?.actor.permission <
-        CONST.ENTITY_PERMISSIONS.OBSERVER
+        CONST.DOCUMENT_PERMISSION_LEVELS.OBSERVER
     )
       return false;
 
@@ -786,7 +786,7 @@ export default class Mars5eMessage extends ChatMessage {
     const token = canvas.tokens.get(target.id);
     if (
       !token ||
-      (token.actor.permission < CONST.ENTITY_PERMISSIONS.OBSERVER &&
+      (token.actor.permission < CONST.DOCUMENT_PERMISSION_LEVELS.OBSERVER &&
         !token.visible)
     )
       return;
@@ -1077,7 +1077,7 @@ export default class Mars5eMessage extends ChatMessage {
 
   static async autoRoll(data) {
     if (!(window.mars5e.autoRoll.hit || window.mars5e.autoRoll.dmg)) return;
-    const message = new CONFIG.ChatMessage.entityClass(data);
+    const message = new CONFIG.ChatMessage.documentClass(data);
     if (await message.autoRoll()) {
       data.content = message.card.outerHTML;
 

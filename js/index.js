@@ -1,7 +1,7 @@
 import { initRollChanges } from "./rolls/roll.js";
 
-import initItemClass from "./item/entity.js";
-import initActorClass from "./actor/entity.js";
+import initItemClass from "./item/document.js";
+import initActorClass from "./actor/document.js";
 
 import Mars5eMessage from "./chat/message.js";
 
@@ -170,7 +170,7 @@ Hooks.on("renderChatMessage", async (app, html, options) => {
   //   const actorId = html[0].querySelector("[data-actor-id]")?.dataset.actorId;
   //   if (actorId) {
   //     const actor = game.actors.get(actorId);
-  //     if (actor?.permission < CONST.ENTITY_PERMISSIONS.LIMITED)
+  //     if (actor?.permission < CONST.DOCUMENT_PERMISSION_LEVELS.LIMITED)
   //       html[0].querySelector(".message-sender").innerText = replacementName;
   //   }
   // }

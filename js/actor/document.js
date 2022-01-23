@@ -4,7 +4,7 @@ import { rollDsN } from "../rolls/dsn.js";
 import { log } from "../util.js";
 
 export default function initActorClass() {
-  return class Mars5eActor extends CONFIG.Actor.entityClass {
+  return class Mars5eActor extends CONFIG.Actor.documentClass {
     rollAbilitySave(
       abilityId,
       options = {
@@ -61,10 +61,10 @@ export default function initActorClass() {
       const oldHp = expandObject(data).data?.attributes?.hp
         ? duplicate(getProperty(this.data, "data.attributes.hp"))
         : null;
-      return super.update(data, options).then((entity) => {
+      return super.update(data, options).then((document) => {
         if (!oldHp) return;
         const user = game.users.find(
-          (user) => user.character?.id === entity.id
+          (user) => user.character?.id === document.id
         );
 
         if (!user) return;

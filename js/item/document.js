@@ -1,7 +1,7 @@
 import { log } from "../util.js";
 
 /**
- * Make sure that CONFIG.Item.entityClass was predefined.
+ * Make sure that CONFIG.Item.documentClass was predefined.
  * Why am i not importing the 5e item class here?
  * I want to catch changes from other modules extending the base class and allow for better forge CDN compatiblity. (though last one is only a guess and hope!)
  */
@@ -45,7 +45,7 @@ export default function initItemClass() {
 
       // Create the chat message
       if (createmessage) {
-        this._lastMessage = CONFIG.ChatMessage.entityClass.create(chatData);
+        this._lastMessage = CONFIG.ChatMessage.documentClass.create(chatData);
         return this._lastMessage;
       } else return chatData;
     }
@@ -58,7 +58,7 @@ export default function initItemClass() {
       log([token, this.actor, this]);
       const templateData = {
         actor: this.actor,
-        // keep the scene id separated, since its used for e.g. linked actors to get the entity
+        // keep the scene id separated, since its used for e.g. linked actors to get the document
         sceneId: token?.scene.id || canvas.scene?.id,
         tokenId: token ? `${token.scene._id}.${token.id}` : null,
         actorId: this.actor.id,
