@@ -60,7 +60,7 @@ export default function initItemClass() {
         actor: this.actor,
         // keep the scene id separated, since its used for e.g. linked actors to get the document
         sceneId: token?.scene.id || canvas.scene?.id,
-        tokenId: token ? `${token.scene._id}.${token.id}` : null,
+        tokenId: token ? `${token.scene.id}.${token.id}` : null,
         actorId: this.actor.id,
         itemId: this.id,
         item: this.data,
@@ -173,7 +173,6 @@ export default function initItemClass() {
             this.getRollData()
           ),
           flavorFormula: r.formula.replace(/[12]?d20(k[hl])?\s/, ""),
-          mod: r.modifier,
         };
       }
       return templateData;
