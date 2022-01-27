@@ -61,10 +61,10 @@ export default function initActorClass() {
       const oldHp = expandObject(data).data?.attributes?.hp
         ? duplicate(getProperty(this.data, "data.attributes.hp"))
         : null;
-      return super.update(data, options).then((document) => {
+      return super.update(data, options).then(() => {
         if (!oldHp) return;
         const user = game.users.find(
-          (user) => user.character?.id === document.id
+          (user) => user.character?.id === this.id
         );
 
         if (!user) return;
