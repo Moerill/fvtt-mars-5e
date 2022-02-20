@@ -109,7 +109,7 @@ export default function initItemClass() {
         // why so complicated? since the roll function gets called from the spell as upcast variant (meaning: level is set to the upcast level)
         let spellLevel = null;
         if (this.type === "spell") {
-          const origItem = this.actor.getOwnedItem(this.id);
+          const origItem = this.actor.items.get(this.id);
 
           if (origItem.data.data.level !== this.data.data.level) {
             spellLevel = this.data.data.level;
@@ -222,7 +222,6 @@ export default function initItemClass() {
     }
 
     async updateTargets() {
-      console.log("???");
       let message = await this._lastMessage;
       if (Array.isArray(message)) message = message[0];
       if (!message) return;
