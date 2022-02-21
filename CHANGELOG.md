@@ -1,15 +1,15 @@
-# v1.9
+# v1.7
 
 Adds FVTT v9 compatibility, finally!  
 HUGE thanks to @whitespine for contributing almost all of the changes!  
 
-# v1.8.3
+# v1.6.3
 
 - **Fix** Fix items and spells not working with DnD 1.5.3
 
 **This is just a minor needed maintenance update for a breaking bug. I don't have the time to do any proper development on this module. If someone wants to properly work on this module i'm happy to add you as a developer to the repository.**
 
-# v1.8.2
+# v1.6.2
 
 - **Fix** Players not being able to roll.
 - **Fix** Ability Templates not working
