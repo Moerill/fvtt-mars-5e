@@ -1,7 +1,7 @@
 import { log } from "../util.js";
 
 /**
- * Make sure that CONFIG.Item.entityClass was predefined.
+ * Make sure that CONFIG.Item.documentClass was predefined.
  * Why am i not importing the 5e item class here?
  * I want to catch changes from other modules extending the base class and allow for better forge CDN compatiblity. (though last one is only a guess and hope!)
  */
@@ -45,7 +45,7 @@ export default function initItemClass() {
 
       // Create the chat message
       if (createmessage) {
-        this._lastMessage = CONFIG.ChatMessage.entityClass.create(chatData);
+        this._lastMessage = CONFIG.ChatMessage.documentClass.create(chatData);
         return this._lastMessage;
       } else return chatData;
     }
@@ -58,9 +58,9 @@ export default function initItemClass() {
       log([token, this.actor, this]);
       const templateData = {
         actor: this.actor,
-        // keep the scene id separated, since its used for e.g. linked actors to get the entity
+        // keep the scene id separated, since its used for e.g. linked actors to get the document
         sceneId: token?.scene.id || canvas.scene?.id,
-        tokenId: token ? `${token.scene._id}.${token.id}` : null,
+        tokenId: token ? `${token.scene.id}.${token.id}` : null,
         actorId: this.actor.id,
         itemId: this.id,
         item: this.data,
@@ -109,7 +109,7 @@ export default function initItemClass() {
         // why so complicated? since the roll function gets called from the spell as upcast variant (meaning: level is set to the upcast level)
         let spellLevel = null;
         if (this.type === "spell") {
-          const origItem = this.actor.getOwnedItem(this.id);
+          const origItem = this.actor.items.get(this.id);
 
           if (origItem.data.data.level !== this.data.data.level) {
             spellLevel = this.data.data.level;
@@ -173,7 +173,6 @@ export default function initItemClass() {
             this.getRollData()
           ),
           flavorFormula: r.formula.replace(/[12]?d20(k[hl])?\s/, ""),
-          mod: r.modifier,
         };
       }
       return templateData;
@@ -223,7 +222,6 @@ export default function initItemClass() {
     }
 
     async updateTargets() {
-      console.log("???");
       let message = await this._lastMessage;
       if (Array.isArray(message)) message = message[0];
       if (!message) return;

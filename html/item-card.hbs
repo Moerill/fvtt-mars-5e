@@ -38,7 +38,7 @@
 		<div class='mars5e-target'>
 			<div class='mars5e-action tool mars5e-toggleable'>
 				<label>{{ localize "DND5E.Use" }} {{item.name}}</label>
-				<a class='rollable roll-d20' data-flavor-formula="{{toolCheck.flavorFormula}}">{{toolCheck.formula}}</a>
+				<a class='rollable roll-d20'>{{toolCheck.formula}}</a>
 			</div>
 		</div>
         {{else}}
@@ -46,7 +46,7 @@
                 <div class='mars5e-target'>
                     <div class='mars5e-action utility mars5e-toggleable'>
                         <label>{{ localize "DND5E.Use" }} {{item.name}}</label>
-                        <a class='rollable' data-flavor-formula="{{formula.flavorFormula}}">{{formula.formula}}</a>
+                        <a class='rollable'">{{formula.formula}}</a>
                     </div>
                 </div>
             {{/if}}

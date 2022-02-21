@@ -205,7 +205,7 @@ export default class Mars5eMessage extends ChatMessage {
 
   _eventAllowed(ev) {
     return this.isAuthor;
-    return this.permission >= CONST.ENTITY_PERMISSIONS.OWNER;
+    return this.permission >= CONST.DOCUMENT_PERMISSION_LEVELS.OWNER;
   }
 
   _toggleAdv(ev) {
@@ -216,7 +216,7 @@ export default class Mars5eMessage extends ChatMessage {
       target.querySelector(".mars5e-result")
 
       // || this._getTarget(target)?.actor.permission <
-      //   CONST.ENTITY_PERMISSIONS.OBSERVER
+      //   CONST.DOCUMENT_PERMISSION_LEVELS.OBSERVER
     )
       return false;
 
@@ -264,19 +264,19 @@ export default class Mars5eMessage extends ChatMessage {
     if (dmgDiv.classList.toggle("critical")) {
       // toggle active
       dmgDiv.querySelectorAll(".rollable").forEach((el) => {
-        const formula = el.dataset.flavorFormula;
+        const formula = el.dataset.formula;
         let r = new Roll(formula);
         r.alter(2, 0);
-        el.dataset.flavorFormula = r.formula;
+        el.dataset.formula = r.formula;
         el.innerText = r.formula;
       });
     } else {
       dmgDiv.querySelectorAll(".rollable").forEach((el) => {
-        const formula = el.dataset.flavorFormula;
+        const formula = el.dataset.formula;
         let r = new Roll(formula);
         r.alter(0.5, 0);
         log(r);
-        el.dataset.flavorFormula = r.formula;
+        el.dataset.formula = r.formula;
         el.innerText = r.formula;
       });
     }
@@ -407,7 +407,7 @@ export default class Mars5eMessage extends ChatMessage {
     if (
       !roll ||
       this._getTarget(ev.target)?.actor.permission <
-        CONST.ENTITY_PERMISSIONS.OBSERVER
+        CONST.DOCUMENT_PERMISSION_LEVELS.OBSERVER
     )
       return false;
 
@@ -522,14 +522,14 @@ export default class Mars5eMessage extends ChatMessage {
   }
 
   async _onRoll(rollable) {
-    let formula = rollable.dataset.flavorFormula;
+    let formula = rollable.dataset.formula;
     if (rollable.classList.contains("roll-d20")) {
       if (rollable.dataset.advantage === "2") formula = "2d20kh" + formula;
       else if (rollable.dataset.advantage === "0") formula = "2d20kl" + formula;
       else formula = "1d20" + formula;
     }
     let r = new Roll(formula);
-    r.roll();
+    await r.roll();
     return this._renderResult(rollable, r);
   }
 
@@ -603,7 +603,7 @@ export default class Mars5eMessage extends ChatMessage {
     return true;
   }
   async _onDmg(dmgRoll, update = true) {
-    const roll = new Roll(dmgRoll.dataset.flavorFormula).roll();
+    const roll = await new Roll(dmgRoll.dataset.formula).roll();
     const dmgType = dmgRoll.dataset.dmgType;
     const dmgTypeLabel = dmgRoll.dataset.dmgTypeLabel;
     const resistance = dmgRoll.dataset.resistance;
@@ -751,7 +751,6 @@ export default class Mars5eMessage extends ChatMessage {
       div.closest(".mars5e-action").classList.add("has-player-roll");
     } else result.classList.add("gm-roll");
     div.replaceWith(result);
-    // result.dataset.flavorFormula = roll.flavorFormula;
     if (this.id && game.dice3d) {
       result.innerHTML = `<span class='result-total'>...</span>`;
       await rollDsN(
@@ -786,7 +785,7 @@ export default class Mars5eMessage extends ChatMessage {
     const token = canvas.tokens.get(target.id);
     if (
       !token ||
-      (token.actor.permission < CONST.ENTITY_PERMISSIONS.OBSERVER &&
+      (token.actor.permission < CONST.DOCUMENT_PERMISSION_LEVELS.OBSERVER &&
         !token.visible)
     )
       return;
@@ -1077,7 +1076,7 @@ export default class Mars5eMessage extends ChatMessage {
 
   static async autoRoll(data) {
     if (!(window.mars5e.autoRoll.hit || window.mars5e.autoRoll.dmg)) return;
-    const message = new CONFIG.ChatMessage.entityClass(data);
+    const message = new CONFIG.ChatMessage.documentClass(data);
     if (await message.autoRoll()) {
       data.content = message.card.outerHTML;
 

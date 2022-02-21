@@ -1,7 +1,7 @@
 import { initRollChanges } from "./rolls/roll.js";
 
-import initItemClass from "./item/entity.js";
-import initActorClass from "./actor/entity.js";
+import initItemClass from "./item/document.js";
+import initActorClass from "./actor/document.js";
 
 import Mars5eMessage from "./chat/message.js";
 
@@ -170,7 +170,7 @@ Hooks.on("renderChatMessage", async (app, html, options) => {
   //   const actorId = html[0].querySelector("[data-actor-id]")?.dataset.actorId;
   //   if (actorId) {
   //     const actor = game.actors.get(actorId);
-  //     if (actor?.permission < CONST.ENTITY_PERMISSIONS.LIMITED)
+  //     if (actor?.permission < CONST.DOCUMENT_PERMISSION_LEVELS.LIMITED)
   //       html[0].querySelector(".message-sender").innerText = replacementName;
   //   }
   // }
@@ -202,7 +202,7 @@ Hooks.once("init", () => {
   initRollChanges();
 });
 
-Hooks.once("ready", async () => {
+Hooks.once("setup", () => {
   const translationData = {
     toggle: game.i18n.localize("MARS5E.tool-tip.toggle"),
     "right-click": game.i18n.localize("MARS5E.tool-tip.right-click"),
@@ -225,9 +225,8 @@ Hooks.once("ready", async () => {
       translationData
     ),
   };
-  document.head.insertAdjacentHTML(
-    "beforeend",
-    await renderTemplate("modules/mars-5e/html/definitions.hbs", data)
+  renderTemplate("modules/mars-5e/html/definitions.hbs", data).then(defs => 
+    document.head.insertAdjacentHTML( "beforeend", defs)
   );
   templateAutotargeting();
   initConfetti();
@@ -277,11 +276,10 @@ function registerSettings() {
     onChange: (data) => {},
   });
 
-  if (!game.user.isGM) return;
   game.settings.register("mars-5e", "invisible-target", {
     name: "MARS5E.settings.invisibleTarget.name",
     hint: "MARS5E.settings.invisibleTarget.hint",
-    scope: "client",
+    scope: "world",
     config: true,
     default: true,
     type: Boolean,
