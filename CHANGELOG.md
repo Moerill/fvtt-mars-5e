@@ -1,3 +1,8 @@
+# v1.9
+
+Adds FVTT v9 compatibility, finally!  
+HUGE thanks to @whitespine for contributing almost all of the changes!  
+
 # v1.8.3
 
 - **Fix** Fix items and spells not working with DnD 1.5.3

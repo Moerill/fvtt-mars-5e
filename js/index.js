@@ -10,7 +10,7 @@ import templateAutotargeting from "./item/ability-template.js";
 import Mars5eUserStatistics from "./statistics.js";
 
 import { initConfetti, log } from "./util.js";
-import { TweenMax } from '../../../scripts/greensock/esm/gsap-core.js';
+import { TweenMax } from "../../../scripts/greensock/esm/gsap-core.js";
 import { initAutomatedAnimations } from "./plugins/automated-animations.js";
 
 Hooks.once("devModeReady", ({ registerPackageDebugFlag }) => {
@@ -225,8 +225,8 @@ Hooks.once("setup", () => {
       translationData
     ),
   };
-  renderTemplate("modules/mars-5e/html/definitions.hbs", data).then(defs => 
-    document.head.insertAdjacentHTML( "beforeend", defs)
+  renderTemplate("modules/mars-5e/html/definitions.hbs", data).then((defs) =>
+    document.head.insertAdjacentHTML("beforeend", defs)
   );
   templateAutotargeting();
   initConfetti();

@@ -46,11 +46,11 @@ const marsRollMixin = (superRoll) =>
     get flavorless() {
       // Recursively process and delete
       const proc = (l) => {
-        for(term in l) {
-          if(term.options && term.options["flavor"]) {
+        for (term in l) {
+          if (term.options && term.options["flavor"]) {
             delete term.options["flavor"];
           }
-          if(term.terms) {
+          if (term.terms) {
             proc(term.terms);
           }
         }
@@ -140,23 +140,35 @@ const marsRollMixin = (superRoll) =>
     }
 
     /**
-    // I don't think this is still useful
-
+     * @overrides
+     * Prepare the formula, by replacing all occurences of data, that have no flavor attached,
+     * with the attribute path as flavor.
+     * Why?
+     * Because i want to be able to display where which modifier stems from.
+     **/
     static replaceFormulaData(formula, data, { missing, warn = false } = {}) {
-      // Check for replacement data, and add it as flavor
       // Mars v1.2: Added check for whether its inside of parentheses, if yes, ignore, since evaluating numerical terms inside of parentheses results in errors thrown by fvtt. Consider creating an issue for this or see if it will change when Atro introduces the concept of flavored integers at some point.
 
-      // This flag is only set to true (as far as i can see) when the whole roll object is constructed
-      // Check for this to avoid issues with stuff where, like in Item5e#prepareData, where only the formula is replaced and evaluated and no complete roll object is created
-      if (!warn) {
-        // DAE compat: Check if ternary operation, by checking that its not followed by /or is not following a "?"
-        formula = formula.replace(dataRgx, (match, term) => {
-          return `${match} [${term}]`;
-        });
-      }
+      const dataRgx = new RegExp(
+        /(?<![\(\\?].*)@([a-z.0-9_\-]+)(?!.*[\)\\?])/gi
+      );
+      // DAE compat: Check if ternary operation, by checking that its not followed by /or is not following a "?"
+      formula = formula.replace(dataRgx, (match, term) => {
+        return `${match}[${term}]`;
+      });
       return super.replaceFormulaData(formula, data, { missing, warn });
     }
-    */
+
+    /**
+     * @overrides
+     * Removes all incidences of flavor inside of [].
+     * This is needed, since we are storing all data parts, etc., as flavor and
+     * in many places (at least in DnD5e) safeEval is used, on this replaced data,
+     * expecting to not have any flavor. (E.g. Actor5e#_computeArmorClass)
+     **/
+    static safeEval(expression) {
+      return super.safeEval(expression.replace(/\[[a-z.0-9_\-]+\]/gi, ""));
+    }
   };
 
 function replaceClass() {
@@ -166,7 +178,12 @@ function replaceClass() {
 
   //  Roll = Mars5eRoll;
   // else chat message stuff won't work....... cause they use Roll.create and that uses the class defined here......
-  CONFIG.Dice.rolls = [Mars5eRoll, MarsD20Roll, MarsDamageRoll, ...CONFIG.Dice.rolls];
+  CONFIG.Dice.rolls = [
+    Mars5eRoll,
+    MarsD20Roll,
+    MarsDamageRoll,
+    ...CONFIG.Dice.rolls,
+  ];
   Roll = Mars5eRoll;
   CONFIG.Dice.D20Roll = MarsD20Roll;
   CONFIG.Dice.DamageRoll = MarsDamageRoll;
